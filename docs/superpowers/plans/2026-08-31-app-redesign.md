@@ -1239,7 +1239,7 @@ git commit -m "Add orders screen with skeleton and empty states"
   same as how `/prescription/upload` already worked before its explicit
   `presentation: 'modal'` option was added). Task 15 (profile screen) links here.
 
-- [ ] **Step 1: Create `app/prescription/index.tsx`**
+- [x] **Step 1: Create `app/prescription/index.tsx`**
 
 Reuses the new `EmptyState` primitive instead of the old screen's hand-rolled empty view
 (DRY — matches cart/orders/search's empty-state look). Drops the old screen's inert "Ver
@@ -1314,25 +1314,25 @@ export default function PrescriptionListScreen() {
 }
 ```
 
-- [ ] **Step 2: Delete the old tab screen**
+- [x] **Step 2: Delete the old tab screen**
 
 ```bash
 git rm "app/(tabs)/prescriptions.tsx"
 ```
 
-- [ ] **Step 3: Run typecheck**
+- [x] **Step 3: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: PASS — this was the last residual failure from Task 1. Zero errors.
 
-- [ ] **Step 4: Manual smoke check**
+- [x] **Step 4: Manual smoke check**
 
 Run: `npm run web`, navigate to `/prescription` directly (e.g. temporarily from a dev
 link, or wait for Task 15's Profile row).
 Expected: empty state renders with the "Subir nueva receta" primary button and the
 "Carga segura" footnote.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add app/prescription/index.tsx
