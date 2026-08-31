@@ -1020,7 +1020,7 @@ git commit -m "Add search screen with skeleton and no-results states"
   `prescriptionId` directly instead of a local placeholder), `useTabBarContentInset()`
   (existing), `EmptyState` (Task 4), `formatPrice` (existing).
 
-- [ ] **Step 1: Add `app/(tabs)/cart.tsx`**
+- [x] **Step 1: Add `app/(tabs)/cart.tsx`**
 
 Same as the handoff's `app/-tabs-/cart.tsx`, with the local `attached` placeholder state
 removed in favor of the store's `prescriptionId` field (closes the TODO the handoff
@@ -1164,19 +1164,19 @@ export default function CartScreen() {
 }
 ```
 
-- [ ] **Step 2: Run typecheck**
+- [x] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same residual failure as Task 10 Step 2 — no new ones.
 
-- [ ] **Step 3: Manual smoke check**
+- [x] **Step 3: Manual smoke check**
 
 Run: `npm run web`. With an empty cart, open Carrito → see the empty state. Add a
 non-Rx product from Buscar, return to Carrito → see the line item and totals. Add
 "Amoxicilina" (Rx) → see the red "Necesita receta" block and the footer's "espera
 receta" note.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add "app/(tabs)/cart.tsx"
