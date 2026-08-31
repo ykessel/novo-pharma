@@ -1828,7 +1828,7 @@ git commit -m "Replace checkout screen with lima/dark-mode design and blocking c
 **Interfaces:**
 - Consumes: `useTheme()` (Task 1), `LoadingSteps`/`LoadingStep` (Task 4).
 
-- [ ] **Step 1: Replace `app/order/[id].tsx`**
+- [x] **Step 1: Replace `app/order/[id].tsx`**
 
 ```bash
 cp "resources/App redesign/handoff/app/order/-id-.tsx" "app/order/[id].tsx"
@@ -1838,18 +1838,18 @@ cp "resources/App redesign/handoff/app/order/-id-.tsx" "app/order/[id].tsx"
 placeholder `View` stands in for `react-native-maps` per the spec's explicit
 out-of-scope decision; `LoadingSteps` for delivery progress; courier contact row.)
 
-- [ ] **Step 2: Run typecheck**
+- [x] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: PASS — zero errors.
 
-- [ ] **Step 3: Manual smoke check**
+- [x] **Step 3: Manual smoke check**
 
 Run: `npm run web`, navigate to `/order/123` directly.
 Expected: 280px placeholder block at top, ETA header, `LoadingSteps` progress, courier
 contact card, cédula notice.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add "app/order/[id].tsx"
