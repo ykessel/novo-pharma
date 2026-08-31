@@ -76,7 +76,7 @@ TanStack Query, Supabase, TypeScript strict.
   (`ColorTokens`) from `types/theme.ts`; `useTheme(): { colors: ColorTokens; isDark:
   boolean }` from `hooks/useTheme.ts`. Every later task consumes these exact names.
 
-- [x] **Step 1: Replace `types/theme.ts`**
+- [ ] **Step 1: Replace `types/theme.ts`**
 
 ```ts
 // types/theme.ts — replaces the teal token set
@@ -147,7 +147,7 @@ export const radius = {
 export const touchTarget = 44;
 ```
 
-- [x] **Step 2: Create `hooks/useTheme.ts`**
+- [ ] **Step 2: Create `hooks/useTheme.ts`**
 
 ```ts
 // hooks/useTheme.ts
@@ -161,7 +161,7 @@ export function useTheme(): { colors: ColorTokens; isDark: boolean } {
 }
 ```
 
-- [x] **Step 3: Replace `tailwind.config.js`**
+- [ ] **Step 3: Replace `tailwind.config.js`**
 
 ```js
 /** @type {import('tailwindcss').Config} */
@@ -210,7 +210,7 @@ module.exports = {
 };
 ```
 
-- [x] **Step 4: Run typecheck**
+- [ ] **Step 4: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: FAIL, with errors only in these files (all fixed by later tasks — do not touch
@@ -219,7 +219,7 @@ them now): `app/(tabs)/index.tsx`, `app/(tabs)/catalog.tsx`, `app/(tabs)/prescri
 (`brandPrimary`, `textSecondary` as old shape, `rx`, `warning`, `placeholder`). No other
 files should error.
 
-- [x] **Step 5: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add types/theme.ts hooks/useTheme.ts tailwind.config.js
@@ -240,13 +240,13 @@ git commit -m "Replace teal token set with lima/dark-mode theme + useTheme hook"
   expects: `SpaceGrotesk-Regular`, `SpaceGrotesk-Medium`, `SpaceGrotesk-Bold`,
   `JetBrainsMono-Regular`.
 
-- [x] **Step 1: Install font packages**
+- [ ] **Step 1: Install font packages**
 
 ```bash
 npm install @expo-google-fonts/space-grotesk @expo-google-fonts/jetbrains-mono
 ```
 
-- [x] **Step 2: Update `app/_layout.tsx`**
+- [ ] **Step 2: Update `app/_layout.tsx`**
 
 ```tsx
 import '../global.css';
@@ -294,18 +294,18 @@ export default function RootLayout() {
 }
 ```
 
-- [x] **Step 3: Run typecheck**
+- [ ] **Step 3: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same residual failures as Task 1 Step 4 — no new ones.
 
-- [x] **Step 4: Manual smoke check**
+- [ ] **Step 4: Manual smoke check**
 
 Run: `npm run web`
 Expected: app boots past the splash screen (no red-screen "font not found" error). Exact
 pixel-perfect font rendering is verified later in Task 20 once real screens exist.
 
-- [x] **Step 5: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add package.json package-lock.json app/_layout.tsx
@@ -324,26 +324,26 @@ git commit -m "Load Space Grotesk and JetBrains Mono fonts"
 - Consumes: nothing.
 - Produces: nothing (removes two of Task 1's residual typecheck errors).
 
-- [x] **Step 1: Confirm no other consumers**
+- [ ] **Step 1: Confirm no other consumers**
 
 Run: `grep -rn "ProductCard" --include=*.tsx app components`
 Expected: only `app/(tabs)/catalog.tsx` and `components/product/ProductCard.tsx` itself
 match (both are being deleted). If anything else matches, stop and re-check scope before
 deleting.
 
-- [x] **Step 2: Delete the files**
+- [ ] **Step 2: Delete the files**
 
 ```bash
 git rm "app/(tabs)/catalog.tsx" "components/product/ProductCard.tsx"
 ```
 
-- [x] **Step 3: Run typecheck**
+- [ ] **Step 3: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: FAIL, with errors only in `app/(tabs)/index.tsx` and `app/(tabs)/prescriptions.tsx`
 (both fixed by later tasks).
 
-- [x] **Step 4: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
 git commit -m "Delete catalog.tsx and ProductCard.tsx (superseded by search.tsx + ProductRow)"
@@ -371,7 +371,7 @@ git commit -m "Delete catalog.tsx and ProductCard.tsx (superseded by search.tsx 
   `product: Product`, `onPress?: () => void`) from `components/product/ProductRow.tsx`.
   All later screen tasks import these.
 
-- [x] **Step 1: Copy the four files from the handoff, unchanged**
+- [ ] **Step 1: Copy the four files from the handoff, unchanged**
 
 ```bash
 cp "resources/App redesign/handoff/components/ui/Skeleton.tsx" components/ui/Skeleton.tsx
@@ -386,13 +386,13 @@ cp "resources/App redesign/handoff/components/product/ProductRow.tsx" components
 `resources/App redesign/handoff/components/ui/LoadingSteps.tsx`,
 `resources/App redesign/handoff/components/product/ProductRow.tsx`.)
 
-- [x] **Step 2: Run typecheck**
+- [ ] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same two residual failures as Task 3 Step 3 (`app/(tabs)/index.tsx`,
 `app/(tabs)/prescriptions.tsx`) — no new ones. These four new files must compile clean.
 
-- [x] **Step 3: Commit**
+- [ ] **Step 3: Commit**
 
 ```bash
 git add components/ui/Skeleton.tsx components/ui/EmptyState.tsx components/ui/LoadingSteps.tsx components/product/ProductRow.tsx
@@ -425,7 +425,7 @@ palette, so these are deliberate choices, not omissions): `rx` → `colors.dange
 `ProductRow`'s "in stock" treatment); `warning` → `colors.elevated` / `colors.warning`;
 `neutral` → `colors.elevated` / `colors.textPrimary`.
 
-- [x] **Step 1: Replace `components/ui/Button.tsx`**
+- [ ] **Step 1: Replace `components/ui/Button.tsx`**
 
 ```tsx
 import { ActivityIndicator, Pressable, Text, PressableProps } from 'react-native';
@@ -489,7 +489,7 @@ export function Button({ label, variant = 'primary', loading = false, disabled =
 }
 ```
 
-- [x] **Step 2: Replace `components/ui/Card.tsx`**
+- [ ] **Step 2: Replace `components/ui/Card.tsx`**
 
 ```tsx
 import { View, ViewProps } from 'react-native';
@@ -509,7 +509,7 @@ export function Card({ className = '', style, children, ...props }: ViewProps & 
 }
 ```
 
-- [x] **Step 3: Replace `components/ui/Badge.tsx`**
+- [ ] **Step 3: Replace `components/ui/Badge.tsx`**
 
 ```tsx
 import { Text, View } from 'react-native';
@@ -562,7 +562,7 @@ export function Badge({ label, tone, status }: BadgeProps) {
 }
 ```
 
-- [x] **Step 4: Replace `components/ui/Input.tsx`**
+- [ ] **Step 4: Replace `components/ui/Input.tsx`**
 
 ```tsx
 import { forwardRef, ReactNode, useState } from 'react';
@@ -621,13 +621,13 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
 });
 ```
 
-- [x] **Step 5: Run typecheck**
+- [ ] **Step 5: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same residual failures as Task 4 Step 2 — no new ones. These four files must
 compile clean.
 
-- [x] **Step 6: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
 git add components/ui/Button.tsx components/ui/Card.tsx components/ui/Badge.tsx components/ui/Input.tsx
@@ -650,7 +650,7 @@ git commit -m "Re-skin Button, Card, Badge, Input to the lima/dark-mode tokens"
   unchanged. Task 13 (cart screen) reads `line.prescriptionId` directly instead of the
   handoff's local `useState` placeholder.
 
-- [x] **Step 1: Replace `hooks/useCartStore.ts`**
+- [ ] **Step 1: Replace `hooks/useCartStore.ts`**
 
 ```ts
 import { create } from 'zustand';
@@ -703,12 +703,12 @@ export const useCartStore = create<CartState>((set, get) => ({
 }));
 ```
 
-- [x] **Step 2: Run typecheck**
+- [ ] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same residual failures as Task 5 Step 5 — no new ones.
 
-- [x] **Step 3: Commit**
+- [ ] **Step 3: Commit**
 
 ```bash
 git add hooks/useCartStore.ts
@@ -730,7 +730,7 @@ git commit -m "Add prescriptionId, removeItem, setQuantity, attachPrescription t
   Promise<void>`. `user`/`loading` behavior is unchanged. Task 15 (profile screen) calls
   `signOut()`.
 
-- [x] **Step 1: Replace `hooks/useAuth.ts`**
+- [ ] **Step 1: Replace `hooks/useAuth.ts`**
 
 ```ts
 import { useEffect, useState } from 'react';
@@ -773,12 +773,12 @@ export function useAuth() {
 }
 ```
 
-- [x] **Step 2: Run typecheck**
+- [ ] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same residual failures as Task 6 Step 2 — no new ones.
 
-- [x] **Step 3: Commit**
+- [ ] **Step 3: Commit**
 
 ```bash
 git add hooks/useAuth.ts
@@ -803,7 +803,7 @@ git commit -m "Add signOut to useAuth"
   `FloatingTabBarProps` shape — no other file imports those types after this task (they're
   deleted).
 
-- [x] **Step 1: Replace `components/navigation/FloatingTabBar.tsx`**
+- [ ] **Step 1: Replace `components/navigation/FloatingTabBar.tsx`**
 
 ```tsx
 // components/navigation/FloatingTabBar.tsx — 5 commerce tabs, cart badge
@@ -874,7 +874,7 @@ export const FloatingTabBar = memo(function FloatingTabBar({ state, navigation }
 });
 ```
 
-- [x] **Step 2: Replace `app/(tabs)/_layout.tsx`**
+- [ ] **Step 2: Replace `app/(tabs)/_layout.tsx`**
 
 ```tsx
 // app/(tabs)/_layout.tsx — prescriptions tab retired; cart + orders promoted
@@ -894,7 +894,7 @@ export default function TabsLayout() {
 }
 ```
 
-- [x] **Step 3: Delete `types/navigation.ts`**
+- [ ] **Step 3: Delete `types/navigation.ts`**
 
 Run: `grep -rn "types/navigation\|TabItem\|FloatingTabBarProps" --include=*.tsx --include=*.ts app components`
 Expected: no matches once step 1/2 have landed (the only two consumers were the files just
@@ -904,7 +904,7 @@ replaced). Then:
 git rm types/navigation.ts
 ```
 
-- [x] **Step 4: Run typecheck**
+- [ ] **Step 4: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: FAIL, with errors only in `app/(tabs)/index.tsx` and `app/(tabs)/prescriptions.tsx`
@@ -913,7 +913,7 @@ Expected: FAIL, with errors only in `app/(tabs)/index.tsx` and `app/(tabs)/presc
 referencing them are inert until Tasks 13/14/15 add the files (Expo Router doesn't
 type-check screen names against files without typed routes, so this isn't an error).
 
-- [x] **Step 5: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add components/navigation/FloatingTabBar.tsx "app/(tabs)/_layout.tsx"
@@ -937,7 +937,7 @@ not @react-navigation/bottom-tabs (unresolved at top level in this repo)."
   `formatPrice` (existing, `utils/format.ts` — unchanged), `Product` (existing,
   `types/product.ts` — unchanged).
 
-- [x] **Step 1: Replace `app/(tabs)/index.tsx`**
+- [ ] **Step 1: Replace `app/(tabs)/index.tsx`**
 
 ```bash
 cp "resources/App redesign/handoff/app/-tabs-/index.tsx" "app/(tabs)/index.tsx"
@@ -947,19 +947,19 @@ cp "resources/App redesign/handoff/app/-tabs-/index.tsx" "app/(tabs)/index.tsx"
 a 4-item mock storefront with a 800ms `setTimeout` skeleton, promo banner, category grid,
 reorder row, and "más vendidos" grid.)
 
-- [x] **Step 2: Run typecheck**
+- [ ] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: FAIL, with errors only in `app/(tabs)/prescriptions.tsx` (Task 13 fixes it).
 `app/(tabs)/index.tsx` must compile clean.
 
-- [x] **Step 3: Manual smoke check**
+- [ ] **Step 3: Manual smoke check**
 
 Run: `npm run web`, open the Tienda tab.
 Expected: skeleton grid renders for ~800ms, then 4 product cards with images, promo
 banner in lima, category chips.
 
-- [x] **Step 4: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
 git add "app/(tabs)/index.tsx"
@@ -978,7 +978,7 @@ git commit -m "Replace storefront screen with lima/dark-mode design"
   (Task 4), `SkeletonProductRow` (Task 4), `EmptyState` (Task 4), `MOCK_PRODUCTS`
   (existing).
 
-- [x] **Step 1: Add `app/(tabs)/search.tsx`**
+- [ ] **Step 1: Add `app/(tabs)/search.tsx`**
 
 ```bash
 cp "resources/App redesign/handoff/app/-tabs-/search.tsx" "app/(tabs)/search.tsx"
@@ -989,19 +989,19 @@ an optional `category` param, shows a 600ms skeleton while "searching", and a no
 `EmptyState` with a spell-check suggestion, synonym chips, and a "pregúntale a un
 farmacéutico" row.)
 
-- [x] **Step 2: Run typecheck**
+- [ ] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same residual failure as Task 9 Step 2 (`app/(tabs)/prescriptions.tsx`) — no new
 ones.
 
-- [x] **Step 3: Manual smoke check**
+- [ ] **Step 3: Manual smoke check**
 
 Run: `npm run web`, open the Buscar tab, type "amoxicilina", then type "zzz".
 Expected: 600ms skeleton rows while typing settles, then a `ProductRow` result; "zzz"
 shows the no-results empty state with suggestion chips.
 
-- [x] **Step 4: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
 git add "app/(tabs)/search.tsx"
@@ -1020,7 +1020,7 @@ git commit -m "Add search screen with skeleton and no-results states"
   `prescriptionId` directly instead of a local placeholder), `useTabBarContentInset()`
   (existing), `EmptyState` (Task 4), `formatPrice` (existing).
 
-- [x] **Step 1: Add `app/(tabs)/cart.tsx`**
+- [ ] **Step 1: Add `app/(tabs)/cart.tsx`**
 
 Same as the handoff's `app/-tabs-/cart.tsx`, with the local `attached` placeholder state
 removed in favor of the store's `prescriptionId` field (closes the TODO the handoff
@@ -1164,19 +1164,19 @@ export default function CartScreen() {
 }
 ```
 
-- [x] **Step 2: Run typecheck**
+- [ ] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same residual failure as Task 10 Step 2 — no new ones.
 
-- [x] **Step 3: Manual smoke check**
+- [ ] **Step 3: Manual smoke check**
 
 Run: `npm run web`. With an empty cart, open Carrito → see the empty state. Add a
 non-Rx product from Buscar, return to Carrito → see the line item and totals. Add
 "Amoxicilina" (Rx) → see the red "Necesita receta" block and the footer's "espera
 receta" note.
 
-- [x] **Step 4: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
 git add "app/(tabs)/cart.tsx"
@@ -1194,7 +1194,7 @@ git commit -m "Add cart screen wired to cart store's prescriptionId field"
 - Consumes: `useTheme()` (Task 1), `useTabBarContentInset()` (existing), `EmptyState`
   (Task 4), `SkeletonProductRow` (Task 4), `formatPrice` (existing).
 
-- [x] **Step 1: Add `app/(tabs)/orders.tsx`**
+- [ ] **Step 1: Add `app/(tabs)/orders.tsx`**
 
 ```bash
 cp "resources/App redesign/handoff/app/-tabs-/orders.tsx" "app/(tabs)/orders.tsx"
@@ -1204,18 +1204,18 @@ cp "resources/App redesign/handoff/app/-tabs-/orders.tsx" "app/(tabs)/orders.tsx
 mock loading always resolves to an empty list, showing the "cómo funciona" empty state
 and a subscription upsell row.)
 
-- [x] **Step 2: Run typecheck**
+- [ ] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same residual failure as Task 11 Step 2 — no new ones.
 
-- [x] **Step 3: Manual smoke check**
+- [ ] **Step 3: Manual smoke check**
 
 Run: `npm run web`, open the Pedidos tab.
 Expected: 3 skeleton rows for ~900ms, then the "Ningún pedido activo" empty state with
 the 3-step "cómo funciona" card and subscription row.
 
-- [x] **Step 4: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
 git add "app/(tabs)/orders.tsx"
@@ -1239,7 +1239,7 @@ git commit -m "Add orders screen with skeleton and empty states"
   same as how `/prescription/upload` already worked before its explicit
   `presentation: 'modal'` option was added). Task 15 (profile screen) links here.
 
-- [x] **Step 1: Create `app/prescription/index.tsx`**
+- [ ] **Step 1: Create `app/prescription/index.tsx`**
 
 Reuses the new `EmptyState` primitive instead of the old screen's hand-rolled empty view
 (DRY — matches cart/orders/search's empty-state look). Drops the old screen's inert "Ver
@@ -1314,25 +1314,25 @@ export default function PrescriptionListScreen() {
 }
 ```
 
-- [x] **Step 2: Delete the old tab screen**
+- [ ] **Step 2: Delete the old tab screen**
 
 ```bash
 git rm "app/(tabs)/prescriptions.tsx"
 ```
 
-- [x] **Step 3: Run typecheck**
+- [ ] **Step 3: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: PASS — this was the last residual failure from Task 1. Zero errors.
 
-- [x] **Step 4: Manual smoke check**
+- [ ] **Step 4: Manual smoke check**
 
 Run: `npm run web`, navigate to `/prescription` directly (e.g. temporarily from a dev
 link, or wait for Task 15's Profile row).
 Expected: empty state renders with the "Subir nueva receta" primary button and the
 "Carga segura" footnote.
 
-- [x] **Step 5: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add app/prescription/index.tsx
@@ -1351,7 +1351,7 @@ git commit -m "Move prescriptions listing to app/prescription/index.tsx, re-skin
 - Consumes: `useTheme()` (Task 1), `Button`/`Input` (Task 5). Copy, validation, and
   navigation logic are unchanged from the current files — only color source changes.
 
-- [x] **Step 1: Replace `app/(auth)/login.tsx`**
+- [ ] **Step 1: Replace `app/(auth)/login.tsx`**
 
 ```tsx
 import { useState } from 'react';
@@ -1448,7 +1448,7 @@ export default function LoginScreen() {
 }
 ```
 
-- [x] **Step 2: Replace `app/(auth)/register.tsx`**
+- [ ] **Step 2: Replace `app/(auth)/register.tsx`**
 
 ```tsx
 import { useState } from 'react';
@@ -1588,18 +1588,18 @@ export default function RegisterScreen() {
 }
 ```
 
-- [x] **Step 3: Run typecheck**
+- [ ] **Step 3: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: PASS — zero errors (this task doesn't touch any file with a residual failure).
 
-- [x] **Step 4: Manual smoke check**
+- [ ] **Step 4: Manual smoke check**
 
 Run: `npm run web`, open `/(auth)/login` and `/(auth)/register`.
 Expected: both render solid (not transparent) backgrounds, lima accent on the logo
 circle/checkbox/links, correct light/dark colors when the OS theme is toggled.
 
-- [x] **Step 5: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add "app/(auth)/login.tsx" "app/(auth)/register.tsx"
@@ -1621,7 +1621,7 @@ git commit -m "Re-skin login and register screens to the lima/dark-mode tokens"
   `profile.tsx` has none and the "Recetas" tab was dropped per the spec's locked-in
   decision.
 
-- [x] **Step 1: Replace `app/(tabs)/profile.tsx`**
+- [ ] **Step 1: Replace `app/(tabs)/profile.tsx`**
 
 ```tsx
 // app/(tabs)/profile.tsx
@@ -1760,19 +1760,19 @@ export default function ProfileScreen() {
 }
 ```
 
-- [x] **Step 2: Run typecheck**
+- [ ] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: PASS — zero errors.
 
-- [x] **Step 3: Manual smoke check**
+- [ ] **Step 3: Manual smoke check**
 
 Run: `npm run web`, open the Yo tab.
 Expected: stats row, SALUD card, AVISOS toggles, settings list (now including "Mis
 recetas" which pushes `/prescription`), sign-out button in danger color. Toggle OS theme
 → "Tema" row value flips Claro/Oscuro and colors re-render.
 
-- [x] **Step 4: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
 git add "app/(tabs)/profile.tsx"
@@ -1790,7 +1790,7 @@ git commit -m "Replace profile screen with lima/dark-mode design, add Mis receta
 - Consumes: `useTheme()` (Task 1), `useCartStore` (Task 6 — reads `s.lines`),
   `LoadingSteps`/`LoadingStep` (Task 4), `formatPrice` (existing).
 
-- [x] **Step 1: Replace `app/order/checkout.tsx`**
+- [ ] **Step 1: Replace `app/order/checkout.tsx`**
 
 ```bash
 cp "resources/App redesign/handoff/app/order/checkout.tsx" app/order/checkout.tsx
@@ -1800,18 +1800,18 @@ cp "resources/App redesign/handoff/app/order/checkout.tsx" app/order/checkout.ts
 Delivery method toggle, payment/insurance summary, and a blocking `LoadingSteps` confirm
 state after tapping Pay.)
 
-- [x] **Step 2: Run typecheck**
+- [ ] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: PASS — zero errors.
 
-- [x] **Step 3: Manual smoke check**
+- [ ] **Step 3: Manual smoke check**
 
 Run: `npm run web`, add a product to cart, go to Carrito → "Ir a pagar".
 Expected: delivery/payment/summary cards render; tapping "Pagar" swaps to the
 `LoadingSteps` confirming view.
 
-- [x] **Step 4: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
 git add app/order/checkout.tsx
@@ -1828,7 +1828,7 @@ git commit -m "Replace checkout screen with lima/dark-mode design and blocking c
 **Interfaces:**
 - Consumes: `useTheme()` (Task 1), `LoadingSteps`/`LoadingStep` (Task 4).
 
-- [x] **Step 1: Replace `app/order/[id].tsx`**
+- [ ] **Step 1: Replace `app/order/[id].tsx`**
 
 ```bash
 cp "resources/App redesign/handoff/app/order/-id-.tsx" "app/order/[id].tsx"
@@ -1838,18 +1838,18 @@ cp "resources/App redesign/handoff/app/order/-id-.tsx" "app/order/[id].tsx"
 placeholder `View` stands in for `react-native-maps` per the spec's explicit
 out-of-scope decision; `LoadingSteps` for delivery progress; courier contact row.)
 
-- [x] **Step 2: Run typecheck**
+- [ ] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: PASS — zero errors.
 
-- [x] **Step 3: Manual smoke check**
+- [ ] **Step 3: Manual smoke check**
 
 Run: `npm run web`, navigate to `/order/123` directly.
 Expected: 280px placeholder block at top, ETA header, `LoadingSteps` progress, courier
 contact card, cédula notice.
 
-- [x] **Step 4: Commit**
+- [ ] **Step 4: Commit**
 
 ```bash
 git add "app/order/[id].tsx"
@@ -1869,7 +1869,7 @@ git commit -m "Replace order tracking screen with lima/dark-mode design"
   (existing, `hooks/usePrescriptionUpload.ts` — unchanged: `file`, `pickFromCamera`,
   `pickFromGallery`, `pickDocument`, `clear`).
 
-- [x] **Step 1: Replace `components/prescription/PrescriptionUploader.tsx`**
+- [ ] **Step 1: Replace `components/prescription/PrescriptionUploader.tsx`**
 
 ```tsx
 import { Image, Pressable, Text, View } from 'react-native';
@@ -1960,7 +1960,7 @@ export function PrescriptionUploader({ file, onPickCamera, onPickGallery, onPick
 }
 ```
 
-- [x] **Step 2: Replace `app/prescription/upload.tsx`**
+- [ ] **Step 2: Replace `app/prescription/upload.tsx`**
 
 ```tsx
 import { Pressable, ScrollView, Text, View } from 'react-native';
@@ -2058,19 +2058,19 @@ export default function UploadPrescriptionScreen() {
 }
 ```
 
-- [x] **Step 3: Run typecheck**
+- [ ] **Step 3: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: PASS — zero errors.
 
-- [x] **Step 4: Manual smoke check**
+- [ ] **Step 4: Manual smoke check**
 
 Run: `npm run web`, open `/prescription/upload` (as a modal, e.g. from Cart's "Comprar
 con mi receta").
 Expected: header, verified badge, dashed uploader placeholder in lima-soft, delivery and
 payment summary cards, disabled submit button until a file is picked.
 
-- [x] **Step 5: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add components/prescription/PrescriptionUploader.tsx app/prescription/upload.tsx
@@ -2086,7 +2086,7 @@ git commit -m "Re-skin prescription upload flow to the lima/dark-mode tokens"
 
 **Interfaces:** none — documentation only.
 
-- [x] **Step 1: Replace the "🎨 Sistema de Diseño (Tokens)" section**
+- [ ] **Step 1: Replace the "🎨 Sistema de Diseño (Tokens)" section**
 
 Replace the existing section (from `## 🎨 Sistema de Diseño (Tokens)` through the end of
 its "Componentes y Accesibilidad" subsection, i.e. everything up to the next `---`) with:
@@ -2120,7 +2120,7 @@ Tailwind. Tailwind (NativeWind) sigue siendo responsable de spacing, tipografía
   tabulares.
 ```
 
-- [x] **Step 2: Commit**
+- [ ] **Step 2: Commit**
 
 ```bash
 git add CLAUDE.md
@@ -2133,12 +2133,12 @@ git commit -m "Document lima/dark-mode design tokens in CLAUDE.md"
 
 **Files:** none (verification only).
 
-- [x] **Step 1: Full-repo typecheck**
+- [ ] **Step 1: Full-repo typecheck**
 
 Run: `npm run typecheck`
 Expected: PASS, zero errors.
 
-- [x] **Step 2: Confirm no dead references remain**
+- [ ] **Step 2: Confirm no dead references remain**
 
 Run: `grep -rln "bg-brand\|text-brand\|bg-rx\b\|text-rx\b\|text-warning\|bg-success\|text-success\|bg-mint\|#0F766E\|#E6F4F1\|#94A3B8\|#3E4949\|#DC2626\|#16A34A\|#D97706" --include=*.tsx --include=*.ts app components`
 Expected: no matches (all old-palette references removed or re-skinned).
@@ -2146,25 +2146,25 @@ Expected: no matches (all old-palette references removed or re-skinned).
 Run: `grep -rln "TabItem\|FloatingTabBarProps\|types/navigation" --include=*.tsx --include=*.ts app components`
 Expected: no matches.
 
-- [x] **Step 3: Manual verification checklist (Expo web or simulator)**
+- [ ] **Step 3: Manual verification checklist (Expo web or simulator)**
 
-- [x] Toggle OS light/dark mode; confirm every screen re-colors (no hardcoded colors
+- [ ] Toggle OS light/dark mode; confirm every screen re-colors (no hardcoded colors
       left behind).
-- [x] All 5 tabs present and navigable: Tienda, Buscar, Carrito, Pedidos, Perfil — no
+- [ ] All 5 tabs present and navigable: Tienda, Buscar, Carrito, Pedidos, Perfil — no
       "Recetas" tab.
-- [x] Cart flow: add a non-Rx product, add an Rx product ("Amoxicilina"), see the
+- [ ] Cart flow: add a non-Rx product, add an Rx product ("Amoxicilina"), see the
       per-line Rx block and the footer's blocked-count note, reach Checkout, submit and
       see the blocking `LoadingSteps` confirm screen.
-- [x] Order tracking (`/order/123`) renders the placeholder map block and progress
+- [ ] Order tracking (`/order/123`) renders the placeholder map block and progress
       steps.
-- [x] Login and register screens render solid backgrounds and correct brand colors (not
+- [ ] Login and register screens render solid backgrounds and correct brand colors (not
       transparent).
-- [x] Prescription upload screen (`/prescription/upload`, opened as a modal) renders
+- [ ] Prescription upload screen (`/prescription/upload`, opened as a modal) renders
       correctly; "Mis recetas" row in Profile pushes `/prescription` and shows the empty
       state.
-- [x] Cart badge on the Carrito tab icon updates when items are added.
+- [ ] Cart badge on the Carrito tab icon updates when items are added.
 
-- [x] **Step 4: Report results**
+- [ ] **Step 4: Report results**
 
 Summarize the typecheck output and the manual checklist results (pass/fail per item) to
 the user — do not mark this task done silently if any item fails; fix and re-verify
