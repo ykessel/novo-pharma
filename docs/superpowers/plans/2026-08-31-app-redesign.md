@@ -650,7 +650,7 @@ git commit -m "Re-skin Button, Card, Badge, Input to the lima/dark-mode tokens"
   unchanged. Task 13 (cart screen) reads `line.prescriptionId` directly instead of the
   handoff's local `useState` placeholder.
 
-- [ ] **Step 1: Replace `hooks/useCartStore.ts`**
+- [x] **Step 1: Replace `hooks/useCartStore.ts`**
 
 ```ts
 import { create } from 'zustand';
@@ -703,12 +703,12 @@ export const useCartStore = create<CartState>((set, get) => ({
 }));
 ```
 
-- [ ] **Step 2: Run typecheck**
+- [x] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same residual failures as Task 5 Step 5 — no new ones.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add hooks/useCartStore.ts
