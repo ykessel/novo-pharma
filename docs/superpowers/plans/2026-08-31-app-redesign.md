@@ -2133,12 +2133,12 @@ git commit -m "Document lima/dark-mode design tokens in CLAUDE.md"
 
 **Files:** none (verification only).
 
-- [ ] **Step 1: Full-repo typecheck**
+- [x] **Step 1: Full-repo typecheck**
 
 Run: `npm run typecheck`
 Expected: PASS, zero errors.
 
-- [ ] **Step 2: Confirm no dead references remain**
+- [x] **Step 2: Confirm no dead references remain**
 
 Run: `grep -rln "bg-brand\|text-brand\|bg-rx\b\|text-rx\b\|text-warning\|bg-success\|text-success\|bg-mint\|#0F766E\|#E6F4F1\|#94A3B8\|#3E4949\|#DC2626\|#16A34A\|#D97706" --include=*.tsx --include=*.ts app components`
 Expected: no matches (all old-palette references removed or re-skinned).
@@ -2164,7 +2164,7 @@ Expected: no matches.
       state.
 - [ ] Cart badge on the Carrito tab icon updates when items are added.
 
-- [ ] **Step 4: Report results**
+- [x] **Step 4: Report results**
 
 Summarize the typecheck output and the manual checklist results (pass/fail per item) to
 the user — do not mark this task done silently if any item fails; fix and re-verify
