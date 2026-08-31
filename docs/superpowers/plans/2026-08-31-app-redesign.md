@@ -1869,7 +1869,7 @@ git commit -m "Replace order tracking screen with lima/dark-mode design"
   (existing, `hooks/usePrescriptionUpload.ts` — unchanged: `file`, `pickFromCamera`,
   `pickFromGallery`, `pickDocument`, `clear`).
 
-- [ ] **Step 1: Replace `components/prescription/PrescriptionUploader.tsx`**
+- [x] **Step 1: Replace `components/prescription/PrescriptionUploader.tsx`**
 
 ```tsx
 import { Image, Pressable, Text, View } from 'react-native';
@@ -1960,7 +1960,7 @@ export function PrescriptionUploader({ file, onPickCamera, onPickGallery, onPick
 }
 ```
 
-- [ ] **Step 2: Replace `app/prescription/upload.tsx`**
+- [x] **Step 2: Replace `app/prescription/upload.tsx`**
 
 ```tsx
 import { Pressable, ScrollView, Text, View } from 'react-native';
@@ -2058,19 +2058,19 @@ export default function UploadPrescriptionScreen() {
 }
 ```
 
-- [ ] **Step 3: Run typecheck**
+- [x] **Step 3: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: PASS — zero errors.
 
-- [ ] **Step 4: Manual smoke check**
+- [x] **Step 4: Manual smoke check**
 
 Run: `npm run web`, open `/prescription/upload` (as a modal, e.g. from Cart's "Comprar
 con mi receta").
 Expected: header, verified badge, dashed uploader placeholder in lima-soft, delivery and
 payment summary cards, disabled submit button until a file is picked.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add components/prescription/PrescriptionUploader.tsx app/prescription/upload.tsx
