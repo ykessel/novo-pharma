@@ -1194,7 +1194,7 @@ git commit -m "Add cart screen wired to cart store's prescriptionId field"
 - Consumes: `useTheme()` (Task 1), `useTabBarContentInset()` (existing), `EmptyState`
   (Task 4), `SkeletonProductRow` (Task 4), `formatPrice` (existing).
 
-- [ ] **Step 1: Add `app/(tabs)/orders.tsx`**
+- [x] **Step 1: Add `app/(tabs)/orders.tsx`**
 
 ```bash
 cp "resources/App redesign/handoff/app/-tabs-/orders.tsx" "app/(tabs)/orders.tsx"
@@ -1204,18 +1204,18 @@ cp "resources/App redesign/handoff/app/-tabs-/orders.tsx" "app/(tabs)/orders.tsx
 mock loading always resolves to an empty list, showing the "cómo funciona" empty state
 and a subscription upsell row.)
 
-- [ ] **Step 2: Run typecheck**
+- [x] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same residual failure as Task 11 Step 2 — no new ones.
 
-- [ ] **Step 3: Manual smoke check**
+- [x] **Step 3: Manual smoke check**
 
 Run: `npm run web`, open the Pedidos tab.
 Expected: 3 skeleton rows for ~900ms, then the "Ningún pedido activo" empty state with
 the 3-step "cómo funciona" card and subscription row.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add "app/(tabs)/orders.tsx"
