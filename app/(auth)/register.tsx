@@ -6,8 +6,10 @@ import { isSupabaseConfigured, supabase } from '../../services/supabase';
 import { mockAuth } from '../../services/mockAuth';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
+import { useTheme } from '../../hooks/useTheme';
 
 export default function RegisterScreen() {
+  const { colors } = useTheme();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -44,14 +46,14 @@ export default function RegisterScreen() {
   const canSubmit = acceptedTerms && fullName.length > 0 && email.length > 0 && password.length >= 8;
 
   return (
-    <View className="flex-1 justify-center bg-slate-50 px-6 py-8">
-      <View className="rounded-card border border-slate-100 bg-white p-6">
+    <View style={{ backgroundColor: colors.bg }} className="flex-1 justify-center px-6 py-8">
+      <View style={{ backgroundColor: colors.surface, borderColor: colors.border }} className="rounded-card border p-6">
         <View className="mb-6 items-center gap-1">
-          <View className="mb-2 h-12 w-12 items-center justify-center rounded-full bg-brand-secondary">
-            <Stethoscope color="#0F766E" size={24} />
+          <View style={{ backgroundColor: colors.accentSoft }} className="mb-2 h-12 w-12 items-center justify-center rounded-full">
+            <Stethoscope color={colors.accentText} size={24} />
           </View>
-          <Text className="text-xl font-bold text-slate-900">Crear cuenta</Text>
-          <Text className="text-center text-sm text-slate-500">Únete a Nova Pharma para atención médica sin fricciones.</Text>
+          <Text style={{ color: colors.textPrimary }} className="text-xl font-bold">Crear cuenta</Text>
+          <Text style={{ color: colors.textSecondary }} className="text-center text-sm">Únete a Nova Pharma para atención médica sin fricciones.</Text>
         </View>
 
         <Input
@@ -59,7 +61,7 @@ export default function RegisterScreen() {
           placeholder="Jane Doe"
           value={fullName}
           onChangeText={setFullName}
-          icon={<User color="#94A3B8" size={20} />}
+          icon={<User color={colors.textDim} size={20} />}
         />
 
         <Input
@@ -69,7 +71,7 @@ export default function RegisterScreen() {
           keyboardType="email-address"
           value={email}
           onChangeText={setEmail}
-          icon={<Mail color="#94A3B8" size={20} />}
+          icon={<Mail color={colors.textDim} size={20} />}
         />
 
         <Input
@@ -78,7 +80,7 @@ export default function RegisterScreen() {
           keyboardType="phone-pad"
           value={phone}
           onChangeText={setPhone}
-          icon={<Phone color="#94A3B8" size={20} />}
+          icon={<Phone color={colors.textDim} size={20} />}
         />
 
         <Input
@@ -87,14 +89,14 @@ export default function RegisterScreen() {
           secureTextEntry={!showPassword}
           value={password}
           onChangeText={setPassword}
-          icon={<Lock color="#94A3B8" size={20} />}
+          icon={<Lock color={colors.textDim} size={20} />}
           rightElement={
             <Pressable accessibilityRole="button" accessibilityLabel="Mostrar contraseña" onPress={() => setShowPassword((v) => !v)}>
-              {showPassword ? <EyeOff color="#94A3B8" size={20} /> : <Eye color="#94A3B8" size={20} />}
+              {showPassword ? <EyeOff color={colors.textDim} size={20} /> : <Eye color={colors.textDim} size={20} />}
             </Pressable>
           }
         />
-        <Text className="-mt-2 mb-4 text-xs text-slate-500">Debe tener al menos 8 caracteres.</Text>
+        <Text style={{ color: colors.textSecondary }} className="-mt-2 mb-4 text-xs">Debe tener al menos 8 caracteres.</Text>
 
         <Pressable
           accessibilityRole="checkbox"
@@ -102,22 +104,28 @@ export default function RegisterScreen() {
           onPress={() => setAcceptedTerms((v) => !v)}
           className="mb-4 min-h-touch flex-row items-center gap-3"
         >
-          <View className={`h-5 w-5 items-center justify-center rounded border-2 ${acceptedTerms ? 'border-brand bg-brand' : 'border-slate-300'}`}>
-            {acceptedTerms ? <Check color="#FFFFFF" size={14} /> : null}
+          <View
+            style={{
+              borderColor: acceptedTerms ? colors.accent : colors.border,
+              backgroundColor: acceptedTerms ? colors.accent : 'transparent',
+            }}
+            className="h-5 w-5 items-center justify-center rounded border-2"
+          >
+            {acceptedTerms ? <Check color={colors.accentInk} size={14} /> : null}
           </View>
-          <Text className="flex-1 text-sm text-slate-600">
-            Acepto los <Text className="font-medium text-brand">Términos y Condiciones</Text> y la{' '}
-            <Text className="font-medium text-brand">Política de Privacidad</Text>.
+          <Text style={{ color: colors.textSecondary }} className="flex-1 text-sm">
+            Acepto los <Text style={{ color: colors.accentText }} className="font-medium">Términos y Condiciones</Text> y la{' '}
+            <Text style={{ color: colors.accentText }} className="font-medium">Política de Privacidad</Text>.
           </Text>
         </Pressable>
 
-        {error ? <Text className="mb-3 text-sm text-rx">{error}</Text> : null}
+        {error ? <Text style={{ color: colors.danger }} className="mb-3 text-sm">{error}</Text> : null}
 
         <Button label="Registrarme" loading={loading} disabled={!canSubmit} onPress={handleRegister} />
 
         <View className="mt-4 flex-row justify-center">
-          <Text className="text-sm text-slate-500">¿Ya tienes cuenta? </Text>
-          <Link href="/(auth)/login" className="text-sm font-medium text-brand">
+          <Text style={{ color: colors.textSecondary }} className="text-sm">¿Ya tienes cuenta? </Text>
+          <Link href="/(auth)/login" style={{ color: colors.accentText }} className="text-sm font-medium">
             Inicia sesión
           </Link>
         </View>

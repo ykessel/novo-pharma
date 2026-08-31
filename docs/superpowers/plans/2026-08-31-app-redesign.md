@@ -2146,23 +2146,23 @@ Expected: no matches (all old-palette references removed or re-skinned).
 Run: `grep -rln "TabItem\|FloatingTabBarProps\|types/navigation" --include=*.tsx --include=*.ts app components`
 Expected: no matches.
 
-- [x] **Step 3: Manual verification checklist (Expo web or simulator)**
+- [ ] **Step 3: Manual verification checklist (Expo web or simulator)**
 
-- [x] Toggle OS light/dark mode; confirm every screen re-colors (no hardcoded colors
+- [ ] Toggle OS light/dark mode; confirm every screen re-colors (no hardcoded colors
       left behind).
-- [x] All 5 tabs present and navigable: Tienda, Buscar, Carrito, Pedidos, Perfil — no
+- [ ] All 5 tabs present and navigable: Tienda, Buscar, Carrito, Pedidos, Perfil — no
       "Recetas" tab.
-- [x] Cart flow: add a non-Rx product, add an Rx product ("Amoxicilina"), see the
+- [ ] Cart flow: add a non-Rx product, add an Rx product ("Amoxicilina"), see the
       per-line Rx block and the footer's blocked-count note, reach Checkout, submit and
       see the blocking `LoadingSteps` confirm screen.
-- [x] Order tracking (`/order/123`) renders the placeholder map block and progress
+- [ ] Order tracking (`/order/123`) renders the placeholder map block and progress
       steps.
-- [x] Login and register screens render solid backgrounds and correct brand colors (not
+- [ ] Login and register screens render solid backgrounds and correct brand colors (not
       transparent).
-- [x] Prescription upload screen (`/prescription/upload`, opened as a modal) renders
+- [ ] Prescription upload screen (`/prescription/upload`, opened as a modal) renders
       correctly; "Mis recetas" row in Profile pushes `/prescription` and shows the empty
       state.
-- [x] Cart badge on the Carrito tab icon updates when items are added.
+- [ ] Cart badge on the Carrito tab icon updates when items are added.
 
 - [x] **Step 4: Report results**
 

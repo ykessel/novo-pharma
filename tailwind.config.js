@@ -5,41 +5,39 @@ module.exports = {
     './components/**/*.{js,jsx,ts,tsx}',
   ],
   presets: [require('nativewind/preset')],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        brand: {
-          DEFAULT: '#0F766E',
-          secondary: '#E6F4F1',
-        },
-        mint: {
-          100: '#E6F4F1',
-        },
         accent: {
-          DEFAULT: '#F97316',
+          DEFAULT: '#C7F04A',
+          ink: '#111409',
+          text: '#4E6B0A',
         },
-        rx: {
-          DEFAULT: '#DC2626',
+        ink: {
+          DEFAULT: '#0D0F12',
+          surface: '#15181D',
+          elevated: '#1D2128',
+          line: '#22262D',
         },
-        success: {
-          DEFAULT: '#16A34A',
+        paper: {
+          DEFAULT: '#F3F5F1',
+          surface: '#FFFFFF',
+          elevated: '#E9EDE3',
+          line: '#E0E4DC',
         },
-        warning: {
-          DEFAULT: '#D97706',
-        },
+        info: { DEFAULT: '#55D3E0' },
+        rx: { DEFAULT: '#FF8B78' },
+        warning: { DEFAULT: '#FFC46B' },
       },
       fontFamily: {
-        sans: ['Inter-Regular'],
-        medium: ['Inter-Medium'],
-        bold: ['Inter-Bold'],
+        sans: ['SpaceGrotesk-Regular'],
+        medium: ['SpaceGrotesk-Medium'],
+        bold: ['SpaceGrotesk-Bold'],
+        mono: ['JetBrainsMono-Regular'],
       },
-      spacing: {
-        touch: '44px',
-      },
-      borderRadius: {
-        card: '16px',
-        button: '12px',
-      },
+      spacing: { touch: '44px' },
+      borderRadius: { card: '18px', button: '14px' },
     },
   },
   plugins: [],
