@@ -803,7 +803,7 @@ git commit -m "Add signOut to useAuth"
   `FloatingTabBarProps` shape — no other file imports those types after this task (they're
   deleted).
 
-- [ ] **Step 1: Replace `components/navigation/FloatingTabBar.tsx`**
+- [x] **Step 1: Replace `components/navigation/FloatingTabBar.tsx`**
 
 ```tsx
 // components/navigation/FloatingTabBar.tsx — 5 commerce tabs, cart badge
@@ -874,7 +874,7 @@ export const FloatingTabBar = memo(function FloatingTabBar({ state, navigation }
 });
 ```
 
-- [ ] **Step 2: Replace `app/(tabs)/_layout.tsx`**
+- [x] **Step 2: Replace `app/(tabs)/_layout.tsx`**
 
 ```tsx
 // app/(tabs)/_layout.tsx — prescriptions tab retired; cart + orders promoted
@@ -894,7 +894,7 @@ export default function TabsLayout() {
 }
 ```
 
-- [ ] **Step 3: Delete `types/navigation.ts`**
+- [x] **Step 3: Delete `types/navigation.ts`**
 
 Run: `grep -rn "types/navigation\|TabItem\|FloatingTabBarProps" --include=*.tsx --include=*.ts app components`
 Expected: no matches once step 1/2 have landed (the only two consumers were the files just
@@ -904,7 +904,7 @@ replaced). Then:
 git rm types/navigation.ts
 ```
 
-- [ ] **Step 4: Run typecheck**
+- [x] **Step 4: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: FAIL, with errors only in `app/(tabs)/index.tsx` and `app/(tabs)/prescriptions.tsx`
@@ -913,7 +913,7 @@ Expected: FAIL, with errors only in `app/(tabs)/index.tsx` and `app/(tabs)/presc
 referencing them are inert until Tasks 13/14/15 add the files (Expo Router doesn't
 type-check screen names against files without typed routes, so this isn't an error).
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add components/navigation/FloatingTabBar.tsx "app/(tabs)/_layout.tsx"
