@@ -1790,7 +1790,7 @@ git commit -m "Replace profile screen with lima/dark-mode design, add Mis receta
 - Consumes: `useTheme()` (Task 1), `useCartStore` (Task 6 — reads `s.lines`),
   `LoadingSteps`/`LoadingStep` (Task 4), `formatPrice` (existing).
 
-- [ ] **Step 1: Replace `app/order/checkout.tsx`**
+- [x] **Step 1: Replace `app/order/checkout.tsx`**
 
 ```bash
 cp "resources/App redesign/handoff/app/order/checkout.tsx" app/order/checkout.tsx
@@ -1800,18 +1800,18 @@ cp "resources/App redesign/handoff/app/order/checkout.tsx" app/order/checkout.ts
 Delivery method toggle, payment/insurance summary, and a blocking `LoadingSteps` confirm
 state after tapping Pay.)
 
-- [ ] **Step 2: Run typecheck**
+- [x] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: PASS — zero errors.
 
-- [ ] **Step 3: Manual smoke check**
+- [x] **Step 3: Manual smoke check**
 
 Run: `npm run web`, add a product to cart, go to Carrito → "Ir a pagar".
 Expected: delivery/payment/summary cards render; tapping "Pagar" swaps to the
 `LoadingSteps` confirming view.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add app/order/checkout.tsx
