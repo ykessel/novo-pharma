@@ -730,7 +730,7 @@ git commit -m "Add prescriptionId, removeItem, setQuantity, attachPrescription t
   Promise<void>`. `user`/`loading` behavior is unchanged. Task 15 (profile screen) calls
   `signOut()`.
 
-- [ ] **Step 1: Replace `hooks/useAuth.ts`**
+- [x] **Step 1: Replace `hooks/useAuth.ts`**
 
 ```ts
 import { useEffect, useState } from 'react';
@@ -773,12 +773,12 @@ export function useAuth() {
 }
 ```
 
-- [ ] **Step 2: Run typecheck**
+- [x] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same residual failures as Task 6 Step 2 — no new ones.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add hooks/useAuth.ts
