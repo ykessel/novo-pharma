@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"><style>body{margin:0;background:#e9e7e2;font-family:'Space Grotesk',system-ui,sans-serif}a{color:#4E6B0A;text-decoration:none}a:hover{color:#374d05}
+@keyframes novoShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes novoSpin{to{transform:rotate(360deg)}}
+@keyframes novoSlide{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
+@keyframes novoPulse{0%,100%{opacity:.35;transform:scale(.82)}50%{opacity:1;transform:scale(1)}}
+@keyframes novoGrow{0%{width:8%}70%{width:82%}100%{width:88%}}
+@keyframes novoDot{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes novoRise{0%{transform:translateY(102%)}100%{transform:translateY(28%)}}
+</style></helmet>
+
+<section style="padding:44px 48px 56px" id="t3">
+<div style="display:flex;align-items:baseline;gap:10px;margin:0 0 8px"><a style="font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px" href="#t3">3</a><span style="font:600 13px 'Space Grotesk',sans-serif;color:#1a1a1a">Tienda — la app reenfocada a venta de medicamentos</span></div>
+<div style="font:400 14px/1.6 'Space Grotesk',sans-serif;color:#5f5c55;max-width:860px;margin:0 0 26px">Mismo lenguaje visual de <a href="Novo Pharma Dose.dc.html">Dose</a> (lima + tema claro/oscuro con el tweak <b>Theme</b>), pero la arquitectura ahora es de comercio: la home es escaparate, el carrito es una pantalla de primer nivel y la receta es un <i>requisito de compra</i>, no el centro de la app. El recordatorio de dosis sobrevive como una tarjeta de recompra, no como pantalla principal. Interactivo: cantidades, añadir al carrito, cupón, pasos del pedido.</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start">
+
+<!-- 01 TIENDA -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>01</b> Tienda · escaparate</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px 10px;display:flex;align-items:center;gap:12px">
+    <div style="display:flex;align-items:center;gap:9px"><div style="width:9px;height:9px;border-radius:999px;background:{{ acc }}"></div><span style="font:700 15px 'Space Grotesk',sans-serif;letter-spacing:.02em;color:{{ ink }}">NOVO</span></div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:6px;border-radius:999px;background:{{ elev }};padding:7px 12px"><span style="font-family:'Material Symbols Rounded';font-size:16px;line-height:1;color:{{ accTx }}">bolt</span><span style="font:600 11px 'Space Grotesk',sans-serif;color:{{ ink }}">30 min · Piantini</span><span style="font-family:'Material Symbols Rounded';font-size:15px;line-height:1;color:{{ mut }}">expand_more</span></div>
+  </div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:6px 20px 108px">
+    <div style="border-radius:16px;background:{{ surf }};border:1px solid {{ line }};min-height:50px;display:flex;align-items:center;gap:10px;padding:0 14px"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ mut }}">search</span><span style="font:400 14.5px 'Space Grotesk',sans-serif;color:{{ dim }};white-space:nowrap">Busca medicamento, marca o síntoma</span></div>
+
+    <div style="margin-top:14px;border-radius:20px;background:{{ acc }};padding:18px;display:flex;gap:14px;align-items:center">
+      <div style="flex:1"><div style="font:700 9.5px 'Space Grotesk',sans-serif;letter-spacing:.16em;color:{{ accInk }};opacity:.65">ENVÍO GRATIS HOY</div><div style="font:700 19px/1.2 'Space Grotesk',sans-serif;color:{{ accInk }};margin-top:6px">Pedidos desde<br>RD$500</div><div style="margin-top:12px;display:inline-block;border-radius:999px;background:{{ accInk }};padding:8px 14px;font:700 11.5px 'Space Grotesk',sans-serif;color:{{ acc }}">Ver ofertas</div></div>
+      <div style="width:76px;height:76px;border-radius:16px;flex:none;background:rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center"><span style="font:400 8.5px 'JetBrains Mono',monospace;color:{{ accInk }};opacity:.6">promo</span></div>
+    </div>
+
+    <div style="margin-top:22px;display:flex;align-items:baseline;justify-content:space-between"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">CATEGORÍAS</span><span style="font:600 11.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">Todas</span></div>
+    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:9px">
+      <sc-for list="{{ cats }}" as="c" hint-placeholder-count="8">
+        <div style="border-radius:14px;background:{{ surf }};border:1px solid {{ line }};padding:11px 6px;display:flex;flex-direction:column;align-items:center;gap:7px"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ accTx }}">{{ c.icon }}</span><span style="font:500 9.5px/1.25 'Space Grotesk',sans-serif;color:{{ ink }};text-align:center">{{ c.label }}</span></div>
+      </sc-for>
+    </div>
+
+    <div style="margin-top:22px;border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:16px;display:flex;gap:12px;align-items:center">
+      <div style="width:42px;height:42px;border-radius:12px;background:{{ elev }};display:flex;align-items:center;justify-content:center;flex:none"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ accTx }}">autorenew</span></div>
+      <div style="flex:1"><div style="font:600 13.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Recomprar lo de siempre</div><div style="font:400 11.5px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">3 productos · RD$34.30</div></div>
+      <div style="min-height:38px;padding:0 14px;border-radius:11px;background:{{ acc }};display:flex;align-items:center;font:700 12px 'Space Grotesk',sans-serif;color:{{ accInk }};white-space:nowrap">Añadir</div>
+    </div>
+
+    <div style="margin-top:22px;display:flex;align-items:baseline;justify-content:space-between"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">MÁS VENDIDOS</span><span style="font:600 11.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">Ver todo</span></div>
+    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:11px">
+      <sc-for list="{{ grid }}" as="p" hint-placeholder-count="4">
+        <div style="border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:11px">
+          <div style="position:relative;height:96px;border-radius:12px;background:{{ stripe }};display:flex;align-items:center;justify-content:center"><span style="font:400 8.5px 'JetBrains Mono',monospace;color:{{ dim }}">empaque</span>
+            <sc-if value="{{ p.tag }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;left:7px;top:7px;border-radius:6px;background:{{ p.tagBg }};color:{{ p.tagInk }};padding:3px 6px;font:700 8.5px 'Space Grotesk',sans-serif;letter-spacing:.06em">{{ p.tag }}</div></sc-if>
+          </div>
+          <div style="font:600 13.5px/1.25 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:10px">{{ p.name }}</div>
+          <div style="font:400 10.5px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">{{ p.dose }}</div>
+          <div style="margin-top:9px;display:flex;align-items:flex-end;justify-content:space-between">
+            <div><div style="font:500 14.5px 'JetBrains Mono',monospace;color:{{ ink }}">{{ p.price }}</div><sc-if value="{{ p.was }}" hint-placeholder-val="{{ true }}"><div style="font:400 10px 'JetBrains Mono',monospace;color:{{ dim }};text-decoration:line-through">{{ p.was }}</div></sc-if></div>
+            <div style="width:32px;height:32px;border-radius:999px;background:{{ acc }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;color:{{ accInk }}">add</span></div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="margin-top:16px;border-radius:16px;background:{{ elev }};padding:15px;display:flex;gap:11px;align-items:center">
+      <span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ cyan }}">verified_user</span>
+      <div style="font:400 11.5px/1.5 'Space Grotesk',sans-serif;color:{{ mut }}">Farmacia registrada. Todo medicamento controlado se despacha solo con receta validada.</div>
+    </div>
+  </div>
+  <div style="position:absolute;left:16px;right:16px;bottom:18px;height:62px;border-radius:31px;background:{{ surf }};border:1px solid {{ line }};display:flex;align-items:center;padding:0 6px">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ accTx }};font-variation-settings:'FILL' 1">storefront</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">Tienda</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">search</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Buscar</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">shopping_bag</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Carrito</span><div style="position:absolute;top:-3px;right:14px;min-width:16px;height:16px;border-radius:999px;background:{{ acc }};display:flex;align-items:center;justify-content:center;font:700 9.5px 'Space Grotesk',sans-serif;color:{{ accInk }}">{{ cartCount }}</div></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">description</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Recetas</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">person</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Yo</span></div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- 02 CATEGORIA -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>02</b> Categoría · listado y filtros</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px 12px">
+    <div style="display:flex;align-items:center;gap:14px"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ ink }}">arrow_back</span><span style="font:700 18px 'Space Grotesk',sans-serif;color:{{ ink }}">Dolor y fiebre</span></div>
+    <div style="display:flex;gap:8px;margin-top:14px;overflow:hidden">
+      <div style="display:flex;align-items:center;gap:5px;border-radius:999px;background:{{ acc }};padding:7px 12px"><span style="font-family:'Material Symbols Rounded';font-size:15px;line-height:1;color:{{ accInk }}">tune</span><span style="font:700 11.5px 'Space Grotesk',sans-serif;color:{{ accInk }};white-space:nowrap">2 filtros</span></div>
+      <span style="border-radius:999px;border:1px solid {{ line }};color:{{ mut }};padding:7px 12px;font:600 11.5px 'Space Grotesk',sans-serif;white-space:nowrap">Sin receta</span>
+      <span style="border-radius:999px;border:1px solid {{ line }};color:{{ mut }};padding:7px 12px;font:600 11.5px 'Space Grotesk',sans-serif;white-space:nowrap">Genérico</span>
+      <span style="border-radius:999px;border:1px solid {{ line }};color:{{ mut }};padding:7px 12px;font:600 11.5px 'Space Grotesk',sans-serif;white-space:nowrap">≤ RD$10</span>
+    </div>
+  </div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:0 20px 108px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">32 PRODUCTOS</span><span style="font:600 11.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">Precio ↑</span></div>
+    <sc-for list="{{ listing }}" as="r" hint-placeholder-count="6">
+      <div style="border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:12px;display:flex;gap:12px;align-items:center;margin-bottom:10px">
+        <div style="width:60px;height:60px;border-radius:12px;flex:none;background:{{ stripe }};display:flex;align-items:center;justify-content:center"><span style="font:400 7.5px 'JetBrains Mono',monospace;color:{{ dim }}">empaque</span></div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:6px"><span style="font:600 14px 'Space Grotesk',sans-serif;color:{{ ink }}">{{ r.name }}</span><sc-if value="{{ r.rx }}" hint-placeholder-val="{{ true }}"><span style="border-radius:5px;background:{{ dangerBg }};color:{{ danger }};padding:2px 5px;font:700 8.5px 'Space Grotesk',sans-serif;letter-spacing:.08em">RX</span></sc-if></div>
+          <div style="font:400 11px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">{{ r.dose }}</div>
+          <div style="display:flex;align-items:center;gap:5px;margin-top:5px"><span style="font-family:'Material Symbols Rounded';font-size:13px;line-height:1;color:{{ warn }};font-variation-settings:'FILL' 1">star</span><span style="font:500 10.5px 'Space Grotesk',sans-serif;color:{{ ink }}">{{ r.rating }}</span><span style="font:400 10.5px 'Space Grotesk',sans-serif;color:{{ dim }}">{{ r.reviews }}</span><span style="font:400 10.5px 'Space Grotesk',sans-serif;color:{{ r.stockInk }}">· {{ r.stock }}</span></div>
+        </div>
+        <div style="text-align:right;flex:none"><div style="font:500 15px 'JetBrains Mono',monospace;color:{{ ink }}">{{ r.price }}</div><div onClick="{{ r.add }}" style="width:34px;height:34px;border-radius:999px;background:{{ r.btnBg }};border:1.5px solid {{ acc }};display:flex;align-items:center;justify-content:center;margin-top:8px;margin-left:auto;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ r.btnInk }}">{{ r.btnIcon }}</span></div></div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="position:absolute;left:16px;right:16px;bottom:18px;min-height:56px;border-radius:18px;background:{{ acc }};display:flex;align-items:center;padding:0 16px;gap:12px;cursor:pointer">
+    <span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ accInk }}">shopping_bag</span>
+    <span style="flex:1;font:700 14px 'Space Grotesk',sans-serif;color:{{ accInk }}">Ver carrito · {{ cartCount }}</span>
+    <span style="font:500 15px 'JetBrains Mono',monospace;color:{{ accInk }}">{{ cartTotal }}</span>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- 03 PRODUCTO -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>03</b> Producto · comprar</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px;display:flex;align-items:center;justify-content:space-between"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ ink }}">arrow_back</span><div style="display:flex;gap:16px"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ ink }}">favorite_border</span><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ ink }}">share</span></div></div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:6px 20px 108px">
+    <div style="height:190px;border-radius:20px;background:{{ stripe }};display:flex;align-items:center;justify-content:center;position:relative">
+      <span style="font:400 10px 'JetBrains Mono',monospace;color:{{ dim }}">foto del empaque</span>
+      <div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:5px"><div style="width:18px;height:4px;border-radius:999px;background:{{ acc }}"></div><div style="width:4px;height:4px;border-radius:999px;background:{{ line }}"></div><div style="width:4px;height:4px;border-radius:999px;background:{{ line }}"></div></div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:8px">
+      <span style="border-radius:6px;background:{{ accSoft }};color:{{ accTx }};padding:4px 8px;font:700 9.5px 'Space Grotesk',sans-serif;letter-spacing:.08em">SIN RECETA</span>
+      <span style="border-radius:6px;border:1px solid {{ line }};color:{{ mut }};padding:4px 8px;font:700 9.5px 'Space Grotesk',sans-serif;letter-spacing:.08em">GENÉRICO</span>
+    </div>
+    <div style="font:700 26px/1.1 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:12px">Paracetamol 500 mg</div>
+    <div style="font:400 12.5px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:6px">acetaminofén · Lab. Nacional</div>
+    <div style="display:flex;align-items:center;gap:6px;margin-top:10px"><span style="font-family:'Material Symbols Rounded';font-size:15px;line-height:1;color:{{ warn }};font-variation-settings:'FILL' 1">star</span><span style="font:600 12px 'Space Grotesk',sans-serif;color:{{ ink }}">4.8</span><span style="font:400 12px 'Space Grotesk',sans-serif;color:{{ dim }}">(1,240 reseñas)</span><span style="font:400 12px 'Space Grotesk',sans-serif;color:{{ accTx }};margin-left:auto">42 en stock</span></div>
+
+    <div style="margin-top:20px"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">PRESENTACIÓN</span>
+      <div style="display:flex;gap:9px;margin-top:11px">
+        <sc-for list="{{ packs }}" as="q" hint-placeholder-count="3">
+          <div onClick="{{ q.pick }}" style="flex:1;border-radius:14px;padding:13px 8px;text-align:center;cursor:pointer;background:{{ q.bg }};border:1.5px solid {{ q.border }}">
+            <div style="font:500 19px/1 'JetBrains Mono',monospace;color:{{ q.ink }}">{{ q.n }}</div>
+            <div style="font:400 10px 'Space Grotesk',sans-serif;color:{{ q.sub }};margin-top:5px">tabletas</div>
+            <div style="font:600 12px 'Space Grotesk',sans-serif;color:{{ q.ink }};margin-top:7px">{{ q.price }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="font:400 10.5px 'Space Grotesk',sans-serif;color:{{ dim }};margin-top:9px">{{ unitCost }}</div>
+    </div>
+
+    <div style="margin-top:20px;border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:15px;display:flex;flex-direction:column;gap:11px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accTx }}">local_shipping</span><div style="font:400 12px 'Space Grotesk',sans-serif;color:{{ ink }}">Llega hoy entre <b>9:00 y 9:30</b> · RD$4.99</div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accTx }}">storefront</span><div style="font:400 12px 'Space Grotesk',sans-serif;color:{{ ink }}">Retiro en sucursal Naco · <b>gratis</b></div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accTx }}">assignment_return</span><div style="font:400 12px 'Space Grotesk',sans-serif;color:{{ ink }}">Devolución en 7 días si el sello está intacto</div></div>
+    </div>
+
+    <div style="margin-top:14px;border-radius:16px;background:{{ dangerBg }};border:1px solid {{ dangerLine }};padding:15px">
+      <div style="display:flex;align-items:center;gap:8px"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ danger }}">error</span><span style="font:700 13px 'Space Grotesk',sans-serif;color:{{ danger }}">Antes de comprar</span></div>
+      <div style="font:400 12px/1.6 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:9px;text-wrap:pretty">Máximo 8 tabletas al día (4000 mg). Nada de alcohol. Si ya tomas otro analgésico, revisa que no lleve acetaminofén.</div>
+    </div>
+
+    <div style="margin-top:20px"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">SE COMPRA JUNTO CON</span>
+      <div style="display:flex;gap:11px;margin-top:12px;overflow:hidden">
+        <div style="width:132px;flex:none;border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:11px"><div style="height:66px;border-radius:10px;background:{{ stripe }}"></div><div style="font:600 12.5px 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:9px">Suero oral</div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:7px"><span style="font:500 13px 'JetBrains Mono',monospace;color:{{ ink }}">RD$3.20</span><div style="width:28px;height:28px;border-radius:999px;background:{{ acc }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:17px;line-height:1;color:{{ accInk }}">add</span></div></div></div>
+        <div style="width:132px;flex:none;border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:11px"><div style="height:66px;border-radius:10px;background:{{ stripe }}"></div><div style="font:600 12.5px 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:9px">Termómetro</div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:7px"><span style="font:500 13px 'JetBrains Mono',monospace;color:{{ ink }}">RD$18.00</span><div style="width:28px;height:28px;border-radius:999px;background:{{ acc }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:17px;line-height:1;color:{{ accInk }}">add</span></div></div></div>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:0;background:{{ surf }};border-top:1px solid {{ line }};padding:13px 16px 20px;display:flex;gap:12px;align-items:center;box-sizing:border-box">
+    <div style="display:flex;align-items:center;gap:11px;border-radius:13px;border:1px solid {{ line }};padding:0 11px;min-height:50px;flex:none">
+      <span onClick="{{ dec }}" style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ mut }};cursor:pointer">remove</span>
+      <span style="font:500 15px 'JetBrains Mono',monospace;color:{{ ink }};min-width:14px;text-align:center">{{ qty }}</span>
+      <span onClick="{{ inc }}" style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accTx }};cursor:pointer">add</span>
+    </div>
+    <div onClick="{{ addToCart }}" style="flex:1;min-height:52px;border-radius:14px;background:{{ acc }};display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ accInk }}">{{ addIcon }}</span><span style="font:700 14px 'Space Grotesk',sans-serif;color:{{ accInk }};white-space:nowrap">{{ addLabel }}</span></div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- 04 CARRITO -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>04</b> Carrito · con bloqueo por receta</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px 10px;display:flex;align-items:center;justify-content:space-between"><span style="font:700 20px 'Space Grotesk',sans-serif;color:{{ ink }}">Carrito</span><span style="font:600 12px 'Space Grotesk',sans-serif;color:{{ mut }}">Vaciar</span></div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:8px 20px 176px">
+    <div style="border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:13px;display:flex;gap:12px;align-items:center">
+      <div style="width:54px;height:54px;border-radius:11px;flex:none;background:{{ stripe }}"></div>
+      <div style="flex:1;min-width:0"><div style="font:600 13.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Paracetamol 500 mg</div><div style="font:400 10.5px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">{{ packLabel }}</div>
+        <div style="display:flex;align-items:center;gap:9px;margin-top:8px"><div style="display:flex;align-items:center;gap:9px;border-radius:9px;border:1px solid {{ line }};padding:4px 9px"><span onClick="{{ dec }}" style="font-family:'Material Symbols Rounded';font-size:16px;line-height:1;color:{{ mut }};cursor:pointer">remove</span><span style="font:500 12px 'JetBrains Mono',monospace;color:{{ ink }}">{{ qty }}</span><span onClick="{{ inc }}" style="font-family:'Material Symbols Rounded';font-size:16px;line-height:1;color:{{ accTx }};cursor:pointer">add</span></div><span style="font:400 10.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">llega hoy</span></div>
+      </div>
+      <div style="font:500 14px 'JetBrains Mono',monospace;color:{{ ink }};flex:none">{{ lineTotal }}</div>
+    </div>
+
+    <div style="margin-top:11px;border-radius:16px;background:{{ surf }};border:1px solid {{ dangerLine }};padding:13px">
+      <div style="display:flex;gap:12px;align-items:center">
+        <div style="width:54px;height:54px;border-radius:11px;flex:none;background:{{ stripe }}"></div>
+        <div style="flex:1;min-width:0"><div style="display:flex;align-items:center;gap:6px"><span style="font:600 13.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Metformina 850 mg</span><span style="border-radius:5px;background:{{ dangerBg }};color:{{ danger }};padding:2px 5px;font:700 8.5px 'Space Grotesk',sans-serif;letter-spacing:.08em">RX</span></div><div style="font:400 10.5px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">60 tabs · 1 unidad</div></div>
+        <div style="font:500 14px 'JetBrains Mono',monospace;color:{{ ink }};flex:none">RD$12.40</div>
+      </div>
+      <div style="margin-top:12px;border-radius:12px;background:{{ dangerBg }};padding:12px;display:flex;gap:10px;align-items:center">
+        <span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ danger }}">lock</span>
+        <div style="flex:1"><div style="font:600 12px 'Space Grotesk',sans-serif;color:{{ danger }}">Necesita receta para despachar</div><div style="font:400 11px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">Sube una foto o usa la #4102 aprobada</div></div>
+        <div style="min-height:36px;padding:0 12px;border-radius:10px;background:{{ danger }};display:flex;align-items:center;font:700 11.5px 'Space Grotesk',sans-serif;color:{{ surf }};white-space:nowrap">Adjuntar</div>
+      </div>
+    </div>
+
+    <div style="margin-top:11px;border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:13px;display:flex;gap:12px;align-items:center">
+      <div style="width:54px;height:54px;border-radius:11px;flex:none;background:{{ stripe }}"></div>
+      <div style="flex:1;min-width:0"><div style="font:600 13.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Suero oral 500 ml</div><div style="font:400 10.5px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">1 unidad</div></div>
+      <div style="font:500 14px 'JetBrains Mono',monospace;color:{{ ink }};flex:none">RD$3.20</div>
+    </div>
+
+    <div style="margin-top:16px;display:flex;gap:9px">
+      <div style="flex:1;border-radius:13px;background:{{ surf }};border:1px dashed {{ line }};min-height:48px;display:flex;align-items:center;gap:9px;padding:0 13px"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;color:{{ mut }}">confirmation_number</span><span style="font:400 12.5px 'Space Grotesk',sans-serif;color:{{ couponInk }}">{{ couponText }}</span></div>
+      <div onClick="{{ applyCoupon }}" style="min-height:48px;padding:0 16px;border-radius:13px;border:1.5px solid {{ acc }};display:flex;align-items:center;font:700 12.5px 'Space Grotesk',sans-serif;color:{{ accTx }};cursor:pointer">{{ couponBtn }}</div>
+    </div>
+
+    <div style="margin-top:16px;border-radius:16px;background:{{ elev }};padding:15px;display:flex;flex-direction:column;gap:9px">
+      <div style="display:flex;justify-content:space-between"><span style="font:400 12.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Subtotal</span><span style="font:400 12.5px 'JetBrains Mono',monospace;color:{{ mut }}">{{ subtotal }}</span></div>
+      <div style="display:flex;justify-content:space-between"><span style="font:400 12.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Envío express</span><span style="font:400 12.5px 'JetBrains Mono',monospace;color:{{ mut }}">RD$4.99</span></div>
+      <sc-if value="{{ couponOn }}" hint-placeholder-val="{{ true }}"><div style="display:flex;justify-content:space-between"><span style="font:400 12.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">Cupón NOVO10</span><span style="font:400 12.5px 'JetBrains Mono',monospace;color:{{ accTx }}">{{ discount }}</span></div></sc-if>
+      <div style="height:1px;background:{{ line }};margin-top:3px"></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:700 14px 'Space Grotesk',sans-serif;color:{{ ink }}">Total</span><span style="font:500 18px 'JetBrains Mono',monospace;color:{{ ink }}">{{ total }}</span></div>
+    </div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:0;background:{{ surf }};border-top:1px solid {{ line }};padding:13px 16px 20px;box-sizing:border-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:11px"><span style="font:400 11.5px 'Space Grotesk',sans-serif;color:{{ mut }}">1 artículo espera receta</span><span style="font:600 11.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">Comprar el resto</span></div>
+    <div style="min-height:54px;border-radius:14px;background:{{ acc }};display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer"><span style="font:700 14.5px 'Space Grotesk',sans-serif;color:{{ accInk }}">Ir a pagar · {{ total }}</span></div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- 05 CHECKOUT -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>05</b> Pagar</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px;display:flex;align-items:center;justify-content:space-between"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ ink }}">arrow_back</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">PAGAR</span><div style="width:22px"></div></div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:6px 20px 122px">
+    <div style="display:flex;gap:6px"><div style="flex:1;height:4px;border-radius:999px;background:{{ acc }}"></div><div style="flex:1;height:4px;border-radius:999px;background:{{ acc }}"></div><div style="flex:1;height:4px;border-radius:999px;background:{{ elev }}"></div></div>
+    <div style="font:400 10px 'Space Grotesk',sans-serif;letter-spacing:.16em;color:{{ mut }};margin-top:10px">PASO 2 DE 3 · ENTREGA Y PAGO</div>
+
+    <div style="margin-top:18px;border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.16em;color:{{ mut }}">ENTREGA</span><span style="font:600 11.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">Cambiar</span></div>
+      <div style="margin-top:13px;display:flex;gap:10px;align-items:flex-start"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1.2;color:{{ mut }}">home</span><div><div style="font:600 13.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Calle Bienestar 123, Apt 4B</div><div style="font:400 11.5px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">Ciudad Metro · portón azul</div></div></div>
+      <div style="margin-top:13px;display:flex;gap:8px">
+        <div style="flex:1;border-radius:12px;border:1.5px solid {{ acc }};background:{{ accSoft }};padding:12px"><div style="font:700 12.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Express</div><div style="font:400 11px 'JetBrains Mono',monospace;color:{{ accTx }};margin-top:3px">30 min · RD$4.99</div></div>
+        <div style="flex:1;border-radius:12px;border:1px solid {{ line }};padding:12px"><div style="font:700 12.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Retiro</div><div style="font:400 11px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">Naco · gratis</div></div>
+      </div>
+    </div>
+
+    <div style="margin-top:12px;border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:16px">
+      <div style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.16em;color:{{ mut }}">PAGO</div>
+      <div style="margin-top:13px;display:flex;gap:10px;align-items:center"><div style="width:40px;height:28px;border-radius:6px;background:{{ elev }};display:flex;align-items:center;justify-content:center;font:700 9px 'JetBrains Mono',monospace;color:{{ mut }}">VISA</div><div style="flex:1;font:500 13px 'JetBrains Mono',monospace;color:{{ ink }}">•••• 4412</div><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accTx }}">check_circle</span></div>
+      <div style="margin-top:12px;display:flex;gap:10px;align-items:center;opacity:.6"><div style="width:40px;height:28px;border-radius:6px;background:{{ elev }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:16px;line-height:1;color:{{ mut }}">payments</span></div><div style="flex:1;font:500 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Efectivo al recibir</div></div>
+      <div style="margin-top:12px;display:flex;gap:10px;align-items:center;opacity:.6"><div style="width:40px;height:28px;border-radius:6px;background:{{ elev }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:16px;line-height:1;color:{{ mut }}">account_balance_wallet</span></div><div style="flex:1;font:500 13px 'Space Grotesk',sans-serif;color:{{ ink }}">tPago</div></div>
+      <div style="margin-top:14px;border-radius:12px;background:{{ cyanBg }};padding:12px;display:flex;gap:9px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:17px;line-height:1;color:{{ cyan }}">health_and_safety</span><div style="font:400 11.5px/1.45 'Space Grotesk',sans-serif;color:{{ ink }}">Seguro ARS Humano aplicado · ahorras RD$8.30</div></div>
+    </div>
+
+    <div style="margin-top:12px;border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:16px;display:flex;flex-direction:column;gap:9px">
+      <div style="display:flex;justify-content:space-between"><span style="font:400 12.5px 'Space Grotesk',sans-serif;color:{{ mut }}">3 productos</span><span style="font:400 12.5px 'JetBrains Mono',monospace;color:{{ mut }}">RD$24.50</span></div>
+      <div style="display:flex;justify-content:space-between"><span style="font:400 12.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Envío express</span><span style="font:400 12.5px 'JetBrains Mono',monospace;color:{{ mut }}">RD$4.99</span></div>
+      <div style="display:flex;justify-content:space-between"><span style="font:400 12.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">Cobertura ARS</span><span style="font:400 12.5px 'JetBrains Mono',monospace;color:{{ accTx }}">−RD$8.30</span></div>
+      <div style="height:1px;background:{{ line }};margin-top:3px"></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:700 14px 'Space Grotesk',sans-serif;color:{{ ink }}">Total</span><span style="font:500 18px 'JetBrains Mono',monospace;color:{{ ink }}">RD$21.19</span></div>
+    </div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:0;background:{{ surf }};border-top:1px solid {{ line }};padding:14px 16px 20px;box-sizing:border-box">
+    <div onClick="{{ placeOrder }}" style="min-height:56px;border-radius:14px;background:{{ acc }};display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ accInk }}">{{ orderIcon }}</span><span style="font:700 15px 'Space Grotesk',sans-serif;color:{{ accInk }};white-space:nowrap">{{ orderLabel }}</span></div>
+    <div style="font:400 10.5px 'Space Grotesk',sans-serif;color:{{ dim }};text-align:center;margin-top:10px">Los artículos con receta se despachan al validarla</div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- 06 PEDIDO EN CAMINO -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>06</b> Pedido en camino</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="height:280px;flex:none;position:relative;background:{{ mapBg }};overflow:hidden">
+    <div style="position:absolute;inset:0;background:{{ mapGrid }}"></div>
+    <div style="position:absolute;left:14%;top:24%;right:26%;bottom:30%;border-left:3px dashed {{ acc }};border-bottom:3px dashed {{ acc }};opacity:.85"></div>
+    <div style="position:absolute;left:calc(14% - 9px);top:calc(24% - 9px);width:18px;height:18px;border-radius:999px;background:{{ acc }};border:3px solid {{ mapBg }}"></div>
+    <div style="position:absolute;left:calc(74% - 20px);top:calc(70% - 20px);width:40px;height:40px;border-radius:999px;background:{{ surf }};border:2px solid {{ acc }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ accTx }}">home</span></div>
+    <div style="position:absolute;left:calc(42% - 18px);top:calc(54% - 18px);width:36px;height:36px;border-radius:999px;background:{{ acc }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ accInk }}">two_wheeler</span></div>
+    <div style="position:absolute;top:14px;left:16px;height:38px;width:38px;border-radius:12px;background:{{ surf }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ ink }}">arrow_back</span></div>
+  </div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:18px 20px 24px;margin-top:-22px;border-radius:22px 22px 0 0;background:{{ bg }};position:relative">
+    <div style="display:flex;align-items:baseline;gap:10px"><div style="font:500 32px/1 'JetBrains Mono',monospace;color:{{ ink }}">09:12</div><div style="font:400 12.5px 'Space Grotesk',sans-serif;color:{{ mut }}">llegada · 6 min</div></div>
+    <div style="font:400 11.5px 'Space Grotesk',sans-serif;color:{{ accTx }};margin-top:8px">Pedido #2210 · 3 productos · RD$21.19</div>
+
+    <div style="margin-top:18px;display:flex;gap:5px"><div style="flex:1;height:5px;border-radius:999px;background:{{ acc }}"></div><div style="flex:1;height:5px;border-radius:999px;background:{{ acc }}"></div><div style="flex:1;height:5px;border-radius:999px;background:{{ acc }}"></div><div style="flex:1;height:5px;border-radius:999px;background:{{ elev }}"></div></div>
+    <div style="margin-top:16px;display:flex;flex-direction:column;gap:13px">
+      <div style="display:flex;gap:12px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accTx }};font-variation-settings:'FILL' 1">check_circle</span><div style="flex:1"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Pago aprobado</div><div style="font:400 11px 'JetBrains Mono',monospace;color:{{ mut }}">08:24 · Visa •••• 4412</div></div></div>
+      <div style="display:flex;gap:12px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accTx }};font-variation-settings:'FILL' 1">check_circle</span><div style="flex:1"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Empacado en sucursal Naco</div><div style="font:400 11px 'JetBrains Mono',monospace;color:{{ mut }}">08:47 · 1 bolsa sellada</div></div></div>
+      <div style="display:flex;gap:12px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accTx }}">two_wheeler</span><div style="flex:1"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">En camino</div><div style="font:400 11px 'JetBrains Mono',monospace;color:{{ accTx }}">2.4 km · a 6 min de ti</div></div></div>
+      <div style="display:flex;gap:12px;align-items:center;opacity:.5"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ mut }}">radio_button_unchecked</span><div style="flex:1"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Entregado</div><div style="font:400 11px 'JetBrains Mono',monospace;color:{{ mut }}">cédula al recibir (1 artículo Rx)</div></div></div>
+    </div>
+
+    <div style="margin-top:18px;border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:15px;display:flex;gap:12px;align-items:center">
+      <div style="width:46px;height:46px;border-radius:999px;background:{{ elev }};display:flex;align-items:center;justify-content:center;flex:none;font:700 13px 'Space Grotesk',sans-serif;color:{{ mut }}">JC</div>
+      <div style="flex:1"><div style="font:600 13.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Julio C.</div><div style="font:400 11px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">Mensajero · 4.9 ★ · moto roja</div></div>
+      <div style="width:44px;height:44px;border-radius:12px;background:{{ acc }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ accInk }}">call</span></div>
+      <div style="width:44px;height:44px;border-radius:12px;border:1px solid {{ line }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ mut }}">chat</span></div>
+    </div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- 07 MIS PEDIDOS -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>07</b> Mis pedidos · recompra</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px 10px"><span style="font:700 20px 'Space Grotesk',sans-serif;color:{{ ink }}">Pedidos</span>
+    <div style="display:flex;gap:8px;margin-top:13px"><span style="border-radius:999px;background:{{ acc }};color:{{ accInk }};padding:7px 13px;font:700 11.5px 'Space Grotesk',sans-serif">Activos</span><span style="border-radius:999px;border:1px solid {{ line }};color:{{ mut }};padding:7px 13px;font:600 11.5px 'Space Grotesk',sans-serif">Historial</span></div>
+  </div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:10px 20px 108px">
+    <div style="border-radius:18px;background:{{ surf }};border:1px solid {{ acc }};padding:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:999px;background:{{ acc }}"></div><span style="font:700 9.5px 'Space Grotesk',sans-serif;letter-spacing:.16em;color:{{ accTx }}">EN CAMINO · 6 MIN</span></div><span style="font:400 11px 'JetBrains Mono',monospace;color:{{ mut }}">#2210</span></div>
+      <div style="margin-top:13px;display:flex;gap:8px">
+        <div style="width:44px;height:44px;border-radius:10px;background:{{ stripe }}"></div><div style="width:44px;height:44px;border-radius:10px;background:{{ stripe }}"></div><div style="width:44px;height:44px;border-radius:10px;background:{{ elev }};display:flex;align-items:center;justify-content:center;font:600 11px 'Space Grotesk',sans-serif;color:{{ mut }}">+1</div>
+        <div style="flex:1;text-align:right"><div style="font:500 15px 'JetBrains Mono',monospace;color:{{ ink }}">RD$21.19</div><div style="font:400 10.5px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:3px">Julio C. en moto</div></div>
+      </div>
+      <div style="margin-top:14px;min-height:44px;border-radius:12px;background:{{ acc }};display:flex;align-items:center;justify-content:center;font:700 13px 'Space Grotesk',sans-serif;color:{{ accInk }}">Seguir en el mapa</div>
+    </div>
+
+    <div style="margin-top:12px;border-radius:18px;background:{{ surf }};border:1px solid {{ warnLine }};padding:16px">
+      <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:700 9.5px 'Space Grotesk',sans-serif;letter-spacing:.16em;color:{{ warn }}">ESPERA RECETA</span><span style="font:400 11px 'JetBrains Mono',monospace;color:{{ mut }}">#2211</span></div>
+      <div style="margin-top:11px;font:600 13.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Metformina 850 mg</div>
+      <div style="font:400 11.5px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:3px">Lic. R. Núñez revisa tu receta · ~8 min</div>
+      <div style="height:6px;border-radius:999px;background:{{ elev }};margin-top:12px"><div style="width:62%;height:6px;border-radius:999px;background:{{ warn }}"></div></div>
+    </div>
+
+    <div style="margin-top:22px"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">COMPRAS RECIENTES</span></div>
+    <sc-for list="{{ history }}" as="h" hint-placeholder-count="3">
+      <div style="margin-top:11px;border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:13px;display:flex;gap:12px;align-items:center">
+        <div style="width:48px;height:48px;border-radius:11px;flex:none;background:{{ stripe }}"></div>
+        <div style="flex:1;min-width:0"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">{{ h.name }}</div><div style="font:400 10.5px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">{{ h.meta }}</div></div>
+        <div style="min-height:36px;padding:0 13px;border-radius:11px;border:1.5px solid {{ acc }};display:flex;align-items:center;font:700 11.5px 'Space Grotesk',sans-serif;color:{{ accTx }};white-space:nowrap">Recomprar</div>
+      </div>
+    </sc-for>
+
+    <div style="margin-top:16px;border-radius:16px;background:{{ elev }};padding:15px;display:flex;gap:11px;align-items:center">
+      <span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ cyan }}">event_repeat</span>
+      <div style="flex:1"><div style="font:600 12.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Suscripción mensual</div><div style="font:400 11px/1.45 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">Tus 3 crónicos llegan solos cada 30 días · 8% menos</div></div>
+      <span style="font:700 11.5px 'Space Grotesk',sans-serif;color:{{ accTx }};white-space:nowrap">Activar</span>
+    </div>
+  </div>
+  <div style="position:absolute;left:16px;right:16px;bottom:18px;height:62px;border-radius:31px;background:{{ surf }};border:1px solid {{ line }};display:flex;align-items:center;padding:0 6px">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">storefront</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Tienda</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">search</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Buscar</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">shopping_bag</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Carrito</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ accTx }};font-variation-settings:'FILL' 1">receipt_long</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">Pedidos</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">person</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Yo</span></div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- 08 RECETA PARA COMPRAR -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>08</b> Receta · requisito de compra</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px;display:flex;align-items:center;justify-content:space-between"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ ink }}">close</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">DESBLOQUEAR 1 ARTÍCULO</span><div style="width:22px"></div></div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:6px 20px 32px">
+    <div style="border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:14px;display:flex;gap:12px;align-items:center">
+      <div style="width:50px;height:50px;border-radius:11px;flex:none;background:{{ stripe }}"></div>
+      <div style="flex:1"><div style="font:600 13.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Metformina 850 mg</div><div style="font:400 10.5px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">en tu carrito · RD$12.40</div></div>
+      <span style="border-radius:5px;background:{{ dangerBg }};color:{{ danger }};padding:3px 6px;font:700 9px 'Space Grotesk',sans-serif;letter-spacing:.08em">RX</span>
+    </div>
+
+    <div style="margin-top:18px;font:700 22px/1.2 'Space Grotesk',sans-serif;color:{{ ink }}">Usa una receta guardada</div>
+    <div style="margin-top:12px;border-radius:18px;background:{{ surf }};border:1.5px solid {{ acc }};padding:15px">
+      <div style="display:flex;align-items:center;gap:8px"><span style="font-family:'Material Symbols Rounded';font-size:17px;line-height:1;color:{{ accTx }};font-variation-settings:'FILL' 1">check_circle</span><span style="font:700 9.5px 'Space Grotesk',sans-serif;letter-spacing:.16em;color:{{ accTx }}">APROBADA · CUBRE ESTE PRODUCTO</span></div>
+      <div style="display:flex;gap:13px;margin-top:13px">
+        <div style="width:56px;height:72px;border-radius:10px;flex:none;background:{{ stripe }};display:flex;align-items:center;justify-content:center"><span style="font:400 8px 'JetBrains Mono',monospace;color:{{ dim }}">rx.jpg</span></div>
+        <div style="flex:1"><div style="font:600 14px 'Space Grotesk',sans-serif;color:{{ ink }}">#4102 · Dra. Peña</div><div style="font:400 11px/1.6 'JetBrains Mono',monospace;color:{{ mut }};margin-top:4px">vence 12 nov 2026<br>1 repetición restante</div></div>
+      </div>
+      <div style="margin-top:14px;min-height:46px;border-radius:12px;background:{{ acc }};display:flex;align-items:center;justify-content:center;font:700 13px 'Space Grotesk',sans-serif;color:{{ accInk }}">Usar esta receta</div>
+    </div>
+
+    <div style="margin-top:16px;display:flex;align-items:center;gap:12px"><div style="flex:1;height:1px;background:{{ line }}"></div><span style="font:600 10px 'Space Grotesk',sans-serif;letter-spacing:.14em;color:{{ dim }}">O SUBE UNA NUEVA</span><div style="flex:1;height:1px;background:{{ line }}"></div></div>
+
+    <div style="margin-top:16px;border-radius:18px;border:1.5px dashed {{ line }};background:{{ surf }};padding:22px;display:flex;flex-direction:column;align-items:center;gap:14px">
+      <div style="width:64px;height:64px;border-radius:999px;background:{{ accSoft }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:30px;line-height:1;color:{{ accTx }}">photo_camera</span></div>
+      <div style="font:600 14px 'Space Grotesk',sans-serif;color:{{ ink }};text-align:center">Foto o PDF de tu receta</div>
+      <div style="font:400 11.5px/1.5 'Space Grotesk',sans-serif;color:{{ mut }};text-align:center">Un farmacéutico la valida en ~10 min. Mientras, el resto del pedido sigue su curso.</div>
+      <div style="display:flex;gap:10px;width:100%">
+        <div style="flex:1;min-height:46px;border-radius:12px;background:{{ acc }};display:flex;align-items:center;justify-content:center;gap:7px"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;color:{{ accInk }}">photo_camera</span><span style="font:700 12.5px 'Space Grotesk',sans-serif;color:{{ accInk }}">Cámara</span></div>
+        <div style="flex:1;min-height:46px;border-radius:12px;border:1px solid {{ line }};display:flex;align-items:center;justify-content:center;gap:7px"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;color:{{ mut }}">attach_file</span><span style="font:700 12.5px 'Space Grotesk',sans-serif;color:{{ mut }}">PDF</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;border-radius:16px;background:{{ elev }};padding:15px;display:flex;gap:11px;align-items:flex-start"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ cyan }}">gavel</span><div style="font:400 11.5px/1.5 'Space Grotesk',sans-serif;color:{{ mut }}">Vender medicamentos controlados sin receta es ilegal. Guardamos la receta cifrada como respaldo del despacho.</div></div>
+  </div>
+</div>
+</x-import>
+</div>
+
+</div>
+
+<div style="margin:38px 0 0;padding-top:30px;border-top:1px solid rgba(0,0,0,.1)">
+<div style="font:600 13px 'Space Grotesk',sans-serif;color:#1a1a1a">Estados vacíos</div>
+<div style="font:400 13.5px/1.6 'Space Grotesk',sans-serif;color:#5f5c55;max-width:820px;margin:6px 0 22px">Cada uno hace una sola cosa: nombrar lo que falta, dar la razón si la hay, y ofrecer la salida más corta hacia una compra. Ninguno es una ilustración con un botón — todos llevan producto real o una acción concreta.</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start">
+
+<!-- E1 CARRITO VACÍO -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>E1</b> Carrito vacío</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px 10px"><span style="font:700 20px 'Space Grotesk',sans-serif;color:{{ ink }}">Carrito</span></div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:8px 20px 108px">
+    <div style="padding:34px 0 6px;display:flex;flex-direction:column;align-items:center">
+      <div style="width:96px;height:96px;border-radius:26px;background:{{ surf }};border:1px solid {{ line }};display:flex;align-items:center;justify-content:center;position:relative">
+        <span style="font-family:'Material Symbols Rounded';font-size:42px;line-height:1;color:{{ dim }};font-variation-settings:'wght' 250">shopping_bag</span>
+        <div style="position:absolute;right:-6px;bottom:-6px;width:30px;height:30px;border-radius:999px;background:{{ bg }};display:flex;align-items:center;justify-content:center"><div style="width:24px;height:24px;border-radius:999px;background:{{ elev }};display:flex;align-items:center;justify-content:center;font:700 11px 'Space Grotesk',sans-serif;color:{{ dim }}">0</div></div>
+      </div>
+      <div style="font:700 21px/1.25 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:22px;text-align:center">Tu carrito está vacío</div>
+      <div style="font:400 13px/1.6 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:8px;text-align:center;max-width:250px;text-wrap:pretty">Empieza por lo que ya compraste antes, o busca por síntoma y te decimos qué sirve.</div>
+      <div style="margin-top:20px;width:100%;display:flex;flex-direction:column;gap:10px">
+        <div style="min-height:52px;border-radius:14px;background:{{ acc }};display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ accInk }}">storefront</span><span style="font:700 14px 'Space Grotesk',sans-serif;color:{{ accInk }}">Ir a la tienda</span></div>
+        <div style="min-height:52px;border-radius:14px;border:1px solid {{ line }};display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ mut }}">photo_camera</span><span style="font:600 14px 'Space Grotesk',sans-serif;color:{{ mut }}">Comprar con mi receta</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:30px;display:flex;align-items:baseline;justify-content:space-between"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">VUELVE A PEDIR</span><span style="font:600 11.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">Ver todo</span></div>
+    <sc-for list="{{ history }}" as="h" hint-placeholder-count="3">
+      <div style="margin-top:11px;border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:13px;display:flex;gap:12px;align-items:center">
+        <div style="width:48px;height:48px;border-radius:11px;flex:none;background:{{ stripe }}"></div>
+        <div style="flex:1;min-width:0"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">{{ h.name }}</div><div style="font:400 10.5px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">{{ h.meta }}</div></div>
+        <div style="width:34px;height:34px;border-radius:999px;background:{{ acc }};display:flex;align-items:center;justify-content:center;flex:none"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accInk }}">add</span></div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="position:absolute;left:16px;right:16px;bottom:18px;height:62px;border-radius:31px;background:{{ surf }};border:1px solid {{ line }};display:flex;align-items:center;padding:0 6px">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">storefront</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Tienda</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">search</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Buscar</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ accTx }};font-variation-settings:'FILL' 1">shopping_bag</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">Carrito</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">receipt_long</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Pedidos</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">person</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Yo</span></div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- E2 SIN RESULTADOS -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>E2</b> Búsqueda sin resultados</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px 12px;display:flex;align-items:center;gap:12px">
+    <span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ ink }}">arrow_back</span>
+    <div style="flex:1;border-radius:14px;background:{{ surf }};border:1px solid {{ line }};min-height:46px;display:flex;align-items:center;gap:9px;padding:0 13px"><span style="font:400 14px 'Space Grotesk',sans-serif;color:{{ ink }}">amoksicilina</span><span style="margin-left:auto;font-family:'Material Symbols Rounded';font-size:18px;line-height:1;color:{{ mut }}">close</span></div>
+  </div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:8px 20px 32px">
+    <div style="padding:26px 0 0;display:flex;flex-direction:column;align-items:center">
+      <div style="width:88px;height:88px;border-radius:999px;background:{{ surf }};border:1px solid {{ line }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:40px;line-height:1;color:{{ dim }};font-variation-settings:'wght' 250">search_off</span></div>
+      <div style="font:700 20px/1.25 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:20px;text-align:center">Nada para “amoksicilina”</div>
+      <div style="font:400 13px/1.6 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:8px;text-align:center;max-width:250px;text-wrap:pretty">Puede ser un error de escritura, o el producto no se vende en línea.</div>
+    </div>
+
+    <div style="margin-top:22px;border-radius:16px;background:{{ accSoft }};border:1px solid {{ acc }};padding:15px;display:flex;gap:11px;align-items:center">
+      <span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ accTx }}">spellcheck</span>
+      <div style="flex:1;font:400 12.5px/1.5 'Space Grotesk',sans-serif;color:{{ ink }}">¿Quisiste decir <b>Amoxicilina 500 mg</b>?</div>
+      <span style="font:700 12px 'Space Grotesk',sans-serif;color:{{ accTx }};white-space:nowrap">Buscar</span>
+    </div>
+
+    <div style="margin-top:22px"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">PRUEBA CON</span>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+        <span style="border-radius:999px;border:1px solid {{ line }};color:{{ ink }};padding:8px 13px;font:500 12px 'Space Grotesk',sans-serif">amoxicilina</span>
+        <span style="border-radius:999px;border:1px solid {{ line }};color:{{ ink }};padding:8px 13px;font:500 12px 'Space Grotesk',sans-serif">antibiótico</span>
+        <span style="border-radius:999px;border:1px solid {{ line }};color:{{ ink }};padding:8px 13px;font:500 12px 'Space Grotesk',sans-serif">dolor de garganta</span>
+        <span style="border-radius:999px;border:1px solid {{ line }};color:{{ ink }};padding:8px 13px;font:500 12px 'Space Grotesk',sans-serif">infección</span>
+      </div>
+    </div>
+
+    <div style="margin-top:22px;border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:15px;display:flex;gap:11px;align-items:center">
+      <div style="width:40px;height:40px;border-radius:12px;background:{{ elev }};display:flex;align-items:center;justify-content:center;flex:none"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ cyan }}">support_agent</span></div>
+      <div style="flex:1"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Pregúntale a un farmacéutico</div><div style="font:400 11.5px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">Responde en minutos · gratis</div></div>
+      <span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ mut }}">chevron_right</span>
+    </div>
+
+    <div style="margin-top:22px"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">LO MÁS BUSCADO</span></div>
+    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:11px">
+      <sc-for list="{{ grid }}" as="p" hint-placeholder-count="2">
+        <div style="border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:11px">
+          <div style="height:80px;border-radius:12px;background:{{ stripe }}"></div>
+          <div style="font:600 13px/1.25 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:9px">{{ p.name }}</div>
+          <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between"><span style="font:500 13.5px 'JetBrains Mono',monospace;color:{{ ink }}">{{ p.price }}</span><div style="width:30px;height:30px;border-radius:999px;background:{{ acc }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;color:{{ accInk }}">add</span></div></div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- E3 SIN PEDIDOS -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>E3</b> Sin pedidos aún</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px 10px"><span style="font:700 20px 'Space Grotesk',sans-serif;color:{{ ink }}">Pedidos</span>
+    <div style="display:flex;gap:8px;margin-top:13px"><span style="border-radius:999px;background:{{ acc }};color:{{ accInk }};padding:7px 13px;font:700 11.5px 'Space Grotesk',sans-serif">Activos</span><span style="border-radius:999px;border:1px solid {{ line }};color:{{ mut }};padding:7px 13px;font:600 11.5px 'Space Grotesk',sans-serif">Historial</span></div>
+  </div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:10px 20px 108px">
+    <div style="padding:40px 0 0;display:flex;flex-direction:column;align-items:center">
+      <div style="width:100px;height:100px;border-radius:28px;background:{{ surf }};border:1px dashed {{ line }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:44px;line-height:1;color:{{ dim }};font-variation-settings:'wght' 250">receipt_long</span></div>
+      <div style="font:700 21px/1.25 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:22px;text-align:center">Ningún pedido activo</div>
+      <div style="font:400 13px/1.6 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:8px;text-align:center;max-width:250px;text-wrap:pretty">Cuando compres, aquí verás el mensajero en el mapa y el minuto exacto de llegada.</div>
+      <div style="margin-top:20px;min-height:52px;width:100%;border-radius:14px;background:{{ acc }};display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ accInk }}">storefront</span><span style="font:700 14px 'Space Grotesk',sans-serif;color:{{ accInk }}">Hacer mi primer pedido</span></div>
+    </div>
+
+    <div style="margin-top:34px;border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:16px">
+      <div style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.16em;color:{{ mut }}">CÓMO FUNCIONA</div>
+      <div style="margin-top:15px;display:flex;flex-direction:column;gap:15px">
+        <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:24px;height:24px;border-radius:999px;background:{{ elev }};display:flex;align-items:center;justify-content:center;flex:none;font:700 11px 'JetBrains Mono',monospace;color:{{ accTx }}">1</div><div><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Arma tu pedido</div><div style="font:400 11.5px/1.5 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">Sin receta se despacha directo; los controlados esperan validación.</div></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:24px;height:24px;border-radius:999px;background:{{ elev }};display:flex;align-items:center;justify-content:center;flex:none;font:700 11px 'JetBrains Mono',monospace;color:{{ accTx }}">2</div><div><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Un farmacéutico revisa</div><div style="font:400 11.5px/1.5 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">Chequea dosis e interacciones con lo que ya tomas.</div></div></div>
+        <div style="display:flex;gap:12px;align-items:flex-start"><div style="width:24px;height:24px;border-radius:999px;background:{{ elev }};display:flex;align-items:center;justify-content:center;flex:none;font:700 11px 'JetBrains Mono',monospace;color:{{ accTx }}">3</div><div><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Llega en 30 minutos</div><div style="font:400 11.5px/1.5 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">O retíralo gratis en la sucursal que elijas.</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;left:16px;right:16px;bottom:18px;height:62px;border-radius:31px;background:{{ surf }};border:1px solid {{ line }};display:flex;align-items:center;padding:0 6px">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">storefront</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Tienda</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">search</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Buscar</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">shopping_bag</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Carrito</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ accTx }};font-variation-settings:'FILL' 1">receipt_long</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">Pedidos</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">person</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Yo</span></div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- E4 SIN RECETAS -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>E4</b> Sin recetas guardadas</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px 10px"><span style="font:700 20px 'Space Grotesk',sans-serif;color:{{ ink }}">Recetas</span></div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:10px 20px 108px">
+    <div style="padding:26px 0 0;display:flex;flex-direction:column;align-items:center">
+      <div style="position:relative;width:104px;height:104px;display:flex;align-items:center;justify-content:center">
+        <div style="position:absolute;width:66px;height:84px;border-radius:10px;background:{{ surf }};border:1px solid {{ line }};transform:rotate(-9deg)"></div>
+        <div style="position:absolute;width:66px;height:84px;border-radius:10px;background:{{ surf }};border:1px dashed {{ line }};transform:rotate(7deg);display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:30px;line-height:1;color:{{ dim }};font-variation-settings:'wght' 250">description</span></div>
+      </div>
+      <div style="font:700 21px/1.25 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:22px;text-align:center">No tienes recetas guardadas</div>
+      <div style="font:400 13px/1.6 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:8px;text-align:center;max-width:255px;text-wrap:pretty">Guárdala una vez y compra tus controlados sin volver a subirla, hasta que venza.</div>
+      <div style="margin-top:20px;width:100%;display:flex;flex-direction:column;gap:10px">
+        <div style="min-height:52px;border-radius:14px;background:{{ acc }};display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ accInk }}">photo_camera</span><span style="font:700 14px 'Space Grotesk',sans-serif;color:{{ accInk }}">Subir una receta</span></div>
+        <div style="min-height:52px;border-radius:14px;border:1px solid {{ line }};display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ mut }}">medication</span><span style="font:600 14px 'Space Grotesk',sans-serif;color:{{ mut }}">Comprar sin receta</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:30px;border-radius:16px;background:{{ elev }};padding:15px;display:flex;gap:11px;align-items:flex-start">
+      <span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ cyan }}">lock</span>
+      <div style="font:400 11.5px/1.5 'Space Grotesk',sans-serif;color:{{ mut }}">Se guardan cifradas. Solo tú y el farmacéutico que despacha tu pedido pueden abrirlas.</div>
+    </div>
+
+    <div style="margin-top:22px"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">MIENTRAS TANTO · SIN RECETA</span></div>
+    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:11px">
+      <sc-for list="{{ grid }}" as="p" hint-placeholder-count="2">
+        <div style="border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:11px">
+          <div style="height:80px;border-radius:12px;background:{{ stripe }}"></div>
+          <div style="font:600 13px/1.25 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:9px">{{ p.name }}</div>
+          <div style="font:400 10.5px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">{{ p.dose }}</div>
+          <div style="margin-top:8px;display:flex;align-items:center;justify-content:space-between"><span style="font:500 13.5px 'JetBrains Mono',monospace;color:{{ ink }}">{{ p.price }}</span><div style="width:30px;height:30px;border-radius:999px;background:{{ acc }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;color:{{ accInk }}">add</span></div></div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="position:absolute;left:16px;right:16px;bottom:18px;height:62px;border-radius:31px;background:{{ surf }};border:1px solid {{ line }};display:flex;align-items:center;padding:0 6px">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">storefront</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Tienda</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">search</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Buscar</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">shopping_bag</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Carrito</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ accTx }};font-variation-settings:'FILL' 1">description</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">Recetas</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">person</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Yo</span></div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- E5 AGOTADO / FILTROS -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>E5</b> Agotado · filtros sin resultados</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px 12px">
+    <div style="display:flex;align-items:center;gap:14px"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ ink }}">arrow_back</span><span style="font:700 18px 'Space Grotesk',sans-serif;color:{{ ink }}">Crónicos</span></div>
+    <div style="display:flex;gap:8px;margin-top:14px;overflow:hidden">
+      <div style="display:flex;align-items:center;gap:5px;border-radius:999px;background:{{ acc }};padding:7px 12px"><span style="font-family:'Material Symbols Rounded';font-size:15px;line-height:1;color:{{ accInk }}">tune</span><span style="font:700 11.5px 'Space Grotesk',sans-serif;color:{{ accInk }};white-space:nowrap">3 filtros</span></div>
+      <span style="border-radius:999px;background:{{ elev }};color:{{ ink }};padding:7px 12px;font:600 11.5px 'Space Grotesk',sans-serif;white-space:nowrap">Genérico ✕</span>
+      <span style="border-radius:999px;background:{{ elev }};color:{{ ink }};padding:7px 12px;font:600 11.5px 'Space Grotesk',sans-serif;white-space:nowrap">≤ RD$5 ✕</span>
+      <span style="border-radius:999px;background:{{ elev }};color:{{ ink }};padding:7px 12px;font:600 11.5px 'Space Grotesk',sans-serif;white-space:nowrap">Hoy ✕</span>
+    </div>
+  </div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:8px 20px 32px">
+    <div style="padding:22px 0 0;display:flex;flex-direction:column;align-items:center">
+      <div style="width:88px;height:88px;border-radius:999px;background:{{ surf }};border:1px solid {{ line }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:40px;line-height:1;color:{{ dim }};font-variation-settings:'wght' 250">filter_alt_off</span></div>
+      <div style="font:700 20px/1.25 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:20px;text-align:center">Ningún producto cumple los 3 filtros</div>
+      <div style="font:400 13px/1.6 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:8px;text-align:center;max-width:255px;text-wrap:pretty">El tope de RD$5 es el que más recorta: los crónicos genéricos arrancan en RD$6.50.</div>
+      <div style="margin-top:18px;width:100%;display:flex;gap:10px">
+        <div style="flex:1;min-height:48px;border-radius:13px;background:{{ acc }};display:flex;align-items:center;justify-content:center;font:700 13px 'Space Grotesk',sans-serif;color:{{ accInk }};cursor:pointer">Quitar “≤ RD$5”</div>
+        <div style="min-height:48px;padding:0 15px;border-radius:13px;border:1px solid {{ line }};display:flex;align-items:center;font:600 13px 'Space Grotesk',sans-serif;color:{{ mut }};white-space:nowrap;cursor:pointer">Limpiar todo</div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">SIN EL TOPE DE PRECIO · 12 PRODUCTOS</span></div>
+    <div style="margin-top:12px;border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:12px;display:flex;gap:12px;align-items:center">
+      <div style="width:56px;height:56px;border-radius:12px;flex:none;background:{{ stripe }}"></div>
+      <div style="flex:1;min-width:0"><div style="font:600 14px 'Space Grotesk',sans-serif;color:{{ ink }}">Metformina Gen.</div><div style="font:400 11px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">850 mg · 60 tabs</div><div style="font:400 10.5px 'Space Grotesk',sans-serif;color:{{ accTx }};margin-top:4px">llega hoy</div></div>
+      <div style="text-align:right;flex:none"><div style="font:500 15px 'JetBrains Mono',monospace;color:{{ ink }}">RD$6.50</div><div style="width:34px;height:34px;border-radius:999px;background:{{ acc }};display:flex;align-items:center;justify-content:center;margin-top:8px;margin-left:auto"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accInk }}">add</span></div></div>
+    </div>
+    <div style="margin-top:11px;border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:12px;display:flex;gap:12px;align-items:center;opacity:.7">
+      <div style="width:56px;height:56px;border-radius:12px;flex:none;background:{{ stripe }}"></div>
+      <div style="flex:1;min-width:0"><div style="font:600 14px 'Space Grotesk',sans-serif;color:{{ ink }}">Losartán Gen.</div><div style="font:400 11px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">50 mg · 30 tabs</div><div style="font:400 10.5px 'Space Grotesk',sans-serif;color:{{ warn }};margin-top:4px">agotado · avísame</div></div>
+      <div style="text-align:right;flex:none"><div style="font:500 15px 'JetBrains Mono',monospace;color:{{ mut }}">RD$7.10</div><div style="width:34px;height:34px;border-radius:999px;border:1px solid {{ line }};display:flex;align-items:center;justify-content:center;margin-top:8px;margin-left:auto"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ mut }}">notifications</span></div></div>
+    </div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- E6 SIN CONEXION -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>E6</b> Sin conexión · fallo de carga</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px 10px;display:flex;align-items:center;gap:12px">
+    <div style="display:flex;align-items:center;gap:9px"><div style="width:9px;height:9px;border-radius:999px;background:{{ dim }}"></div><span style="font:700 15px 'Space Grotesk',sans-serif;letter-spacing:.02em;color:{{ ink }}">NOVO</span></div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:6px;border-radius:999px;background:{{ dangerBg }};padding:7px 12px"><span style="font-family:'Material Symbols Rounded';font-size:15px;line-height:1;color:{{ danger }}">cloud_off</span><span style="font:600 11px 'Space Grotesk',sans-serif;color:{{ danger }}">Sin conexión</span></div>
+  </div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:8px 20px 32px">
+    <div style="padding:34px 0 0;display:flex;flex-direction:column;align-items:center">
+      <div style="width:92px;height:92px;border-radius:999px;background:{{ surf }};border:1px solid {{ line }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:42px;line-height:1;color:{{ dim }};font-variation-settings:'wght' 250">wifi_off</span></div>
+      <div style="font:700 21px/1.25 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:22px;text-align:center">No pudimos cargar la tienda</div>
+      <div style="font:400 13px/1.6 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:8px;text-align:center;max-width:250px;text-wrap:pretty">Los precios y el stock cambian por minuto, así que no te mostramos datos viejos.</div>
+      <div style="margin-top:20px;width:100%;min-height:52px;border-radius:14px;background:{{ acc }};display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ accInk }}">refresh</span><span style="font:700 14px 'Space Grotesk',sans-serif;color:{{ accInk }}">Reintentar</span></div>
+    </div>
+
+    <div style="margin-top:30px;border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:16px">
+      <div style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.16em;color:{{ mut }}">DISPONIBLE SIN INTERNET</div>
+      <div style="margin-top:14px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;gap:12px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ accTx }}">shopping_bag</span><div style="flex:1"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Tu carrito (3 productos)</div><div style="font:400 11px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">Guardado en el teléfono · se envía al reconectar</div></div><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ mut }}">chevron_right</span></div>
+        <div style="display:flex;gap:12px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ accTx }}">description</span><div style="flex:1"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Tus recetas guardadas</div><div style="font:400 11px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">Se ven sin conexión</div></div><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ mut }}">chevron_right</span></div>
+        <div style="display:flex;gap:12px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ accTx }}">call</span><div style="flex:1"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Pedir por teléfono</div><div style="font:400 11px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:2px">809 555 0100</div></div><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ mut }}">chevron_right</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:14px;display:flex;flex-direction:column;gap:11px">
+      <div style="border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:12px;display:flex;gap:12px;align-items:center"><div style="width:52px;height:52px;border-radius:11px;flex:none;background:{{ elev }}"></div><div style="flex:1"><div style="width:60%;height:11px;border-radius:999px;background:{{ elev }}"></div><div style="width:38%;height:9px;border-radius:999px;background:{{ elev }};margin-top:8px"></div></div></div>
+      <div style="border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:12px;display:flex;gap:12px;align-items:center;opacity:.55"><div style="width:52px;height:52px;border-radius:11px;flex:none;background:{{ elev }}"></div><div style="flex:1"><div style="width:48%;height:11px;border-radius:999px;background:{{ elev }}"></div><div style="width:30%;height:9px;border-radius:999px;background:{{ elev }};margin-top:8px"></div></div></div>
+    </div>
+  </div>
+</div>
+</x-import>
+</div>
+
+</div>
+</div>
+
+<div style="margin:38px 0 0;padding-top:30px;border-top:1px solid rgba(0,0,0,.1)">
+<div style="font:600 13px 'Space Grotesk',sans-serif;color:#1a1a1a">Estados de carga</div>
+<div style="font:400 13.5px/1.6 'Space Grotesk',sans-serif;color:#5f5c55;max-width:840px;margin:6px 0 22px">Tres reglas: el esqueleto tiene la <b>forma exacta</b> del contenido que llega (nada salta al cargar); lo que ya sabemos se pinta de inmediato y solo el dato remoto parpadea; y cuando la espera es real —validar una receta, cobrar— se dice el <b>paso</b> y el tiempo, no un spinner anónimo. Las animaciones son live: shimmer, pulso y barras corren de verdad.</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start">
+
+<!-- L1 SKELETON TIENDA -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>L1</b> Tienda · esqueleto</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px 10px;display:flex;align-items:center;gap:12px">
+    <div style="display:flex;align-items:center;gap:9px"><div style="width:9px;height:9px;border-radius:999px;background:{{ acc }}"></div><span style="font:700 15px 'Space Grotesk',sans-serif;letter-spacing:.02em;color:{{ ink }}">NOVO</span></div>
+    <div style="margin-left:auto;width:132px;height:30px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div>
+  </div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:6px 20px 108px">
+    <div style="height:50px;border-radius:16px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div>
+    <div style="margin-top:14px;height:120px;border-radius:20px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div>
+    <div style="margin-top:22px;width:90px;height:10px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div>
+    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:9px">
+      <div style="height:76px;border-radius:14px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="height:76px;border-radius:14px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="height:76px;border-radius:14px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="height:76px;border-radius:14px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div>
+      <div style="height:76px;border-radius:14px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="height:76px;border-radius:14px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="height:76px;border-radius:14px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="height:76px;border-radius:14px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div>
+    </div>
+    <div style="margin-top:22px;height:74px;border-radius:18px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div>
+    <div style="margin-top:22px;width:112px;height:10px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div>
+    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:11px">
+      <div style="border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:11px"><div style="height:96px;border-radius:12px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="height:12px;width:76%;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;margin-top:11px"></div><div style="height:9px;width:52%;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;margin-top:8px"></div><div style="margin-top:11px;display:flex;align-items:center;justify-content:space-between"><div style="width:56px;height:14px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="width:32px;height:32px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div></div></div>
+      <div style="border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:11px"><div style="height:96px;border-radius:12px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="height:12px;width:64%;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;margin-top:11px"></div><div style="height:9px;width:44%;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;margin-top:8px"></div><div style="margin-top:11px;display:flex;align-items:center;justify-content:space-between"><div style="width:56px;height:14px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="width:32px;height:32px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div></div></div>
+      <div style="border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:11px;opacity:.55"><div style="height:96px;border-radius:12px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="height:12px;width:70%;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;margin-top:11px"></div></div>
+      <div style="border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:11px;opacity:.55"><div style="height:96px;border-radius:12px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="height:12px;width:58%;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;margin-top:11px"></div></div>
+    </div>
+  </div>
+  <div style="position:absolute;left:16px;right:16px;bottom:18px;height:62px;border-radius:31px;background:{{ surf }};border:1px solid {{ line }};display:flex;align-items:center;padding:0 6px">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ accTx }};font-variation-settings:'FILL' 1">storefront</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ accTx }}">Tienda</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">search</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Buscar</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">shopping_bag</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Carrito</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">receipt_long</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Pedidos</span></div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><span style="font-family:'Material Symbols Rounded';font-size:21px;line-height:1;color:{{ mut }}">person</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;color:{{ mut }}">Yo</span></div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- L2 BUSCANDO -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>L2</b> Buscando · resultados en streaming</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px 12px;display:flex;align-items:center;gap:12px">
+    <span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ ink }}">arrow_back</span>
+    <div style="flex:1;border-radius:14px;background:{{ surf }};border:1px solid {{ acc }};min-height:46px;display:flex;align-items:center;gap:9px;padding:0 13px"><span style="font:400 14px 'Space Grotesk',sans-serif;color:{{ ink }}">paracetamol</span><div style="margin-left:auto">{{ spinner }}</div></div>
+  </div>
+  <div style="height:2px;background:{{ line }};position:relative;overflow:hidden">{{ progressBar }}</div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:14px 20px 32px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">BUSCANDO EN 4 SUCURSALES…</span><div style="width:34px;height:10px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div></div>
+
+    <div style="border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:12px;display:flex;gap:12px;align-items:center">
+      <div style="width:60px;height:60px;border-radius:12px;flex:none;background:{{ stripe }}"></div>
+      <div style="flex:1;min-width:0"><div style="font:600 14px 'Space Grotesk',sans-serif;color:{{ ink }}">Paracetamol 500 mg</div><div style="font:400 11px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">20 tabs · Lab. Nacional</div><div style="display:flex;align-items:center;gap:7px;margin-top:6px"><div style="width:70px;height:9px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><span style="font:400 10px 'Space Grotesk',sans-serif;color:{{ dim }}">verificando stock</span></div></div>
+      <div style="text-align:right;flex:none"><div style="width:52px;height:15px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="width:34px;height:34px;border-radius:999px;border:1px solid {{ line }};margin-top:8px;margin-left:auto"></div></div>
+    </div>
+
+    <div style="margin-top:10px;border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:12px;display:flex;gap:12px;align-items:center">
+      <div style="width:60px;height:60px;border-radius:12px;flex:none;background:{{ stripe }}"></div>
+      <div style="flex:1;min-width:0"><div style="font:600 14px 'Space Grotesk',sans-serif;color:{{ ink }}">Acetaminofén Gen.</div><div style="font:400 11px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">500 mg · 20 tabs</div><div style="font:400 10.5px 'Space Grotesk',sans-serif;color:{{ accTx }};margin-top:6px">en stock · hoy</div></div>
+      <div style="text-align:right;flex:none"><div style="font:500 15px 'JetBrains Mono',monospace;color:{{ ink }}">RD$2.75</div><div style="width:34px;height:34px;border-radius:999px;background:{{ acc }};display:flex;align-items:center;justify-content:center;margin-top:8px;margin-left:auto"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accInk }}">add</span></div></div>
+    </div>
+
+    <sc-for list="{{ ghosts }}" as="g" hint-placeholder-count="3">
+      <div style="margin-top:10px;border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:12px;display:flex;gap:12px;align-items:center;opacity:{{ g.op }}">
+        <div style="width:60px;height:60px;border-radius:12px;flex:none;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div>
+        <div style="flex:1;min-width:0"><div style="height:13px;width:{{ g.w1 }};border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="height:10px;width:{{ g.w2 }};border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;margin-top:9px"></div><div style="height:9px;width:34%;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;margin-top:8px"></div></div>
+        <div style="text-align:right;flex:none"><div style="width:50px;height:14px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="width:34px;height:34px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;margin-top:8px;margin-left:auto"></div></div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- L3 PRODUCTO PARCIAL -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>L3</b> Producto · lo conocido ya pintado</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px;display:flex;align-items:center;justify-content:space-between"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ ink }}">arrow_back</span><div style="display:flex;gap:16px"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ ink }}">favorite_border</span><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ ink }}">share</span></div></div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:6px 20px 108px">
+    <div style="height:190px;border-radius:20px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;display:flex;align-items:center;justify-content:center">{{ spinnerLg }}</div>
+    <div style="margin-top:16px;display:flex;gap:8px"><span style="border-radius:6px;background:{{ accSoft }};color:{{ accTx }};padding:4px 8px;font:700 9.5px 'Space Grotesk',sans-serif;letter-spacing:.08em">SIN RECETA</span><div style="width:74px;height:20px;border-radius:6px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div></div>
+    <div style="font:700 26px/1.1 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:12px">Paracetamol 500 mg</div>
+    <div style="font:400 12.5px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:6px">acetaminofén · Lab. Nacional</div>
+    <div style="display:flex;align-items:center;gap:9px;margin-top:12px"><div style="width:96px;height:12px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="margin-left:auto;width:76px;height:12px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div></div>
+
+    <div style="margin-top:20px"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">PRESENTACIÓN</span>
+      <div style="display:flex;gap:9px;margin-top:11px">
+        <div style="flex:1;border-radius:14px;border:1px solid {{ line }};padding:13px 8px;text-align:center"><div style="font:500 19px/1 'JetBrains Mono',monospace;color:{{ ink }}">10</div><div style="font:400 10px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:5px">tabletas</div><div style="width:44px;height:12px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;margin:8px auto 0"></div></div>
+        <div style="flex:1;border-radius:14px;border:1px solid {{ line }};padding:13px 8px;text-align:center"><div style="font:500 19px/1 'JetBrains Mono',monospace;color:{{ ink }}">20</div><div style="font:400 10px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:5px">tabletas</div><div style="width:44px;height:12px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;margin:8px auto 0"></div></div>
+        <div style="flex:1;border-radius:14px;border:1px solid {{ line }};padding:13px 8px;text-align:center"><div style="font:500 19px/1 'JetBrains Mono',monospace;color:{{ ink }}">40</div><div style="font:400 10px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:5px">tabletas</div><div style="width:44px;height:12px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;margin:8px auto 0"></div></div>
+      </div>
+      <div style="font:400 10.5px 'Space Grotesk',sans-serif;color:{{ dim }};margin-top:10px">Calculando precio con tu seguro…</div>
+    </div>
+
+    <div style="margin-top:20px;border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:15px;display:flex;flex-direction:column;gap:13px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ mut }}">local_shipping</span><div style="flex:1;height:11px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accTx }}">storefront</span><div style="flex:1;font:400 12px 'Space Grotesk',sans-serif;color:{{ ink }}">Retiro en sucursal Naco · <b>gratis</b></div></div>
+      <div style="display:flex;gap:10px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accTx }}">assignment_return</span><div style="flex:1;font:400 12px 'Space Grotesk',sans-serif;color:{{ ink }}">Devolución en 7 días</div></div>
+    </div>
+
+    <div style="margin-top:14px;border-radius:16px;background:{{ dangerBg }};border:1px solid {{ dangerLine }};padding:15px">
+      <div style="display:flex;align-items:center;gap:8px"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ danger }}">error</span><span style="font:700 13px 'Space Grotesk',sans-serif;color:{{ danger }}">Antes de comprar</span></div>
+      <div style="font:400 12px/1.6 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:9px">Máximo 8 tabletas al día (4000 mg). Nada de alcohol.</div>
+      <div style="margin-top:11px;display:flex;gap:8px;align-items:center"><div style="width:14px;height:14px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><span style="font:400 11px 'Space Grotesk',sans-serif;color:{{ mut }}">Revisando interacciones con tus 3 medicamentos…</span></div>
+    </div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:0;background:{{ surf }};border-top:1px solid {{ line }};padding:13px 16px 20px;display:flex;gap:12px;align-items:center;box-sizing:border-box">
+    <div style="display:flex;align-items:center;gap:11px;border-radius:13px;border:1px solid {{ line }};padding:0 11px;min-height:50px;flex:none"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ dim }}">remove</span><span style="font:500 15px 'JetBrains Mono',monospace;color:{{ ink }}">1</span><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ dim }}">add</span></div>
+    <div style="flex:1;min-height:52px;border-radius:14px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;display:flex;align-items:center;justify-content:center"><span style="font:600 13px 'Space Grotesk',sans-serif;color:{{ dim }}">Calculando precio…</span></div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- L4 PAGANDO -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>L4</b> Procesando pago · bloqueante</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;padding:0 28px;background:{{ bg }};font-family:'Space Grotesk',sans-serif">
+  <div style="display:flex;flex-direction:column;align-items:center">
+    {{ payRing }}
+    <div style="font:700 21px/1.25 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:26px;text-align:center">Confirmando tu pedido</div>
+    <div style="font:400 12.5px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:8px;text-align:center">No cierres la app · unos 20 segundos</div>
+  </div>
+
+  <div style="margin-top:32px;border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:18px;display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;gap:12px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ accTx }};font-variation-settings:'FILL' 1">check_circle</span><div style="flex:1"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Pago autorizado</div><div style="font:400 11px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:2px">Visa •••• 4412 · RD$21.19</div></div></div>
+    <div style="display:flex;gap:12px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ accTx }};font-variation-settings:'FILL' 1">check_circle</span><div style="flex:1"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Stock reservado</div><div style="font:400 11px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:2px">3 productos · sucursal Naco</div></div></div>
+    <div style="display:flex;gap:12px;align-items:center">{{ stepDot }}<div style="flex:1"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Farmacéutico revisando la receta</div><div style="height:5px;border-radius:999px;background:{{ elev }};margin-top:8px;overflow:hidden">{{ stepBar }}</div></div></div>
+    <div style="display:flex;gap:12px;align-items:center;opacity:.45"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:{{ mut }}">radio_button_unchecked</span><div style="flex:1"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Asignando mensajero</div></div></div>
+  </div>
+
+  <div style="margin-top:16px;border-radius:14px;background:{{ elev }};padding:14px;display:flex;gap:10px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;color:{{ cyan }}">notifications_active</span><div style="font:400 11.5px/1.5 'Space Grotesk',sans-serif;color:{{ mut }}">Puedes salir: te avisamos cuando el farmacéutico apruebe.</div></div>
+</div>
+</x-import>
+</div>
+
+<!-- L5 SUBIENDO RECETA -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>L5</b> Subiendo receta · progreso real</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;position:relative;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:14px 20px;display:flex;align-items:center;justify-content:space-between"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ ink }}">close</span><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">SUBIENDO RECETA</span><div style="width:22px"></div></div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:6px 20px 32px">
+    <div style="border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:14px;display:flex;gap:14px;align-items:center">
+      <div style="position:relative;width:62px;height:80px;border-radius:10px;flex:none;background:{{ stripe }};overflow:hidden">{{ uploadFill }}</div>
+      <div style="flex:1"><div style="font:600 13.5px 'Space Grotesk',sans-serif;color:{{ ink }}">receta-agosto.jpg</div><div style="font:400 10.5px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">{{ uploadMeta }}</div>
+        <div style="height:6px;border-radius:999px;background:{{ elev }};margin-top:10px;overflow:hidden">{{ uploadBar }}</div>
+      </div>
+      <div style="font:500 13px 'JetBrains Mono',monospace;color:{{ accTx }};flex:none">{{ uploadPct }}</div>
+    </div>
+
+    <div style="margin-top:20px"><span style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.18em;color:{{ mut }}">LEYENDO LA IMAGEN</span></div>
+    <div style="margin-top:12px;border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:16px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;gap:11px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accTx }};font-variation-settings:'FILL' 1">check_circle</span><div style="flex:1;font:500 12.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Imagen legible</div><span style="font:400 10.5px 'JetBrains Mono',monospace;color:{{ mut }}">0.4s</span></div>
+      <div style="display:flex;gap:11px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ accTx }};font-variation-settings:'FILL' 1">check_circle</span><div style="flex:1;font:500 12.5px 'Space Grotesk',sans-serif;color:{{ ink }}">2 medicamentos detectados</div><span style="font:400 10.5px 'JetBrains Mono',monospace;color:{{ mut }}">1.1s</span></div>
+      <div style="display:flex;gap:11px;align-items:center">{{ stepDot }}<div style="flex:1"><div style="font:500 12.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Verificando exequátur del médico</div><div style="height:4px;border-radius:999px;background:{{ elev }};margin-top:7px;overflow:hidden">{{ stepBar }}</div></div></div>
+      <div style="display:flex;gap:11px;align-items:center;opacity:.45"><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;color:{{ mut }}">radio_button_unchecked</span><div style="flex:1;font:500 12.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Cola del farmacéutico</div></div>
+    </div>
+
+    <div style="margin-top:20px;border-radius:18px;background:{{ surf }};border:1px solid {{ line }};padding:16px">
+      <div style="font:600 9.5px 'Space Grotesk',sans-serif;letter-spacing:.16em;color:{{ mut }}">DESBLOQUEARÁ</div>
+      <div style="margin-top:13px;display:flex;gap:12px;align-items:center">
+        <div style="width:48px;height:48px;border-radius:11px;flex:none;background:{{ stripe }}"></div>
+        <div style="flex:1"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Metformina 850 mg</div><div style="font:400 10.5px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">en tu carrito · RD$12.40</div></div>
+        <div style="width:26px;height:26px;border-radius:999px;background:{{ elev }};display:flex;align-items:center;justify-content:center"><span style="font-family:'Material Symbols Rounded';font-size:15px;line-height:1;color:{{ mut }}">lock</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:14px;border-radius:14px;background:{{ elev }};padding:14px;display:flex;gap:10px;align-items:center"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;color:{{ cyan }}">schedule</span><div style="font:400 11.5px/1.5 'Space Grotesk',sans-serif;color:{{ mut }}">La validación humana toma ~10 min. Te escribimos al terminar.</div></div>
+  </div>
+</div>
+</x-import>
+</div>
+
+<!-- L6 INVENTARIO -->
+<div style="display:flex;flex-direction:column;gap:9px">
+<div style="font:400 11.5px 'Space Grotesk',sans-serif;color:#5f5c55"><b>L6</b> Piezas sueltas · el kit</div>
+<x-import component-from-global-scope="AndroidDevice" from="./android-frame.jsx" hint-size="428px,908px" dark="{{ isDark }}">
+<div style="height:100%;box-sizing:border-box;display:flex;flex-direction:column;background:{{ bg }};overflow:hidden;font-family:'Space Grotesk',sans-serif">
+  <div style="padding:16px 20px 10px"><span style="font:700 19px 'Space Grotesk',sans-serif;color:{{ ink }}">Kit de carga</span><div style="font:400 11.5px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:4px">Cuándo usar cada uno</div></div>
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:10px 20px 28px;display:flex;flex-direction:column;gap:11px">
+    <div style="border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:15px">
+      <div style="display:flex;align-items:center;justify-content:space-between"><div><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Botón en proceso</div><div style="font:400 11px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">acción del usuario, &lt; 3s</div></div></div>
+      <div style="margin-top:13px;display:flex;gap:9px">
+        <div style="flex:1;min-height:46px;border-radius:13px;background:{{ acc }};display:flex;align-items:center;justify-content:center;gap:8px">{{ btnSpinner }}<span style="font:700 13px 'Space Grotesk',sans-serif;color:{{ accInk }}">Añadiendo…</span></div>
+        <div style="min-height:46px;padding:0 15px;border-radius:13px;border:1px solid {{ line }};display:flex;align-items:center;gap:8px">{{ dots }}</div>
+      </div>
+    </div>
+
+    <div style="border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:15px">
+      <div><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Precio en cálculo</div><div style="font:400 11px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">solo el dato remoto parpadea</div></div>
+      <div style="margin-top:13px;display:flex;align-items:center;gap:12px">
+        <div style="width:48px;height:48px;border-radius:11px;flex:none;background:{{ stripe }}"></div>
+        <div style="flex:1"><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Paracetamol 500 mg</div><div style="font:400 10.5px 'JetBrains Mono',monospace;color:{{ mut }};margin-top:3px">20 tabs</div></div>
+        <div style="width:58px;height:16px;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;flex:none"></div>
+      </div>
+    </div>
+
+    <div style="border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:15px">
+      <div><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Fila esqueleto</div><div style="font:400 11px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">misma altura que la fila real: 84px</div></div>
+      <div style="margin-top:13px;display:flex;gap:12px;align-items:center">
+        <div style="width:60px;height:60px;border-radius:12px;flex:none;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div>
+        <div style="flex:1"><div style="height:13px;width:72%;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite"></div><div style="height:10px;width:48%;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;margin-top:9px"></div><div style="height:9px;width:32%;border-radius:999px;background:{{ shimmer }};background-size:220% 100%;animation:novoShimmer 1.5s linear infinite;margin-top:8px"></div></div>
+      </div>
+    </div>
+
+    <div style="border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:15px">
+      <div><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Barra de arriba</div><div style="font:400 11px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">refresco silencioso, sin bloquear</div></div>
+      <div style="margin-top:13px;height:3px;border-radius:999px;background:{{ line }};overflow:hidden;position:relative">{{ topBar }}</div>
+    </div>
+
+    <div style="border-radius:16px;background:{{ surf }};border:1px solid {{ line }};padding:15px">
+      <div><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ ink }}">Espera larga con pasos</div><div style="font:400 11px 'Space Grotesk',sans-serif;color:{{ mut }};margin-top:2px">&gt; 5s: nombra el paso, no un spinner</div></div>
+      <div style="margin-top:13px;display:flex;gap:11px;align-items:center">{{ stepDot }}<div style="flex:1"><div style="font:500 12.5px 'Space Grotesk',sans-serif;color:{{ ink }}">Verificando stock en 4 sucursales</div><div style="height:4px;border-radius:999px;background:{{ elev }};margin-top:7px;overflow:hidden">{{ stepBar }}</div></div><span style="font:400 10.5px 'JetBrains Mono',monospace;color:{{ mut }}">3s</span></div>
+    </div>
+
+    <div style="border-radius:16px;background:{{ dangerBg }};border:1px solid {{ dangerLine }};padding:15px">
+      <div style="display:flex;align-items:center;gap:8px"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;color:{{ danger }}">timer_off</span><div style="font:600 13px 'Space Grotesk',sans-serif;color:{{ danger }}">Si tarda más de 15s</div></div>
+      <div style="font:400 11.5px/1.5 'Space Grotesk',sans-serif;color:{{ ink }};margin-top:8px">Se convierte en error con salida: “Reintentar” o “Pedir por teléfono”. Nunca un spinner infinito.</div>
+    </div>
+  </div>
+</div>
+</x-import>
+</div>
+
+</div>
+</div>
+
+<p style="margin:26px 0 0;font:400 12px/1.6 'Space Grotesk',sans-serif;color:rgba(0,0,0,.5)">Próximo: "búsqueda con autocompletado y sinónimos" · "pantalla de sucursales y retiro" · "vista de marca vs genérico lado a lado"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1700,&quot;height&quot;:1050},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark' | 'light'&quot;,&quot;section&quot;:&quot;Apariencia&quot;}}">
+const THEMES = {
+  dark: {
+    bg: '#0D0F12', surf: '#15181D', elev: '#1D2128', line: '#22262D',
+    ink: '#F4F5F6', mut: '#8B929E', dim: '#6D7480',
+    acc: '#C7F04A', accInk: '#111409', accTx: '#C7F04A', accSoft: 'rgba(199,240,74,.10)',
+    cyan: '#55D3E0', cyanBg: 'rgba(85,211,224,.08)',
+    danger: '#FF8B78', dangerBg: 'rgba(255,107,90,.10)', dangerLine: 'rgba(255,107,90,.28)',
+    warn: '#FFC46B', warnLine: 'rgba(255,196,107,.3)',
+    stripe: 'repeating-linear-gradient(135deg,#20242B 0 7px,#191D23 7px 14px)',
+    shimmer: 'linear-gradient(90deg,#1A1E24 0%,#262B33 50%,#1A1E24 100%)',
+    mapBg: '#12151A', mapGrid: 'repeating-linear-gradient(0deg,#1A1E25 0 1px,transparent 1px 34px),repeating-linear-gradient(90deg,#1A1E25 0 1px,transparent 1px 34px)',
+  },
+  light: {
+    bg: '#F3F5F1', surf: '#FFFFFF', elev: '#E9EDE3', line: '#E0E4DC',
+    ink: '#14170F', mut: '#656C5F', dim: '#98A092',
+    acc: '#C7F04A', accInk: '#1B2109', accTx: '#4E6B0A', accSoft: 'rgba(199,240,74,.30)',
+    cyan: '#0E7C8C', cyanBg: 'rgba(14,124,140,.09)',
+    danger: '#B8412A', dangerBg: 'rgba(184,65,42,.08)', dangerLine: 'rgba(184,65,42,.24)',
+    warn: '#9A6A08', warnLine: 'rgba(154,106,8,.3)',
+    stripe: 'repeating-linear-gradient(135deg,#E4E8DE 0 7px,#EFF2EA 7px 14px)',
+    shimmer: 'linear-gradient(90deg,#E6EAE1 0%,#F4F7F1 50%,#E6EAE1 100%)',
+    mapBg: '#E8ECE4', mapGrid: 'repeating-linear-gradient(0deg,#DDE2D6 0 1px,transparent 1px 34px),repeating-linear-gradient(90deg,#DDE2D6 0 1px,transparent 1px 34px)',
+  },
+};
+
+const PACKS = [
+  { n: 10, price: 'RD$2.90', unit: 0.29 },
+  { n: 20, price: 'RD$4.99', unit: 0.25 },
+  { n: 40, price: 'RD$8.99', unit: 0.22 },
+];
+
+const money = n => 'RD$' + n.toFixed(2);
+const el = React.createElement;
+
+// Animated loading primitives. Built here (not in the template) so their
+// animation state survives re-renders.
+function ring(size, stroke, color, track, dur) {
+  return el('div', {
+    style: {
+      width: size, height: size, borderRadius: '999px', flex: 'none',
+      border: stroke + 'px solid ' + track, borderTopColor: color,
+      animation: 'novoSpin ' + dur + ' linear infinite',
+    },
+  });
+}
+function slidingBar(color, height, radius) {
+  return el('div', { style: { position: 'absolute', inset: 0, overflow: 'hidden', borderRadius: radius || 0 } },
+    el('div', { style: { position: 'absolute', top: 0, bottom: 0, width: '34%', background: color, borderRadius: radius || 0, animation: 'novoSlide 1.25s ease-in-out infinite' } }));
+}
+function growBar(color) {
+  return el('div', { style: { height: '100%', borderRadius: '999px', background: color, animation: 'novoGrow 6s ease-out forwards' } });
+}
+function pulseDot(color, size) {
+  return el('div', { style: { width: size, height: size, borderRadius: '999px', background: color, flex: 'none', animation: 'novoPulse 1.1s ease-in-out infinite' } });
+}
+function dotRow(color) {
+  return el('div', { style: { display: 'flex', gap: 5, alignItems: 'center' } },
+    [0, 1, 2].map(i => el('div', { key: i, style: { width: 7, height: 7, borderRadius: '999px', background: color, animation: 'novoDot 1s ease-in-out infinite', animationDelay: (i * 0.16) + 's' } })));
+}
+
+class Component extends DCLogic {
+  state = { pack: 20, qty: 1, added: false, coupon: false, ordered: false, addedIds: {} };
+
+  renderVals() {
+    const t = THEMES[this.props.theme === 'light' ? 'light' : 'dark'];
+    const s = this.state;
+
+    const cats = [
+      { icon: 'sick', label: 'Dolor y fiebre' }, { icon: 'coronavirus', label: 'Gripe y tos' },
+      { icon: 'medication', label: 'Crónicos' }, { icon: 'vaccines', label: 'Vitaminas' },
+      { icon: 'child_care', label: 'Niños' }, { icon: 'healing', label: 'Botiquín' },
+      { icon: 'monitor_heart', label: 'Presión' }, { icon: 'more_horiz', label: 'Ver más' },
+    ];
+
+    const grid = [
+      { name: 'Paracetamol', dose: '500 mg · 20 tabs', price: 'RD$4.99', was: 'RD$6.20', tag: '-20%', tagBg: t.acc, tagInk: t.accInk },
+      { name: 'Vitamina C', dose: '1000 mg · 60 gomitas', price: 'RD$12.00', was: '', tag: 'TOP', tagBg: t.elev, tagInk: t.mut },
+      { name: 'Ibuprofeno', dose: '400 mg · 30 tabs', price: 'RD$6.50', was: '', tag: '', tagBg: '', tagInk: '' },
+      { name: 'Amoxicilina', dose: '500 mg · 12 caps', price: 'RD$8.90', was: '', tag: 'RX', tagBg: t.dangerBg, tagInk: t.danger },
+    ];
+
+    const LIST = [
+      { name: 'Acetaminofén Gen.', dose: '500 mg · 20 tabs', price: 'RD$2.75', rating: '4.6', reviews: '(410)', rx: false, stock: 'hoy' },
+      { name: 'Paracetamol', dose: '500 mg · 20 tabs', price: 'RD$4.99', rating: '4.8', reviews: '(1.2k)', rx: false, stock: 'hoy' },
+      { name: 'Ibuprofeno', dose: '400 mg · 30 tabs', price: 'RD$6.50', rating: '4.7', reviews: '(880)', rx: false, stock: 'hoy' },
+      { name: 'Naproxeno', dose: '250 mg · 20 tabs', price: 'RD$7.20', rating: '4.5', reviews: '(96)', rx: true, stock: 'con receta' },
+      { name: 'Migraña Forte', dose: '400/100 mg · 10 tabs', price: 'RD$11.40', rating: '4.4', reviews: '(58)', rx: true, stock: '1–2 días' },
+      { name: 'Diclofenaco gel', dose: '60 g', price: 'RD$9.80', rating: '4.6', reviews: '(233)', rx: false, stock: 'hoy' },
+    ];
+    const listing = LIST.map((r, i) => {
+      const on = !!s.addedIds[i];
+      return {
+        ...r,
+        stockInk: r.rx ? t.mut : t.accTx,
+        add: () => this.setState(st => ({ addedIds: { ...st.addedIds, [i]: !st.addedIds[i] } })),
+        btnBg: on ? t.acc : 'transparent',
+        btnInk: on ? t.accInk : t.accTx,
+        btnIcon: on ? 'check' : 'add',
+      };
+    });
+
+    const packs = PACKS.map(p => {
+      const on = s.pack === p.n;
+      return {
+        n: p.n, price: p.price,
+        pick: () => this.setState({ pack: p.n }),
+        bg: on ? t.accSoft : t.surf,
+        border: on ? t.acc : t.line,
+        ink: on ? t.ink : t.ink,
+        sub: on ? t.accTx : t.mut,
+      };
+    });
+    const pack = PACKS.find(p => p.n === s.pack) || PACKS[1];
+    const linePrice = parseFloat(pack.price.replace('RD$', '')) * s.qty;
+    const subtotalN = linePrice + 12.40 + 3.20;
+    const discountN = s.coupon ? subtotalN * 0.10 : 0;
+    const totalN = subtotalN + 4.99 - discountN;
+
+    const history = [
+      { name: 'Losartán 50 mg', meta: '12 ago · RD$8.90' },
+      { name: 'Vitamina D 1000 UI', meta: '02 ago · RD$9.00' },
+      { name: 'Alcohol + gasas', meta: '28 jul · RD$5.40' },
+    ];
+
+    const cartCount = 3 + Object.values(s.addedIds).filter(Boolean).length + (s.added ? 1 : 0);
+
+    const ghosts = [
+      { op: 1, w1: '68%', w2: '44%' },
+      { op: 0.72, w1: '54%', w2: '38%' },
+      { op: 0.44, w1: '62%', w2: '30%' },
+    ];
+
+    return {
+      ...t,
+      isDark: this.props.theme !== 'light',
+      ghosts,
+      spinner: ring(16, 2, t.accTx, t.line, '0.75s'),
+      spinnerLg: ring(30, 3, t.dim, 'transparent', '0.9s'),
+      btnSpinner: ring(15, 2, t.accInk, 'rgba(0,0,0,.22)', '0.7s'),
+      dots: dotRow(t.mut),
+      progressBar: slidingBar(t.acc, 2),
+      topBar: slidingBar(t.acc, 3, '999px'),
+      payRing: ring(78, 3, t.acc, t.line, '1.1s'),
+      stepDot: pulseDot(t.accTx, 14),
+      stepBar: growBar(t.acc),
+      uploadBar: growBar(t.acc),
+      uploadFill: el('div', { style: { position: 'absolute', inset: 0, background: 'linear-gradient(0deg,' + t.accSoft + ',transparent)', animation: 'novoRise 6s ease-out forwards' } }),
+      uploadPct: '72%',
+      uploadMeta: '1.2 MB de 1.7 MB · 3s restantes',
+      cats, grid, listing, packs, history,
+      cartCount,
+      cartTotal: money(totalN),
+      unitCost: 'Sale a ' + money(pack.unit) + ' por tableta · ' + (pack.n === 40 ? 'mejor precio' : 'compra 40 y ahorra'),
+      qty: s.qty,
+      packLabel: pack.n + ' tabs · ' + pack.price,
+      lineTotal: money(linePrice),
+      subtotal: money(subtotalN),
+      discount: '−' + money(discountN),
+      total: money(totalN),
+      inc: () => this.setState(st => ({ qty: Math.min(9, st.qty + 1) })),
+      dec: () => this.setState(st => ({ qty: Math.max(1, st.qty - 1) })),
+      addToCart: () => this.setState(st => ({ added: !st.added })),
+      addLabel: s.added ? 'En el carrito · ' + money(linePrice) : 'Añadir · ' + money(linePrice),
+      addIcon: s.added ? 'check_circle' : 'shopping_bag',
+      couponOn: s.coupon,
+      couponText: s.coupon ? 'NOVO10 aplicado' : 'Código de descuento',
+      couponInk: s.coupon ? t.accTx : t.dim,
+      couponBtn: s.coupon ? 'Quitar' : 'Aplicar',
+      applyCoupon: () => this.setState(st => ({ coupon: !st.coupon })),
+      placeOrder: () => this.setState(st => ({ ordered: !st.ordered })),
+      orderLabel: s.ordered ? 'Pedido confirmado · #2210' : 'Pagar RD$21.19',
+      orderIcon: s.ordered ? 'check_circle' : 'lock',
+    };
+  }
+}
+</script>
+</body>
+</html>
