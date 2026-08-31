@@ -1,163 +1,144 @@
-import { useState } from 'react';
-import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+// app/(tabs)/index.tsx — Tienda (storefront)
+import { useEffect, useState } from 'react';
+import { Image, Pressable, ScrollView, Text, View } from 'react-native';
 import { router } from 'expo-router';
-import {
-  ChevronDown,
-  FileUp,
-  MapPin,
-  Pill,
-  RefreshCw,
-  ScanLine,
-  Search,
-  ShoppingCart,
-  Truck,
-  Zap,
-  HeartPulse,
-} from 'lucide-react-native';
-import { ProductCard } from '../../components/product/ProductCard';
-import { useAuth } from '../../hooks/useAuth';
-import { useCartStore } from '../../hooks/useCartStore';
+import { Search, Zap, ChevronDown, RefreshCw, ShieldCheck } from 'lucide-react-native';
+import { useTheme } from '../../hooks/useTheme';
 import { useTabBarContentInset } from '../../hooks/useTabBarInset';
-import { MOCK_PRODUCTS } from '../../utils/mockProducts';
-import { colors } from '../../types/theme';
+import { SkeletonProductCard, Skeleton } from '../../components/ui/Skeleton';
+import { MOCK_PRODUCTS, CATEGORIES } from '../../utils/mockProducts';
+import { formatPrice } from '../../utils/format';
+import type { Product } from '../../types/product';
 
-const QUICK_ACTIONS = [
-  { key: 'track', label: 'Rastrear\nPedido', icon: Truck },
-  { key: 'otc', label: 'Venta\nLibre', icon: Pill },
-  { key: 'care', label: 'Cuidado\nPersonal', icon: HeartPulse },
-  { key: 'refill', label: 'Repetir\nPedido', icon: RefreshCw },
-] as const;
+export default function StoreScreen() {
+  const { colors } = useTheme();
+  const inset = useTabBarContentInset();
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
 
-export default function HomeScreen() {
-  const { user } = useAuth();
-  const addItem = useCartStore((state) => state.addItem);
-  const itemCount = useCartStore((state) => state.itemCount());
-  const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const tabBarInset = useTabBarContentInset();
-
-  const firstName = (user?.user_metadata.full_name ?? user?.email ?? 'Usuario').split(' ')[0].split('@')[0];
+  useEffect(() => {
+    // TODO: swap for the real catalog endpoint
+    const t = setTimeout(() => { setProducts(MOCK_PRODUCTS.slice(0, 4)); setLoading(false); }, 800);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
-    <View className="flex-1 bg-slate-50">
-      <View className="flex-row items-center justify-between border-b border-slate-100 bg-white px-4 py-3">
-        <View className="flex-row items-center gap-2">
-          <MapPin color={colors.brandPrimary} size={22} />
-          <Text className="text-lg font-bold text-brand">Nova Pharma</Text>
+    <View style={{ backgroundColor: colors.bg }} className="flex-1">
+      <View className="flex-row items-center gap-3 px-5 pb-2.5 pt-3.5">
+        <View className="flex-row items-center gap-2.5">
+          <View style={{ backgroundColor: colors.accent }} className="h-2.5 w-2.5 rounded-full" />
+          <Text style={{ color: colors.textPrimary }} className="font-bold text-[15px] tracking-wide">NOVO</Text>
         </View>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={itemCount > 0 ? `Carrito de compras, ${itemCount} artículos` : 'Carrito de compras'}
-          hitSlop={8}
-          style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-          className="relative h-11 w-11 items-center justify-center rounded-full"
+          accessibilityLabel="Cambiar zona de entrega"
+          style={{ backgroundColor: colors.elevated }}
+          className="ml-auto min-h-[34px] flex-row items-center gap-1.5 rounded-full px-3"
         >
-          <ShoppingCart color={colors.textSecondary} size={22} />
-          {itemCount > 0 ? (
-            <View className="absolute right-1 top-1 h-4 w-4 items-center justify-center rounded-full bg-rx">
-              <Text className="text-[10px] font-bold text-white">{itemCount}</Text>
-            </View>
-          ) : null}
+          <Zap color={colors.accentText} size={16} />
+          <Text style={{ color: colors.textPrimary }} className="font-medium text-[11px]">30 min · Piantini</Text>
+          <ChevronDown color={colors.textSecondary} size={15} />
         </Pressable>
       </View>
 
-      <ScrollView contentContainerClassName="gap-6 p-4" contentContainerStyle={{ paddingBottom: tabBarInset }}>
-        <View className="gap-1">
-          <Text className="text-2xl font-bold text-slate-900">Hola, {firstName}</Text>
-          <View className="flex-row items-center gap-1">
-            <Text className="text-sm text-slate-500">Entregar en:</Text>
-            <Pressable
-              accessibilityRole="button"
-              hitSlop={8}
-              style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-              className="flex-row items-center gap-1"
-            >
-              <Text numberOfLines={1} className="text-sm font-medium text-slate-900">
-                Casa - Calle Principal 123
-              </Text>
-              <ChevronDown color={colors.textSecondary} size={16} />
-            </Pressable>
-          </View>
-        </View>
-
-        <View className="relative">
-          <View className="absolute inset-y-0 left-4 z-10 justify-center">
-            <Search color={colors.placeholder} size={20} />
-          </View>
-          <TextInput
-            accessibilityLabel="Buscar medicamentos, vitaminas"
-            placeholder="Buscar medicamentos, vitaminas..."
-            placeholderTextColor={colors.placeholder}
-            onFocus={() => setIsSearchFocused(true)}
-            onBlur={() => setIsSearchFocused(false)}
-            className={`min-h-touch rounded-full border bg-white pl-12 pr-12 text-base text-slate-900 ${
-              isSearchFocused ? 'border-brand' : 'border-slate-200'
-            }`}
-          />
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Escanear receta"
-            hitSlop={8}
-            style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-            className="absolute inset-y-0 right-4 z-10 justify-center"
-          >
-            <ScanLine color={colors.brandPrimary} size={20} />
-          </Pressable>
-        </View>
-
-        <View className="rounded-card bg-brand p-6">
-          <View className="mb-2 flex-row items-center gap-2">
-            <Zap color={colors.accent} size={18} />
-            <Text className="text-xs font-bold uppercase tracking-wide text-accent">Express</Text>
-          </View>
-          <Text className="max-w-[200px] text-xl font-bold leading-tight text-white">Entrega rápida en 30 min</Text>
-        </View>
-
+      <ScrollView className="px-5" contentContainerStyle={{ paddingBottom: inset }} showsVerticalScrollIndicator={false}>
         <Pressable
-          accessibilityRole="button"
-          accessibilityLabel="Subir receta médica"
-          onPress={() => router.push('/prescription/upload')}
-          style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
-          className="flex-row items-center justify-between rounded-card border border-dashed border-brand/40 bg-brand-secondary p-6"
+          accessibilityRole="search"
+          accessibilityLabel="Buscar medicamento, marca o síntoma"
+          onPress={() => router.push('/(tabs)/search')}
+          style={{ backgroundColor: colors.surface, borderColor: colors.border }}
+          className="min-h-[50px] flex-row items-center gap-2.5 rounded-card border px-3.5"
         >
-          <View className="max-w-[200px] gap-1">
-            <Text className="text-xl font-bold text-brand">Subir receta</Text>
-            <Text className="text-sm text-slate-500">Para procesar tu pedido más rápido</Text>
-          </View>
-          <View className="h-12 w-12 items-center justify-center rounded-full bg-brand">
-            <FileUp color="#FFFFFF" size={20} />
-          </View>
+          <Search color={colors.textSecondary} size={20} />
+          <Text style={{ color: colors.textDim }} className="text-[14.5px]">Busca medicamento, marca o síntoma</Text>
         </Pressable>
 
-        <View className="flex-row justify-between">
-          {QUICK_ACTIONS.map(({ key, label, icon: Icon }) => (
+        <View style={{ backgroundColor: colors.accent }} className="mt-3.5 flex-row items-center gap-3.5 rounded-[20px] p-4">
+          <View className="flex-1">
+            <Text style={{ color: colors.accentInk, opacity: 0.65 }} className="font-bold text-[9.5px] tracking-[1.5px]">
+              ENVÍO GRATIS HOY
+            </Text>
+            <Text style={{ color: colors.accentInk }} className="mt-1.5 font-bold text-[19px] leading-6">
+              Pedidos desde{'\n'}RD$500
+            </Text>
+          </View>
+        </View>
+
+        <Text style={{ color: colors.textSecondary }} className="mt-6 font-bold text-[9.5px] tracking-[1.8px]">
+          CATEGORÍAS
+        </Text>
+        <View className="mt-3 flex-row flex-wrap gap-2.5">
+          {CATEGORIES.filter((c) => c.key !== 'all').map((cat) => (
             <Pressable
-              key={key}
+              key={cat.key}
               accessibilityRole="button"
-              accessibilityLabel={label.replace('\n', ' ')}
-              style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
-              className="items-center gap-2"
+              accessibilityLabel={cat.label}
+              onPress={() => router.push({ pathname: '/(tabs)/search', params: { category: cat.key } })}
+              style={{ backgroundColor: colors.surface, borderColor: colors.border }}
+              className="min-h-touch flex-1 basis-[45%] justify-center rounded-card border px-3 py-3"
             >
-              <View className="h-14 w-14 items-center justify-center rounded-2xl border border-slate-100 bg-white">
-                <Icon color={colors.brandPrimary} size={22} />
-              </View>
-              <Text className="text-center text-xs leading-tight text-slate-500">{label}</Text>
+              <Text style={{ color: colors.textPrimary }} className="font-medium text-xs">{cat.label}</Text>
             </Pressable>
           ))}
         </View>
 
-        <View className="gap-4">
-          <View className="flex-row items-center justify-between">
-            <Text className="text-xl font-bold text-slate-900">Medicamentos populares</Text>
-            <Pressable accessibilityRole="button" hitSlop={8} style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
-              <Text className="text-sm font-medium text-brand">Ver todos</Text>
-            </Pressable>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Recomprar lo de siempre"
+          style={{ backgroundColor: colors.surface, borderColor: colors.border }}
+          className="mt-6 min-h-touch flex-row items-center gap-3 rounded-card border p-4"
+        >
+          <View style={{ backgroundColor: colors.elevated }} className="h-[42px] w-[42px] items-center justify-center rounded-xl">
+            <RefreshCw color={colors.accentText} size={21} />
           </View>
+          <View className="flex-1">
+            <Text style={{ color: colors.textPrimary }} className="font-medium text-[13.5px]">Recomprar lo de siempre</Text>
+            <Text style={{ color: colors.textSecondary }} className="mt-0.5 text-[11.5px]">3 productos · RD$34.30</Text>
+          </View>
+          <View style={{ backgroundColor: colors.accent }} className="min-h-[38px] justify-center rounded-[11px] px-3.5">
+            <Text style={{ color: colors.accentInk }} className="font-bold text-xs">Añadir</Text>
+          </View>
+        </Pressable>
 
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerClassName="gap-3">
-            {MOCK_PRODUCTS.map((product) => (
-              <ProductCard key={product.id} product={product} className="w-[160px]" onPress={() => {}} onAdd={addItem} />
-            ))}
-          </ScrollView>
+        <Text style={{ color: colors.textSecondary }} className="mt-6 font-bold text-[9.5px] tracking-[1.8px]">
+          MÁS VENDIDOS
+        </Text>
+        <View className="mt-3 flex-row flex-wrap gap-3">
+          {loading
+            ? [0, 1, 2, 3].map((i) => (
+                <View key={i} className="basis-[47%] grow"><SkeletonProductCard /></View>
+              ))
+            : products.map((p) => (
+                <Pressable
+                  key={p.id}
+                  accessibilityRole="button"
+                  accessibilityLabel={`${p.name}, ${formatPrice(p.priceCents)}`}
+                  onPress={() => router.push(`/product/${p.slug}`)}
+                  style={{ backgroundColor: colors.surface, borderColor: colors.border }}
+                  className="basis-[47%] grow rounded-card border p-3"
+                >
+                  <Image
+                    source={{ uri: p.imageUrl }}
+                    style={{ height: 96, borderRadius: 12, backgroundColor: colors.elevated }}
+                  />
+                  <Text style={{ color: colors.textPrimary }} className="mt-2.5 font-medium text-[13.5px]" numberOfLines={1}>
+                    {p.name}
+                  </Text>
+                  <Text style={{ color: colors.textSecondary }} className="mt-1 font-mono text-[10.5px]" numberOfLines={1}>
+                    {p.dosage}
+                  </Text>
+                  <Text style={{ color: colors.textPrimary }} className="mt-2 font-mono text-[14.5px]">
+                    {formatPrice(p.priceCents)}
+                  </Text>
+                </Pressable>
+              ))}
+        </View>
+
+        <View style={{ backgroundColor: colors.elevated }} className="mt-4 flex-row items-center gap-3 rounded-card p-4">
+          <ShieldCheck color={colors.info} size={20} />
+          <Text style={{ color: colors.textSecondary }} className="flex-1 text-[11.5px] leading-[17px]">
+            Farmacia registrada. Todo medicamento controlado se despacha solo con receta validada.
+          </Text>
         </View>
       </ScrollView>
     </View>

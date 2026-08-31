@@ -937,7 +937,7 @@ not @react-navigation/bottom-tabs (unresolved at top level in this repo)."
   `formatPrice` (existing, `utils/format.ts` — unchanged), `Product` (existing,
   `types/product.ts` — unchanged).
 
-- [ ] **Step 1: Replace `app/(tabs)/index.tsx`**
+- [x] **Step 1: Replace `app/(tabs)/index.tsx`**
 
 ```bash
 cp "resources/App redesign/handoff/app/-tabs-/index.tsx" "app/(tabs)/index.tsx"
@@ -947,19 +947,19 @@ cp "resources/App redesign/handoff/app/-tabs-/index.tsx" "app/(tabs)/index.tsx"
 a 4-item mock storefront with a 800ms `setTimeout` skeleton, promo banner, category grid,
 reorder row, and "más vendidos" grid.)
 
-- [ ] **Step 2: Run typecheck**
+- [x] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: FAIL, with errors only in `app/(tabs)/prescriptions.tsx` (Task 13 fixes it).
 `app/(tabs)/index.tsx` must compile clean.
 
-- [ ] **Step 3: Manual smoke check**
+- [x] **Step 3: Manual smoke check**
 
 Run: `npm run web`, open the Tienda tab.
 Expected: skeleton grid renders for ~800ms, then 4 product cards with images, promo
 banner in lima, category chips.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add "app/(tabs)/index.tsx"
