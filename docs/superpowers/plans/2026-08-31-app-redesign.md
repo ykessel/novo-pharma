@@ -978,7 +978,7 @@ git commit -m "Replace storefront screen with lima/dark-mode design"
   (Task 4), `SkeletonProductRow` (Task 4), `EmptyState` (Task 4), `MOCK_PRODUCTS`
   (existing).
 
-- [ ] **Step 1: Add `app/(tabs)/search.tsx`**
+- [x] **Step 1: Add `app/(tabs)/search.tsx`**
 
 ```bash
 cp "resources/App redesign/handoff/app/-tabs-/search.tsx" "app/(tabs)/search.tsx"
@@ -989,19 +989,19 @@ an optional `category` param, shows a 600ms skeleton while "searching", and a no
 `EmptyState` with a spell-check suggestion, synonym chips, and a "pregúntale a un
 farmacéutico" row.)
 
-- [ ] **Step 2: Run typecheck**
+- [x] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same residual failure as Task 9 Step 2 (`app/(tabs)/prescriptions.tsx`) — no new
 ones.
 
-- [ ] **Step 3: Manual smoke check**
+- [x] **Step 3: Manual smoke check**
 
 Run: `npm run web`, open the Buscar tab, type "amoxicilina", then type "zzz".
 Expected: 600ms skeleton rows while typing settles, then a `ProductRow` result; "zzz"
 shows the no-results empty state with suggestion chips.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add "app/(tabs)/search.tsx"
