@@ -324,26 +324,26 @@ git commit -m "Load Space Grotesk and JetBrains Mono fonts"
 - Consumes: nothing.
 - Produces: nothing (removes two of Task 1's residual typecheck errors).
 
-- [ ] **Step 1: Confirm no other consumers**
+- [x] **Step 1: Confirm no other consumers**
 
 Run: `grep -rn "ProductCard" --include=*.tsx app components`
 Expected: only `app/(tabs)/catalog.tsx` and `components/product/ProductCard.tsx` itself
 match (both are being deleted). If anything else matches, stop and re-check scope before
 deleting.
 
-- [ ] **Step 2: Delete the files**
+- [x] **Step 2: Delete the files**
 
 ```bash
 git rm "app/(tabs)/catalog.tsx" "components/product/ProductCard.tsx"
 ```
 
-- [ ] **Step 3: Run typecheck**
+- [x] **Step 3: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: FAIL, with errors only in `app/(tabs)/index.tsx` and `app/(tabs)/prescriptions.tsx`
 (both fixed by later tasks).
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git commit -m "Delete catalog.tsx and ProductCard.tsx (superseded by search.tsx + ProductRow)"
