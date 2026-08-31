@@ -2086,7 +2086,7 @@ git commit -m "Re-skin prescription upload flow to the lima/dark-mode tokens"
 
 **Interfaces:** none — documentation only.
 
-- [ ] **Step 1: Replace the "🎨 Sistema de Diseño (Tokens)" section**
+- [x] **Step 1: Replace the "🎨 Sistema de Diseño (Tokens)" section**
 
 Replace the existing section (from `## 🎨 Sistema de Diseño (Tokens)` through the end of
 its "Componentes y Accesibilidad" subsection, i.e. everything up to the next `---`) with:
@@ -2120,7 +2120,7 @@ Tailwind. Tailwind (NativeWind) sigue siendo responsable de spacing, tipografía
   tabulares.
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add CLAUDE.md
