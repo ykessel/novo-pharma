@@ -1,8 +1,14 @@
 import { View, ViewProps } from 'react-native';
+import { useTheme } from '../../hooks/useTheme';
 
-export function Card({ className = '', children, ...props }: ViewProps & { className?: string }) {
+export function Card({ className = '', style, children, ...props }: ViewProps & { className?: string }) {
+  const { colors } = useTheme();
   return (
-    <View className={`rounded-card border border-slate-200 bg-white p-4 ${className}`} {...props}>
+    <View
+      className={`rounded-card border p-4 ${className}`}
+      style={[{ backgroundColor: colors.surface, borderColor: colors.border }, style]}
+      {...props}
+    >
       {children}
     </View>
   );
