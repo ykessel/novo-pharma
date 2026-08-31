@@ -1,0 +1,234 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>MedExpress - Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline": "#6e7979",
+                      "on-primary-fixed-variant": "#004f4f",
+                      "on-tertiary": "#ffffff",
+                      "secondary": "#54615f",
+                      "primary-fixed": "#93f2f2",
+                      "surface-tint": "#006a6a",
+                      "surface-container": "#e5eeff",
+                      "on-tertiary-container": "#fff9f7",
+                      "secondary-fixed-dim": "#bcc9c7",
+                      "on-secondary-fixed": "#121e1c",
+                      "secondary-fixed": "#d7e5e2",
+                      "inverse-surface": "#213145",
+                      "surface-dim": "#cbdbf5",
+                      "tertiary-container": "#be5300",
+                      "on-surface": "#0b1c30",
+                      "primary-container": "#008080",
+                      "background": "#f8f9ff",
+                      "surface-bright": "#f8f9ff",
+                      "on-primary": "#ffffff",
+                      "on-secondary-container": "#5a6765",
+                      "tertiary-fixed": "#ffdbca",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-error": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed-variant": "#3d4947",
+                      "tertiary": "#974000",
+                      "on-tertiary-fixed": "#341100",
+                      "surface-container-low": "#eff4ff",
+                      "outline-variant": "#bdc9c8",
+                      "secondary-container": "#d7e5e2",
+                      "on-tertiary-fixed-variant": "#783200",
+                      "tertiary-fixed-dim": "#ffb690",
+                      "on-background": "#0b1c30",
+                      "surface-variant": "#d3e4fe",
+                      "on-primary-fixed": "#002020",
+                      "error-container": "#ffdad6",
+                      "inverse-primary": "#76d6d5",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-highest": "#d3e4fe",
+                      "primary": "#006565",
+                      "surface-container-high": "#dce9ff",
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#e3fffe",
+                      "on-surface-variant": "#3e4949",
+                      "primary-fixed-dim": "#76d6d5",
+                      "surface": "#f8f9ff",
+                      "on-secondary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-gap-sm": "8px",
+                      "stack-gap-lg": "24px",
+                      "grid-gutter": "12px",
+                      "stack-gap-md": "16px",
+                      "container-padding": "20px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "headline-xl": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-xl": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        body {
+            background-color: theme('colors.background');
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col antialiased">
+<main class="flex-grow flex items-center justify-center p-container-padding">
+<div class="w-full max-w-[400px] bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(0,128,128,0.06)] p-stack-gap-lg border border-[#F1F5F9]">
+<div class="flex flex-col items-center mb-stack-gap-lg">
+<div class="h-16 w-16 bg-primary-container rounded-full flex items-center justify-center mb-stack-gap-md shadow-sm">
+<span class="material-symbols-outlined fill text-on-primary-container text-3xl" data-icon="health_and_safety">health_and_safety</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-primary mb-stack-gap-sm">Nova Pharma</h1>
+<p class="font-headline-md text-headline-md text-on-surface">Welcome Back</p>
+</div>
+<form class="space-y-stack-gap-md" onsubmit="event.preventDefault();">
+<div>
+<label class="sr-only font-label-md text-label-md text-on-surface-variant" for="email">Email</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline-variant" data-icon="mail">mail</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:border-primary placeholder-on-surface-variant/50 transition-shadow" id="email" placeholder="Email address" required="" type="email">
+</div>
+</div>
+<div>
+<label class="sr-only font-label-md text-label-md text-on-surface-variant" for="password">Password</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline-variant" data-icon="lock">lock</span>
+</div>
+<input class="block w-full pl-10 pr-10 py-3 border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:border-primary placeholder-on-surface-variant/50 transition-shadow" id="password" placeholder="Password" required="" type="password">
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
+<span class="material-symbols-outlined text-outline-variant hover:text-primary transition-colors" data-icon="visibility">visibility</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-end">
+<a class="font-label-md text-label-md text-primary hover:text-primary-fixed-dim transition-colors" href="#">Forgot Password?</a>
+</div>
+<button class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm font-label-md text-label-md text-on-primary bg-primary hover:bg-surface-tint focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary active:scale-[0.98] transition-all h-[52px] items-center mt-stack-gap-lg" type="submit">
+                    Login
+                </button>
+</form>
+<div class="mt-stack-gap-lg text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Don't have an account? <a class="font-label-md text-label-md text-primary hover:text-primary-fixed-dim transition-colors ml-1" href="#">Register here</a>
+</p>
+</div>
+</div>
+</main>
+</body></html>

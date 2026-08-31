@@ -1,0 +1,212 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>User Profile - MedExpress</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#6e7979",
+                        "on-primary-fixed-variant": "#004f4f",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#54615f",
+                        "primary-fixed": "#93f2f2",
+                        "surface-tint": "#006a6a",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-container": "#fff9f7",
+                        "secondary-fixed-dim": "#bcc9c7",
+                        "on-secondary-fixed": "#121e1c",
+                        "secondary-fixed": "#d7e5e2",
+                        "inverse-surface": "#213145",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-container": "#be5300",
+                        "on-surface": "#0b1c30",
+                        "primary-container": "#008080",
+                        "background": "#f8f9ff",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#5a6765",
+                        "tertiary-fixed": "#ffdbca",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#3d4947",
+                        "tertiary": "#974000",
+                        "on-tertiary-fixed": "#341100",
+                        "surface-container-low": "#eff4ff",
+                        "outline-variant": "#bdc9c8",
+                        "secondary-container": "#d7e5e2",
+                        "on-tertiary-fixed-variant": "#783200",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary-fixed": "#002020",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#76d6d5",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "primary": "#006565",
+                        "surface-container-high": "#dce9ff",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#e3fffe",
+                        "on-surface-variant": "#3e4949",
+                        "primary-fixed-dim": "#76d6d5",
+                        "surface": "#f8f9ff",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-gap-sm": "8px",
+                        "stack-gap-lg": "24px",
+                        "grid-gutter": "12px",
+                        "stack-gap-md": "16px",
+                        "container-padding": "20px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col pt-14 pb-20">
+<!-- TopAppBar (from JSON) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-padding h-14 bg-surface dark:bg-surface-dim shadow-[0px_4px_20px_rgba(0,128,128,0.06)]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">
+            MedExpress
+        </div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" style="font-variation-settings: 'FILL' 0;">shopping_cart</span>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow px-container-padding py-stack-gap-lg max-w-2xl mx-auto w-full">
+<!-- Profile Header -->
+<div class="flex flex-col items-center mb-stack-gap-lg">
+<div class="relative mb-stack-gap-sm">
+<img class="w-24 h-24 rounded-full object-cover border-4 border-surface-container-lowest shadow-[0px_4px_20px_rgba(0,128,128,0.06)]" data-alt="A professional, well-lit studio portrait of a friendly young adult, smiling softly. They are wearing modern, clean clothing suitable for a corporate but approachable setting. The background is a crisp, clean white to match a modern medical app's minimalist aesthetic, providing high contrast and a sterile yet warm feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcsRpQbRDs9SS9j-n80sP8SD09djBmqjeMr2aaue4VkYRrBCk1FB34pJoPgDGj3_CrusJUcGhpfVncOBq6YFpvkYKIIB8BMmXsXKBGM7RvlitJuMt1-yeBPbaNb70EGaI2yTn7z8q7DY6sfLBx7Wq5kgZM_UXJnUklDlUDExTgL14AN260kOqRWz0ZUd7Qcp3QlT05qmw2INAUHwLsWN_mK4zFGZJU-bzD-aovkRPea6FqsUGfy6Y">
+<button class="absolute bottom-0 right-0 bg-primary text-on-primary rounded-full w-8 h-8 flex items-center justify-center shadow-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Alex</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">alex.patient@example.com</p>
+</div>
+<!-- Section Menu List (Bento-style list) -->
+<div class="flex flex-col gap-stack-gap-sm">
+<a class="flex items-center justify-between p-stack-gap-md bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(0,128,128,0.06)] border border-surface-container-low active:scale-[0.98] transition-transform" href="#">
+<div class="flex items-center gap-stack-gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Personal Information</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-stack-gap-md bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(0,128,128,0.06)] border border-surface-container-low active:scale-[0.98] transition-transform" href="#">
+<div class="flex items-center gap-stack-gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">prescriptions</span>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">My Prescriptions</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="bg-error-container text-on-error-container text-[10px] font-bold px-2 py-1 rounded-full">1 Action Needed</span>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+</a>
+<a class="flex items-center justify-between p-stack-gap-md bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(0,128,128,0.06)] border border-surface-container-low active:scale-[0.98] transition-transform" href="#">
+<div class="flex items-center gap-stack-gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history</span>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Order History</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-stack-gap-md bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(0,128,128,0.06)] border border-surface-container-low active:scale-[0.98] transition-transform" href="#">
+<div class="flex items-center gap-stack-gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Saved Addresses</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</a>
+<a class="flex items-center justify-between p-stack-gap-md bg-surface-container-lowest rounded-xl shadow-[0px_4px_20px_rgba(0,128,128,0.06)] border border-surface-container-low active:scale-[0.98] transition-transform" href="#">
+<div class="flex items-center gap-stack-gap-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">credit_card</span>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-surface">Payment Methods</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</a>
+<!-- Logout Button -->
+<button class="mt-stack-gap-md flex items-center justify-center gap-2 p-stack-gap-md bg-surface-container-lowest rounded-xl border border-surface-container-highest text-error font-label-md text-label-md active:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+                Log Out
+            </button>
+</div>
+</main>
+<!-- BottomNavBar (from JSON - Semantic matching active tab: Account) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface dark:bg-surface-dim shadow-[0px_-4px_20px_rgba(0,128,128,0.06)] rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-secondary-container px-4 py-1 hover:bg-surface-container-highest dark:hover:bg-surface-variant rounded-full active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined text-headline-lg font-headline-lg" style="font-variation-settings: 'FILL' 0;">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-secondary-container px-4 py-1 hover:bg-surface-container-highest dark:hover:bg-surface-variant rounded-full active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined text-headline-lg font-headline-lg" style="font-variation-settings: 'FILL' 0;">medical_services</span>
+<span class="font-label-sm text-label-sm mt-1">Shop</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-secondary-container px-4 py-1 hover:bg-surface-container-highest dark:hover:bg-surface-variant rounded-full active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined text-headline-lg font-headline-lg" style="font-variation-settings: 'FILL' 0;">description</span>
+<span class="font-label-sm text-label-sm mt-1">Scripts</span>
+</button>
+<!-- Active Tab: Account -->
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-primary-fixed-variant text-on-secondary-container dark:text-primary-fixed rounded-full px-4 py-1 hover:bg-surface-container-highest dark:hover:bg-surface-variant active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined text-headline-lg font-headline-lg" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm mt-1">Account</span>
+</button>
+</nav>
+</body></html>

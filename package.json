@@ -1,0 +1,48 @@
+{
+  "name": "novo-pharma",
+  "main": "expo-router/entry",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@expo-google-fonts/inter": "^0.2.3",
+    "@expo/vector-icons": "^15.0.2",
+    "@supabase/supabase-js": "^2.43.0",
+    "@tanstack/react-query": "^5.90.0",
+    "expo": "^57.0.18",
+    "expo-blur": "~57.0.2",
+    "expo-constants": "~57.0.16",
+    "expo-document-picker": "~57.0.1",
+    "expo-font": "~57.0.2",
+    "expo-image-picker": "~57.0.14",
+    "expo-linking": "~57.0.8",
+    "expo-router": "~57.0.17",
+    "expo-splash-screen": "~57.0.8",
+    "expo-status-bar": "~57.0.1",
+    "lucide-react-native": "^1.35.0",
+    "nativewind": "^4.2.6",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-reanimated": "4.5.1",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.26.0",
+    "react-native-svg": "15.15.4",
+    "react-native-url-polyfill": "^2.0.0",
+    "react-native-web": "^0.21.2",
+    "react-native-worklets": "0.10.1",
+    "tailwindcss": "3.3.2",
+    "zustand": "^4.5.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@types/react": "~19.2.4",
+    "typescript": "~6.0.3"
+  },
+  "private": true
+}

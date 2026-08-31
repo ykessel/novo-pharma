@@ -1,0 +1,48 @@
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+.kotlin/
+ios/
+android/
+
+# Metro
+.metro-health-check*
+
+# Debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# Env
+.env
+.env*.local
+
+# Editor / IDE
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# TypeScript
+*.tsbuildinfo
+
+# Claude / tooling scratch
+.claude/
+.impeccable/

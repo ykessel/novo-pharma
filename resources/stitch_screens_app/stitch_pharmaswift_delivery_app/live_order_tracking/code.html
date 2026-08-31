@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Live Order Tracking - Nova Pharma</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#974000",
+                        "on-tertiary-container": "#fff9f7",
+                        "secondary-fixed": "#d7e5e2",
+                        "primary": "#006565",
+                        "surface": "#f8f9ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container": "#e5eeff",
+                        "surface-dim": "#cbdbf5",
+                        "primary-fixed": "#93f2f2",
+                        "on-error-container": "#93000a",
+                        "on-background": "#0b1c30",
+                        "surface-bright": "#f8f9ff",
+                        "inverse-surface": "#213145",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#004f4f",
+                        "secondary-fixed-dim": "#bcc9c7",
+                        "on-primary-container": "#e3fffe",
+                        "secondary-container": "#d7e5e2",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#783200",
+                        "background": "#f8f9ff",
+                        "on-primary-fixed": "#002020",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#76d6d5",
+                        "primary-container": "#008080",
+                        "on-secondary-container": "#5a6765",
+                        "on-surface": "#0b1c30",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffdbca",
+                        "surface-container-high": "#dce9ff",
+                        "on-secondary-fixed-variant": "#3d4947",
+                        "on-tertiary-fixed": "#341100",
+                        "outline-variant": "#bdc9c8",
+                        "surface-container-highest": "#d3e4fe",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#54615f",
+                        "surface-variant": "#d3e4fe",
+                        "on-surface-variant": "#3e4949",
+                        "on-secondary-fixed": "#121e1c",
+                        "tertiary-container": "#be5300",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb690",
+                        "surface-tint": "#006a6a",
+                        "primary-fixed-dim": "#76d6d5",
+                        "outline": "#6e7979",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem"
+                    },
+                    "spacing": {
+                        "stack-gap-md": "16px",
+                        "stack-gap-lg": "24px",
+                        "container-padding": "20px",
+                        "stack-gap-sm": "8px",
+                        "grid-gutter": "12px",
+                        "safe": "env(safe-area-inset-bottom)"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-xl": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "headline-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Map Background Simulation */
+        .map-bg {
+            background-color: #e5eeff;
+            background-image: 
+                linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.4) 75%, rgba(255,255,255,0.4)), 
+                linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.4) 75%, rgba(255,255,255,0.4));
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+
+        /* Pulse Animation for Driver Pin */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            80% { transform: scale(2); opacity: 0; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        .pin-pulse::before {
+            content: '';
+            position: absolute;
+            left: -50%;
+            top: -50%;
+            width: 200%;
+            height: 200%;
+            background-color: #008080;
+            border-radius: 50%;
+            z-index: -1;
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen relative overflow-hidden flex flex-col antialiased">
+<!-- Transactional Screen - Top Navigation Shell Suppressed, showing Back Button instead -->
+<header class="absolute top-0 left-0 w-full z-40 p-container-padding flex justify-between items-center pointer-events-none pt-[calc(20px+env(safe-area-inset-top))]">
+<button class="pointer-events-auto w-12 h-12 bg-surface rounded-full shadow-[0px_4px_20px_rgba(0,128,128,0.06)] flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors focus:outline-none focus:ring-2 focus:ring-primary">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<button class="pointer-events-auto w-12 h-12 bg-surface rounded-full shadow-[0px_4px_20px_rgba(0,128,128,0.06)] flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors focus:outline-none focus:ring-2 focus:ring-primary">
+<span class="material-symbols-outlined">help</span>
+</button>
+</header>
+<!-- Map Canvas Area -->
+<main class="flex-grow relative map-bg w-full h-full absolute inset-0 z-0">
+<!-- Image placeholder for an actual map overlay -->
+<img aria-hidden="true" class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-60 pointer-events-none" data-alt="A clean, minimalist digital map view in a light modern aesthetic. The map uses soft pastel blues, pale grays, and white to depict city streets and blocks. The overall tone is calm and clinical, suitable for a healthcare delivery tracking app. The lighting is flat and uniform, emphasizing clarity and navigation over realism. Soft teal accents highlight key routes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUyAc_jkclG9BG0bLCTNIoSDy-Nr3l3Iaf9h2_A25HAe4_se0cgLKGyrASgke0pOBFVSwrogOS34a4_h2eYgfPV4_G2Bcxwmr4sgxpr4VgDatpsS8yYPYFTx1Fh49MlCEkz7J7blP_JJdF3NKHj1gSz0esbc6JLKSUXjIpoXBEwnMoJhw5sWOUJ6TMB4hFDXsUPYE6TEsE0HhLkzlgpxDf68dUzo_RmgxAIp0t6p53dXxD-PRIw6I">
+<!-- Driver Pin -->
+<div class="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
+<!-- ETA Badge -->
+<div class="bg-primary text-on-primary px-4 py-2 rounded-full shadow-[0px_10px_30px_rgba(0,0,0,0.08)] mb-3 flex items-center gap-2 whitespace-nowrap animate-bounce">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="font-label-md text-label-md uppercase">Arriving in 12 mins</span>
+</div>
+<!-- Pin Icon -->
+<div class="relative pin-pulse w-14 h-14 bg-surface rounded-full shadow-lg flex items-center justify-center border-4 border-primary">
+<span class="material-symbols-outlined fill-icon text-primary text-3xl">local_shipping</span>
+</div>
+<!-- Route Line Indicator (Visual only) -->
+<svg class="absolute top-full left-1/2 transform -translate-x-1/2 w-4 h-32 text-primary" preserveAspectRatio="none" viewBox="0 0 10 100">
+<path d="M5,0 L5,100" fill="none" opacity="0.6" stroke="currentColor" stroke-dasharray="8 8" stroke-width="4"></path>
+</svg>
+</div>
+<!-- Destination Pin (House) -->
+<div class="absolute top-[60%] left-[45%] transform -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center opacity-80">
+<div class="w-10 h-10 bg-surface rounded-full shadow-md flex items-center justify-center border-2 border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">home</span>
+</div>
+</div>
+</main>
+<!-- Bottom Sheet (Order Details & Timeline) -->
+<!-- z-30 ensures it sits above map but below top nav buttons -->
+<div class="relative z-30 bg-surface w-full rounded-t-3xl shadow-[0px_-10px_30px_rgba(0,128,128,0.1)] flex flex-col max-h-[618px] pb-[env(safe-area-inset-bottom)]">
+<!-- Drag Handle Indicator -->
+<div class="w-full flex justify-center py-4 cursor-grab">
+<div class="w-12 h-1.5 bg-outline-variant rounded-full"></div>
+</div>
+<div class="px-container-padding pb-stack-gap-lg overflow-y-auto flex-grow flex flex-col gap-stack-gap-lg">
+<!-- Order Summary Header -->
+<div class="flex justify-between items-start">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-1">Order #8492</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Scheduled for Today, 2:00 PM - 4:00 PM</p>
+</div>
+<div class="bg-surface-container-high text-on-surface px-3 py-1 rounded-full border border-outline-variant">
+<span class="font-label-md text-label-md">2 Items</span>
+</div>
+</div>
+<!-- Vertical Progress Timeline -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 border border-surface-variant shadow-sm relative">
+<!-- Track Line -->
+<div class="absolute left-[31px] top-[32px] bottom-[32px] w-0.5 bg-surface-container-high z-0"></div>
+<!-- Active Track Line (covers completed steps) -->
+<div class="absolute left-[31px] top-[32px] h-[75%] w-0.5 bg-primary z-0"></div>
+<div class="flex flex-col gap-6 relative z-10">
+<!-- Step 1: Placed (Completed) -->
+<div class="flex items-start gap-4">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-on-primary text-[14px] font-bold">check</span>
+</div>
+<div>
+<h3 class="font-body-md text-body-md font-semibold text-on-surface">Order Placed</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">10:45 AM</p>
+</div>
+</div>
+<!-- Step 2: Verified (Completed) -->
+<div class="flex items-start gap-4">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-on-primary text-[14px] font-bold">check</span>
+</div>
+<div>
+<h3 class="font-body-md text-body-md font-semibold text-on-surface">Prescription Verified</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">11:15 AM</p>
+</div>
+</div>
+<!-- Step 3: Prepared (Completed) -->
+<div class="flex items-start gap-4">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-on-primary text-[14px] font-bold">check</span>
+</div>
+<div>
+<h3 class="font-body-md text-body-md font-semibold text-on-surface">Prepared</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">1:30 PM • Nova Pharma Main Pharmacy</p>
+</div>
+</div>
+<!-- Step 4: Out for Delivery (Active) -->
+<div class="flex items-start gap-4">
+<div class="w-6 h-6 rounded-full bg-surface border-2 border-primary flex items-center justify-center shrink-0 mt-0.5 relative">
+<div class="w-2.5 h-2.5 bg-primary rounded-full"></div>
+<!-- Pulse effect for active step -->
+<div class="absolute inset-0 rounded-full border-2 border-primary animate-ping opacity-75"></div>
+</div>
+<div>
+<h3 class="font-body-md text-body-md font-semibold text-primary">Out for Delivery</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Driver is nearby.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Driver Profile Card -->
+<div class="bg-surface-container-low rounded-2xl p-4 flex items-center justify-between border border-surface-variant">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full overflow-hidden bg-surface-dim border-2 border-surface">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a friendly delivery driver in his 30s. He has a warm smile and is wearing a clean, branded teal polo shirt. The background is a soft, out-of-focus light gray. The lighting is bright and inviting, reflecting a clean, corporate medical aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6316ifHWk_B8lL24LxRtPiiGiP8f3TLt8p-roPhGebK5CD7WWfalzI6SwoCXC660YtV54766sMOvuAXZL7-xEbD4S83s-as6itqQaZYZEXQQvvcgFV-DHMrloCsr-CmqY6UwBFqdXOaZGM92Jc61bvdRd3VNKcqpLaa91zCjHg4kcXivm7wPZqGeHXIumsVqRKjS43FFlJHQYBbA2Z1AfjxgzfdpY_cyA90tEviQUHgF7dZsNtpw">
+</div>
+<div>
+<h4 class="font-body-md text-body-md font-semibold text-on-surface">Carlos R.</h4>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined fill-icon text-[16px] text-tertiary">star</span>
+<span class="font-label-sm text-label-sm">4.9 • Nova Pharma Courier</span>
+</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center hover:bg-secondary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-primary">
+<span class="material-symbols-outlined fill-icon">chat</span>
+</button>
+<button class="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center hover:bg-primary-container transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+<span class="material-symbols-outlined fill-icon">call</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Note: BottomNavBar is suppressed on this transactional tracking screen per Shell Visibility & Relevance rules -->
+</body></html>

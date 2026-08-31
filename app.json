@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "Novo Pharma",
+    "slug": "novo-pharma",
+    "scheme": "novopharma",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": ["**/*"],
+    "plugins": ["expo-router"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.novopharma.app"
+    },
+    "android": {
+      "package": "com.novopharma.app"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
