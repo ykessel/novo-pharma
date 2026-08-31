@@ -1351,7 +1351,7 @@ git commit -m "Move prescriptions listing to app/prescription/index.tsx, re-skin
 - Consumes: `useTheme()` (Task 1), `Button`/`Input` (Task 5). Copy, validation, and
   navigation logic are unchanged from the current files — only color source changes.
 
-- [ ] **Step 1: Replace `app/(auth)/login.tsx`**
+- [x] **Step 1: Replace `app/(auth)/login.tsx`**
 
 ```tsx
 import { useState } from 'react';
@@ -1448,7 +1448,7 @@ export default function LoginScreen() {
 }
 ```
 
-- [ ] **Step 2: Replace `app/(auth)/register.tsx`**
+- [x] **Step 2: Replace `app/(auth)/register.tsx`**
 
 ```tsx
 import { useState } from 'react';
@@ -1588,18 +1588,18 @@ export default function RegisterScreen() {
 }
 ```
 
-- [ ] **Step 3: Run typecheck**
+- [x] **Step 3: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: PASS — zero errors (this task doesn't touch any file with a residual failure).
 
-- [ ] **Step 4: Manual smoke check**
+- [x] **Step 4: Manual smoke check**
 
 Run: `npm run web`, open `/(auth)/login` and `/(auth)/register`.
 Expected: both render solid (not transparent) backgrounds, lima accent on the logo
 circle/checkbox/links, correct light/dark colors when the OS theme is toggled.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add "app/(auth)/login.tsx" "app/(auth)/register.tsx"
