@@ -17,22 +17,31 @@ Aplicación móvil e-commerce de farmacia y venta/entrega de medicamentos con su
 ---
 
 ## 🎨 Sistema de Diseño (Tokens)
-Usar estrictamente las clases de Tailwind configuradas para mantener consistencia con la paleta *Teal Health & Wellness*:
+Paleta "Lima + Dark Mode" — tema claro/oscuro conmutable vía `useColorScheme()`. Los
+colores viven en `types/theme.ts` (`darkColors`/`lightColors`) y se consumen con el hook
+`useTheme()` (`hooks/useTheme.ts`) + `style` inline — **no** con variantes `dark:` de
+Tailwind. Tailwind (NativeWind) sigue siendo responsable de spacing, tipografía y radios.
 
-### Colores
-- **Brand Primary:** `#0F766E` (`bg-teal-700`, `text-teal-700`)
-- **Brand Secondary / Soft Mint:** `#E6F4F1` (`bg-teal-50`, `bg-mint-100`)
-- **Accent / CTA:** `#F97316` (`bg-orange-500`, `text-orange-500`)
-- **Semánticos:**
-  - `Rx / Requiere Receta / Danger:` `#DC2626` (`bg-red-600`, `text-red-600`)
-  - `Success / Entregado:` `#16A34A` (`bg-green-600`)
-  - `Warning / En Revisión:` `#D97706` (`bg-amber-600`)
-- **Neutros:** Fondo `bg-slate-50`, Texto Principal `text-slate-900`, Bordes `border-slate-200`.
+### Colores (oscuro / claro)
+- **Accent / CTA:** `#C7F04A` de relleno (`colors.accent`) en ambos temas. En tema claro
+  el texto/íconos sobre relleno lima usan oliva `colors.accentText` (`#4E6B0A`) por
+  contraste AA; en oscuro `accentText` es el mismo lima que `accent`.
+- **Superficies:** `colors.bg` (fondo) → `colors.surface` (tarjetas) → `colors.elevated`
+  (chips/inputs) — oscuro: `#0D0F12 → #15181D → #1D2128`; claro: `#F3F5F1 → #FFFFFF →
+  #E9EDE3`.
+- **Texto:** `colors.textPrimary` / `colors.textSecondary` / `colors.textDim`.
+- **Semánticos:** `Rx / Danger:` `colors.danger` (+ `colors.dangerBg` para fondos
+  suaves) · `Warning:` `colors.warning` · `Info:` `colors.info`.
+- **Bordes:** `colors.border`.
 
 ### Componentes y Accesibilidad
-- **Bordes redondeados:** `rounded-2xl` (16px) para Tarjetas, `rounded-xl` (12px) para Botones, `rounded-full` para Badges.
-- **Área de toque (Touch Targets):** Mínimo 44x44px en todos los botones e íconos interactivos (`min-h-[44px]`, `p-3`).
-- **Tipografía:** Fuente Inter (Regular `font-normal`, Medium `font-medium`, Bold `font-bold`).
+- **Bordes redondeados:** `rounded-card` (18px) para Tarjetas, `rounded-button` (14px)
+  para Botones, `rounded-full` para Badges/pills.
+- **Área de toque (Touch Targets):** Mínimo 44x44px (`min-h-touch`/`h-touch`/`w-touch`,
+  `min-h-[52px]` en botones primarios).
+- **Tipografía:** Space Grotesk (`font-sans` Regular, `font-medium` Medium, `font-bold`
+  Bold) para texto general; JetBrains Mono (`font-mono`) para precios, horas y datos
+  tabulares.
 
 ---
 
@@ -41,7 +50,7 @@ Usar estrictamente las clases de Tailwind configuradas para mantener consistenci
 ```text
 ├── app/                      # Rutas de Expo Router
 │   ├── (auth)/               # Flujo de autenticación (login, registro)
-│   ├── (tabs)/               # Navegación principal (home, catalog, prescriptions, profile)
+│   ├── (tabs)/               # Navegación principal (Tienda, Buscar, Carrito, Pedidos, Perfil)
 │   ├── prescription/         # Modales y pantallas de flujo de subida de recetas
 │   └── order/                # Pantallas de checkout y tracking en vivo
 ├── components/
