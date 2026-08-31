@@ -1621,7 +1621,7 @@ git commit -m "Re-skin login and register screens to the lima/dark-mode tokens"
   `profile.tsx` has none and the "Recetas" tab was dropped per the spec's locked-in
   decision.
 
-- [ ] **Step 1: Replace `app/(tabs)/profile.tsx`**
+- [x] **Step 1: Replace `app/(tabs)/profile.tsx`**
 
 ```tsx
 // app/(tabs)/profile.tsx
@@ -1760,19 +1760,19 @@ export default function ProfileScreen() {
 }
 ```
 
-- [ ] **Step 2: Run typecheck**
+- [x] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: PASS — zero errors.
 
-- [ ] **Step 3: Manual smoke check**
+- [x] **Step 3: Manual smoke check**
 
 Run: `npm run web`, open the Yo tab.
 Expected: stats row, SALUD card, AVISOS toggles, settings list (now including "Mis
 recetas" which pushes `/prescription`), sign-out button in danger color. Toggle OS theme
 → "Tema" row value flips Claro/Oscuro and colors re-render.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add "app/(tabs)/profile.tsx"
