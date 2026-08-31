@@ -425,7 +425,7 @@ palette, so these are deliberate choices, not omissions): `rx` → `colors.dange
 `ProductRow`'s "in stock" treatment); `warning` → `colors.elevated` / `colors.warning`;
 `neutral` → `colors.elevated` / `colors.textPrimary`.
 
-- [ ] **Step 1: Replace `components/ui/Button.tsx`**
+- [x] **Step 1: Replace `components/ui/Button.tsx`**
 
 ```tsx
 import { ActivityIndicator, Pressable, Text, PressableProps } from 'react-native';
@@ -489,7 +489,7 @@ export function Button({ label, variant = 'primary', loading = false, disabled =
 }
 ```
 
-- [ ] **Step 2: Replace `components/ui/Card.tsx`**
+- [x] **Step 2: Replace `components/ui/Card.tsx`**
 
 ```tsx
 import { View, ViewProps } from 'react-native';
@@ -509,7 +509,7 @@ export function Card({ className = '', style, children, ...props }: ViewProps & 
 }
 ```
 
-- [ ] **Step 3: Replace `components/ui/Badge.tsx`**
+- [x] **Step 3: Replace `components/ui/Badge.tsx`**
 
 ```tsx
 import { Text, View } from 'react-native';
@@ -562,7 +562,7 @@ export function Badge({ label, tone, status }: BadgeProps) {
 }
 ```
 
-- [ ] **Step 4: Replace `components/ui/Input.tsx`**
+- [x] **Step 4: Replace `components/ui/Input.tsx`**
 
 ```tsx
 import { forwardRef, ReactNode, useState } from 'react';
@@ -621,13 +621,13 @@ export const Input = forwardRef<TextInput, InputProps>(function Input(
 });
 ```
 
-- [ ] **Step 5: Run typecheck**
+- [x] **Step 5: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same residual failures as Task 4 Step 2 — no new ones. These four files must
 compile clean.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add components/ui/Button.tsx components/ui/Card.tsx components/ui/Badge.tsx components/ui/Input.tsx

@@ -1,4 +1,6 @@
 import { Text, View } from 'react-native';
+import { useTheme } from '../../hooks/useTheme';
+import type { ColorTokens } from '../../types/theme';
 
 export type BadgeTone = 'rx' | 'success' | 'warning' | 'neutral';
 export type MedicationStatus = 'rx_required' | 'pending_verification' | 'in_stock';
@@ -9,19 +11,18 @@ interface BadgeProps {
   status?: MedicationStatus;
 }
 
-const toneClasses: Record<BadgeTone, string> = {
-  rx: 'bg-rx/10',
-  success: 'bg-success/10',
-  warning: 'bg-warning/10',
-  neutral: 'bg-slate-100',
-};
-
-const toneTextClasses: Record<BadgeTone, string> = {
-  rx: 'text-rx',
-  success: 'text-success',
-  warning: 'text-warning',
-  neutral: 'text-slate-900',
-};
+function toneStyle(tone: BadgeTone, colors: ColorTokens) {
+  switch (tone) {
+    case 'rx':
+      return { bg: colors.dangerBg, text: colors.danger };
+    case 'success':
+      return { bg: colors.accentSoft, text: colors.accentText };
+    case 'warning':
+      return { bg: colors.elevated, text: colors.warning };
+    case 'neutral':
+      return { bg: colors.elevated, text: colors.textPrimary };
+  }
+}
 
 const statusConfig: Record<MedicationStatus, { label: string; tone: BadgeTone }> = {
   rx_required: { label: 'Requiere receta', tone: 'rx' },
@@ -30,15 +31,18 @@ const statusConfig: Record<MedicationStatus, { label: string; tone: BadgeTone }>
 };
 
 export function Badge({ label, tone, status }: BadgeProps) {
+  const { colors } = useTheme();
   const resolvedTone = tone ?? (status ? statusConfig[status].tone : 'neutral');
   const resolvedLabel = label ?? (status ? statusConfig[status].label : '');
+  const { bg, text } = toneStyle(resolvedTone, colors);
 
   return (
     <View
       accessibilityRole="text"
-      className={`rounded-full px-3 py-1 self-start ${toneClasses[resolvedTone]}`}
+      style={{ backgroundColor: bg }}
+      className="rounded-full px-3 py-1 self-start"
     >
-      <Text className={`text-xs font-medium ${toneTextClasses[resolvedTone]}`}>{resolvedLabel}</Text>
+      <Text style={{ color: text }} className="text-xs font-medium">{resolvedLabel}</Text>
     </View>
   );
 }
