@@ -371,7 +371,7 @@ git commit -m "Delete catalog.tsx and ProductCard.tsx (superseded by search.tsx 
   `product: Product`, `onPress?: () => void`) from `components/product/ProductRow.tsx`.
   All later screen tasks import these.
 
-- [ ] **Step 1: Copy the four files from the handoff, unchanged**
+- [x] **Step 1: Copy the four files from the handoff, unchanged**
 
 ```bash
 cp "resources/App redesign/handoff/components/ui/Skeleton.tsx" components/ui/Skeleton.tsx
@@ -386,13 +386,13 @@ cp "resources/App redesign/handoff/components/product/ProductRow.tsx" components
 `resources/App redesign/handoff/components/ui/LoadingSteps.tsx`,
 `resources/App redesign/handoff/components/product/ProductRow.tsx`.)
 
-- [ ] **Step 2: Run typecheck**
+- [x] **Step 2: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same two residual failures as Task 3 Step 3 (`app/(tabs)/index.tsx`,
 `app/(tabs)/prescriptions.tsx`) — no new ones. These four new files must compile clean.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add components/ui/Skeleton.tsx components/ui/EmptyState.tsx components/ui/LoadingSteps.tsx components/product/ProductRow.tsx
