@@ -76,7 +76,7 @@ TanStack Query, Supabase, TypeScript strict.
   (`ColorTokens`) from `types/theme.ts`; `useTheme(): { colors: ColorTokens; isDark:
   boolean }` from `hooks/useTheme.ts`. Every later task consumes these exact names.
 
-- [ ] **Step 1: Replace `types/theme.ts`**
+- [x] **Step 1: Replace `types/theme.ts`**
 
 ```ts
 // types/theme.ts — replaces the teal token set
@@ -147,7 +147,7 @@ export const radius = {
 export const touchTarget = 44;
 ```
 
-- [ ] **Step 2: Create `hooks/useTheme.ts`**
+- [x] **Step 2: Create `hooks/useTheme.ts`**
 
 ```ts
 // hooks/useTheme.ts
@@ -161,7 +161,7 @@ export function useTheme(): { colors: ColorTokens; isDark: boolean } {
 }
 ```
 
-- [ ] **Step 3: Replace `tailwind.config.js`**
+- [x] **Step 3: Replace `tailwind.config.js`**
 
 ```js
 /** @type {import('tailwindcss').Config} */
@@ -210,7 +210,7 @@ module.exports = {
 };
 ```
 
-- [ ] **Step 4: Run typecheck**
+- [x] **Step 4: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: FAIL, with errors only in these files (all fixed by later tasks — do not touch
@@ -219,7 +219,7 @@ them now): `app/(tabs)/index.tsx`, `app/(tabs)/catalog.tsx`, `app/(tabs)/prescri
 (`brandPrimary`, `textSecondary` as old shape, `rx`, `warning`, `placeholder`). No other
 files should error.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add types/theme.ts hooks/useTheme.ts tailwind.config.js
