@@ -26,5 +26,13 @@ export function useAuth() {
     return () => subscription.subscription.unsubscribe();
   }, []);
 
-  return { user, loading };
+  async function signOut() {
+    if (!isSupabaseConfigured) {
+      await mockAuth.signOut();
+      return;
+    }
+    await supabase.auth.signOut();
+  }
+
+  return { user, loading, signOut };
 }
