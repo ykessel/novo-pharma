@@ -240,13 +240,13 @@ git commit -m "Replace teal token set with lima/dark-mode theme + useTheme hook"
   expects: `SpaceGrotesk-Regular`, `SpaceGrotesk-Medium`, `SpaceGrotesk-Bold`,
   `JetBrainsMono-Regular`.
 
-- [ ] **Step 1: Install font packages**
+- [x] **Step 1: Install font packages**
 
 ```bash
 npm install @expo-google-fonts/space-grotesk @expo-google-fonts/jetbrains-mono
 ```
 
-- [ ] **Step 2: Update `app/_layout.tsx`**
+- [x] **Step 2: Update `app/_layout.tsx`**
 
 ```tsx
 import '../global.css';
@@ -294,18 +294,18 @@ export default function RootLayout() {
 }
 ```
 
-- [ ] **Step 3: Run typecheck**
+- [x] **Step 3: Run typecheck**
 
 Run: `npm run typecheck`
 Expected: same residual failures as Task 1 Step 4 — no new ones.
 
-- [ ] **Step 4: Manual smoke check**
+- [x] **Step 4: Manual smoke check**
 
 Run: `npm run web`
 Expected: app boots past the splash screen (no red-screen "font not found" error). Exact
 pixel-perfect font rendering is verified later in Task 20 once real screens exist.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add package.json package-lock.json app/_layout.tsx
