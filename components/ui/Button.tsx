@@ -38,12 +38,12 @@ export function Button({ label, variant = 'primary', loading = false, disabled =
       accessibilityState={{ disabled: isDisabled, busy: loading }}
       disabled={isDisabled}
       className="min-h-[52px] flex-row items-center justify-center gap-2 rounded-button px-4"
-      style={({ pressed }) => ({
+      style={{
         backgroundColor: bg,
         borderWidth: variant === 'outline' ? 1 : 0,
         borderColor: border,
-        opacity: isDisabled ? 0.5 : pressed ? 0.7 : 1,
-      })}
+        opacity: isDisabled ? 0.5 : 1,
+      }}
       {...props}
     >
       {loading ? (

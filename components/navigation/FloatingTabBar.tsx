@@ -21,6 +21,7 @@ export const FloatingTabBar = memo(function FloatingTabBar({ state, navigation }
 
   return (
     <View
+      pointerEvents="box-none"
       style={{
         position: 'absolute', left: 16, right: 16, bottom,
         height: FLOATING_TAB_BAR_HEIGHT, borderRadius: FLOATING_TAB_BAR_HEIGHT / 2,

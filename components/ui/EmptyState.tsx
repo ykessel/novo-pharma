@@ -47,7 +47,7 @@ export function EmptyState({ icon: Icon, title, body, primary, secondary, childr
               accessibilityRole="button"
               accessibilityLabel={primary.label}
               onPress={primary.onPress}
-              style={({ pressed }) => ({ backgroundColor: colors.accent, opacity: pressed ? 0.8 : 1 })}
+              style={{ backgroundColor: colors.accent }}
               className="min-h-[52px] flex-row items-center justify-center gap-2 rounded-button"
             >
               {primary.icon ? <primary.icon color={colors.accentInk} size={20} /> : null}
@@ -60,7 +60,7 @@ export function EmptyState({ icon: Icon, title, body, primary, secondary, childr
               accessibilityRole="button"
               accessibilityLabel={secondary.label}
               onPress={secondary.onPress}
-              style={({ pressed }) => ({ borderColor: colors.border, opacity: pressed ? 0.7 : 1 })}
+              style={{ borderColor: colors.border }}
               className="min-h-[52px] flex-row items-center justify-center gap-2 rounded-button border"
             >
               {secondary.icon ? <secondary.icon color={colors.textSecondary} size={20} /> : null}
